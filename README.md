@@ -204,7 +204,7 @@ Use Python 3.12+, Java 17/21 (Java 21 is used in Docker), and Node 22+. Docker i
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r backend/requirements.lock -r backend/requirements-rules.lock
 .venv/bin/python scripts/init_env.py
-.venv/bin/python -m pytest -q
+PYTHONPATH="$PWD/backend" PYSPARK_PYTHON="$PWD/.venv/bin/python" .venv/bin/python -m pytest -q
 .venv/bin/python backend/manage.py check --settings=config.test_settings
 
 cd frontend
@@ -217,6 +217,8 @@ cd ..
 ```
 
 For a local preview, `scripts/dev_local.py` runs a real Redis server and a separate Celery process, but explicitly uses SQLite instead of PostgreSQL. It requires an installed `redis-server` or the temporary project-local binary used during setup. On this Mac it can use Codex's bundled Node; normal machines should install Node. It is a development helper, not a substitute for Compose acceptance.
+
+The explicit Python path/interpreter in the test command also configures Spark's separate Python workers. Pytest's driver-only import path is not enough when tests are launched from the repository root. Docker starts in the backend directory and already installs the worker dependencies.
 
 ```bash
 .venv/bin/python scripts/dev_local.py

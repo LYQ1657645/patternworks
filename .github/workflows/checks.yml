@@ -18,6 +18,12 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
+    env:
+      # Pytest's pythonpath setting only changes the driver; Spark launches
+      # separate Python workers that also need the application's import root.
+      PYTHONPATH: ${{ github.workspace }}/backend
+      PYSPARK_PYTHON: python3
+      SPARK_LOCAL_IP: 127.0.0.1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
