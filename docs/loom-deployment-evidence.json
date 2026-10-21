@@ -1,0 +1,149 @@
+{
+  "release_date": "2026-10-20",
+  "frontend_image": "sha256:76d0488454c109205af78fe71f5066ef2faa1f0f93271ccf1421800121201988",
+  "backend_worker_image_unchanged": "sha256:1b3e01976e7bb22749ed24c719b51b403efad0590d4306a3e7306850d1774d24",
+  "verified_frontend_files": 45,
+  "archive_sha256": "64da45a87b85f475de566f89b0d774045c9a6713ffdec7b138c99425be59e022",
+  "frontend_tests": 31,
+  "server_production_build": "passed",
+  "public_smoke": {
+    "url": "https://patternworks.32-237-44-97.nip.io",
+    "tls_verified": true,
+    "reviewer_gate": 401,
+    "csrf_without_token": 403,
+    "secure_cookies": true,
+    "assets": [
+      {
+        "path": "/assets/index-DFADu2gB.js",
+        "matches_local_build": true,
+        "bytes": 414572
+      },
+      {
+        "path": "/assets/index-CcN96_i9.css",
+        "matches_local_build": true,
+        "bytes": 30980
+      }
+    ],
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "diagnostic": {
+      "id": "a42eb689-8624-4152-901d-f5cfea0bbc82",
+      "status": "SUCCESS",
+      "observed": [
+        {
+          "status": "SUCCESS",
+          "progress": 100
+        }
+      ],
+      "elapsed_seconds": 0.474
+    },
+    "datasets_and_history": 200
+  },
+  "workflow": {
+    "original_unchanged": true,
+    "regex": {
+      "job_id": "b6686327-61f5-4134-8382-427a199aa06a",
+      "dataset_id": "75957570-453e-45b0-a81e-4f073e74a35d",
+      "rows": 8,
+      "exact_cells": true,
+      "cache_hit": false
+    },
+    "dates": {
+      "job_id": "7ef0ff9a-8921-4c7c-98fe-fbef2d8ff873",
+      "dataset_id": "5f670897-6504-452d-b708-99400ef2f1a8",
+      "rows": 8,
+      "columns": 8,
+      "exact_cells": true,
+      "usage": {
+        "model_calls": 1,
+        "input_tokens": 611,
+        "cached_values": 0,
+        "output_tokens": 142,
+        "unique_values": 8
+      }
+    },
+    "category": {
+      "job_id": "04b02e90-43a5-48e5-ae51-76d1e1b8be17",
+      "dataset_id": "9fac7e9e-28a8-40df-902d-e2376c234221",
+      "rows": 8,
+      "columns": 10,
+      "exact_cells": true,
+      "usage": {
+        "model_calls": 1,
+        "input_tokens": 561,
+        "cached_values": 0,
+        "output_tokens": 81,
+        "unique_values": 6
+      }
+    },
+    "csv": {
+      "job_id": "e71abbe0-23ef-4e85-8018-7aeefdc5eaca",
+      "rows": 8,
+      "columns": 10,
+      "exact_cells": true
+    },
+    "text_retry": {
+      "job_id": "4cbd30d6-1efe-40ed-8f9c-393f3eff9d96",
+      "dataset_id": "c71a0c55-baf3-4817-bf96-819cb3437ba3",
+      "rows": 8,
+      "columns": 10,
+      "exact_cells": true,
+      "cancelled_job_id": "52319b66-1fae-4d5f-8b91-ddf24cb4f26d",
+      "cancelled_progress": 60,
+      "distinct_retry_job": true
+    }
+  },
+  "download": {
+    "browser_downloaded": true,
+    "rows": 8,
+    "columns": 10,
+    "all_cells_match_expected": true
+  },
+  "integrity": {
+    "existing_datasets_unchanged": true,
+    "existing_dataset_count": 36,
+    "new_dataset_count": 5
+  },
+  "browser": "Safari",
+  "browser_checks": [
+    "Paper and Night themes",
+    "Reduce motion checked and unchecked",
+    "real source cards and returned preview results",
+    "queued/running/success progress",
+    "category groups from returned labels",
+    "edited parameters invalidate preview and disable Apply",
+    "cancelled task stops at 60 percent",
+    "distinct retry completes successfully",
+    "dataset library page 1 to 2 to 1",
+    "stationary selected column survives site navigation",
+    "latest task and selected result restore after refresh",
+    "CSV downloaded and every cell checked"
+  ],
+  "limits": [
+    "Fresh S3 connection/import not repeated because saved credentials expired; no credentials were recovered. Earlier real S3 acceptance remains historical evidence.",
+    "No numerical FPS benchmark or new million-row benchmark in this frontend-only deployment."
+  ],
+  "full_column_usage": {
+    "5f670897-6504-452d-b708-99400ef2f1a8": {
+      "model_calls": 0,
+      "input_tokens": 0,
+      "cached_values": 8,
+      "output_tokens": 0,
+      "unique_values": 8
+    },
+    "9fac7e9e-28a8-40df-902d-e2376c234221": {
+      "model_calls": 0,
+      "input_tokens": 0,
+      "cached_values": 6,
+      "output_tokens": 0,
+      "unique_values": 6
+    }
+  }
+}

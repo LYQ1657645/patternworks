@@ -1,0 +1,24 @@
+{
+  "verified_source_files": 12,
+  "images": {
+    "backend": "sha256:5bc42461853b20304745e9a52f16ac5c1e6f9de3e4394332a324f07991535fc6",
+    "worker": "sha256:5bc42461853b20304745e9a52f16ac5c1e6f9de3e4394332a324f07991535fc6",
+    "frontend": "sha256:8fb6871a90c1440a5bf09d69e4751ff8f787d5685d3a142fc2b4979f23f65ebc"
+  },
+  "backend_tests": 334,
+  "frontend_tests": 24,
+  "public_excel_import": {
+    "worksheet": "Contacts",
+    "rows": 8,
+    "columns": 6,
+    "verified_at_local": "2026-10-19 22:32:56 Australia/Melbourne"
+  },
+  "public_browser_checks": [
+    "first worksheet selected",
+    "repeat file selection retains worksheet",
+    "explicit target column",
+    "identifier warning",
+    "classification labels empty",
+    "date results summary and scroll"
+  ]
+}

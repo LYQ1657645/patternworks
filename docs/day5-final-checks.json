@@ -1,0 +1,53 @@
+{
+  "recorded_at": "2026-10-17T04:18:47.864402+11:00",
+  "backend_suite": {
+    "passed": 204,
+    "real_spark_tests": 5,
+    "elapsed_seconds": 65.66,
+    "command": "docker compose --env-file .env.local run --rm backend python -m pytest -c /app/pytest.ini /app/backend/tests -q"
+  },
+  "final_async_smoke": {
+    "url": "http://127.0.0.1:5173",
+    "initial_http_status": 202,
+    "initial_status": "QUEUED",
+    "submission_seconds": 0.048,
+    "final_status": "SUCCESS",
+    "shared_cache": "ok"
+  },
+  "local_services": {
+    "running": [
+      "backend",
+      "cleanup",
+      "flower",
+      "frontend",
+      "postgres",
+      "redis",
+      "worker"
+    ],
+    "healthy": [
+      "backend",
+      "postgres",
+      "redis"
+    ]
+  },
+  "browser_retry": {
+    "old_job_id": "61b7a153-935d-4263-adc3-e4cbda88370e",
+    "old_status": "FAILED",
+    "new_job_id": "6c9323c7-809e-4756-9931-fc9555a2cd30",
+    "new_status": "SUCCESS",
+    "distinct_ids": true
+  },
+  "existing_day4_data": {
+    "source_id": "6e1b0787-2393-4231-b487-0c2e283b46a9",
+    "result_id": "a29a027a-ee1d-41af-8da2-e7468d20b723",
+    "both_status": "READY",
+    "rows": 8,
+    "source_columns": 6,
+    "result_columns": 10
+  },
+  "million_row_evidence": "day5-million-final.json",
+  "fault_evidence": "day5-fault-evidence.json",
+  "production_offline_checks": "day5-deployment-checks.json",
+  "public_deployed": false,
+  "cloud_resources_created": false
+}

@@ -1,0 +1,59 @@
+# Requires Compose >=2.24.4 for !reset. Only Caddy publishes public ports.
+x-production: &production
+  environment:
+    DJANGO_DEBUG: 'false'
+    TRUST_PROXY_HEADERS: 'true'
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: '3'
+
+services:
+  backend:
+    <<: *production
+    mem_limit: 768m
+  worker:
+    <<: *production
+    mem_limit: 4g
+    pids_limit: 512
+    stop_grace_period: 90s
+  flower:
+    <<: *production
+    mem_limit: 256m
+  cleanup:
+    <<: *production
+    mem_limit: 256m
+  postgres:
+    mem_limit: 768m
+  redis:
+    mem_limit: 512m
+    command: ['redis-server', '--appendonly', 'yes', '--maxmemory', '256mb', '--maxmemory-policy', 'noeviction']
+  frontend:
+    ports: !reset []
+    mem_limit: 128m
+  caddy:
+    image: caddy:2-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f
+    restart: unless-stopped
+    mem_limit: 128m
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:?Set PUBLIC_HOST in .env.production}
+      TLS_EMAIL: ${TLS_EMAIL:?Set TLS_EMAIL in .env.production}
+      DEMO_USER: ${DEMO_USER:?Set DEMO_USER in .env.production}
+      DEMO_PASSWORD_HASH: ${DEMO_PASSWORD_HASH:?Set a bcrypt demo password hash}
+    ports: ['80:80', '443:443', '443:443/udp']
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+
+volumes:
+  caddy_data:
+  caddy_config:

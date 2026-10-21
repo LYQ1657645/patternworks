@@ -1,0 +1,15 @@
+Django>=5.2,<5.3
+djangorestframework>=3.16,<3.17
+celery[redis]>=5.5,<5.7
+psycopg[binary]>=3.2,<4
+boto3>=1.40,<2
+cryptography>=45,<47
+python-dotenv>=1.1,<2
+gunicorn>=23,<26
+flower>=2,<3
+openai>=2,<3
+pyspark==4.0.3
+openpyxl==3.1.5
+xlrd==2.0.2
+defusedxml==0.7.1
+google-re2==1.1.20251105

@@ -1,0 +1,433 @@
+{
+  "recorded_at": "2026-10-18T20:35:53.648208+11:00",
+  "scope": "R1-R5 session validation, connection expiry, lifecycle state refresh, shared retry policy, README; deployed; GitHub deferred",
+  "tests": {
+    "local_backend": {
+      "passed": 328,
+      "seconds": 46.33
+    },
+    "cloud_backend": {
+      "passed": 328,
+      "seconds": 151.08,
+      "isolated_test_db": true,
+      "memory_gib": 4
+    },
+    "real_spark_integrations": 12,
+    "new_session_tests": 9,
+    "new_retry_tests": 8,
+    "new_tests_included_in_full_total": true,
+    "frontend": {
+      "passed": 18,
+      "milliseconds": 272.6535,
+      "new_controlled_tsx_probes": 4,
+      "not_real_react_renderer_or_browser_automation": true
+    },
+    "production_build": true,
+    "django_check": true,
+    "missing_migrations": false
+  },
+  "session_semantics": {
+    "expired_deleted_unknown_cookie_creates_fresh_anonymous_owner": true,
+    "old_resources_unavailable": true,
+    "valid_empty_sessions_preserved": true,
+    "csrf_enforced": true,
+    "old_data_deleted_or_reassigned": false,
+    "user_session_revoked_for_testing": false
+  },
+  "deployment": {
+    "patch": {
+      "sha256": "6ef6da270f77bda8d523e7e0c00d71c4379ed936b3faccc7e840dface37a1ea0",
+      "files": {
+        "backend/processing/views.py": "a46e3c268cd78667fd14113111a3e965814b01c8b621d6b1afe34b8eb82fe657",
+        "backend/processing/serializers.py": "16172b820b345e7a11eb0d211432057d3663cf791307c29f339c56d97a347158",
+        "backend/processing/services/recovery.py": "d0d2645f301305094a9294a3e865bede4bf584d9e047bd6848b994c950a4f1e3",
+        "backend/processing/services/retry_policy.py": "83bd897ce2b3a51d6e53ffb03094efe774abfcbe850704828a11be8003f2e9b7",
+        "backend/tests/test_sessions.py": "9360946a4567f10028aafb42ee1e6ac56613eb2f44e931a1e9e5f3a0e116a0ba",
+        "backend/tests/test_retry_policy.py": "5443564bc3082fed7ebbf324610d1d9d6183114a7aff6bb2d518d1ac13663380",
+        "frontend/src/api.ts": "3ea566698e4bdfc2e1dcfdbe695170bbabea522b6ede6d959a012bd12ac9db26",
+        "frontend/src/App.tsx": "287da5f8db088a2f639c8571e907183a1aec2263de52f7e93547df60a44e38f2",
+        "frontend/src/DatasetPanel.tsx": "3da305997f563c72a99ba8779aa06d2e0762da6f88ea560e56808f4a20220753",
+        "frontend/src/TaskHistory.tsx": "27f1a38e5d333d613e07d0b0cf97aa09d9ef0d836c57be764cedd047b08bdc7d",
+        "frontend/tests/workspaceState.test.mjs": "383e3bf3638b999720ebfcc4928428ee85b579f0756409742bfe3375c170e8f6"
+      }
+    },
+    "host_source": {
+      "source_files_verified": 11,
+      "matches_release": true,
+      "archive_sha256": "6ef6da270f77bda8d523e7e0c00d71c4379ed936b3faccc7e840dface37a1ea0"
+    },
+    "images": {
+      "backend": "sha256:9f6e3055feebc24c8ff242e89404649cce67ffe456172ee97660a41b1988815d",
+      "frontend": "sha256:e95422e29ab136a6d4443243e79cdaf7c77ab7771a27ad7e877917a167fb18e3"
+    },
+    "services": [
+      {
+        "Service": "backend",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "caddy",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "cleanup",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "flower",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "frontend",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "postgres",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "redis",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "worker",
+        "State": "running",
+        "Health": ""
+      }
+    ],
+    "server": {
+      "cleanup_column_available": true,
+      "lifecycle_migration_applied": true,
+      "cancelled_without_cleanup": 0,
+      "jobs_by_status": [
+        {
+          "status": "CANCELLED",
+          "count": 1
+        },
+        {
+          "status": "FAILED",
+          "count": 2
+        },
+        {
+          "status": "SUCCESS",
+          "count": 47
+        }
+      ],
+      "datasets_by_status": [
+        {
+          "status": "READY",
+          "count": 16
+        }
+      ],
+      "expired_connections_with_ciphertext": 0,
+      "lifecycle_counts": [
+        {
+          "lifecycle": "ACTIVE",
+          "count": 16
+        }
+      ],
+      "opted_in_datasets": 0,
+      "active_jobs": 0,
+      "disk": {
+        "total_gib": 153.94,
+        "used_gib": 7.84,
+        "free_gib": 146.09
+      },
+      "configuration": {
+        "spark_master": "local[2]",
+        "spark_partitions": 4,
+        "watchdog": true
+      },
+      "invalid_s3_ciphertext_erased": true,
+      "backend_python_files_checked": 58,
+      "backend_matches_local": true
+    },
+    "public_checks": {
+      "unauthenticated_status": 401,
+      "health": {
+        "status": "ok",
+        "checks": {
+          "database": "ok",
+          "redis": "ok"
+        },
+        "openai_configured": true,
+        "phase": "Data preparation"
+      },
+      "homepage_status": 200,
+      "secure_session_cookies": true,
+      "csrf_rejection": 403,
+      "submit_seconds": 2.786,
+      "async_diagnostic": {
+        "id": "74a4989b-edba-48a5-8969-da99a357d33d",
+        "status": "SUCCESS",
+        "attempts": 1
+      },
+      "cross_session_job_status": 404,
+      "cross_session_cancel_status": 404,
+      "export_csrf_rejection": 403,
+      "other_session_export_get": 404,
+      "other_session_export_post": 404,
+      "other_session_download": 404,
+      "unauthenticated_download": 401,
+      "frontend_assets": [
+        {
+          "path": "/assets/index-DTMJi0Xy.js",
+          "sha256": "32d9dbab3a14f47e60092bb8df1de23e1997c7108fc45bd803dc519e86098989",
+          "matches_local_build": true
+        },
+        {
+          "path": "/assets/index-BXwwhxZp.css",
+          "sha256": "63192ecd83d0c949eb5b69bdb18067149ba59438c49f8783ddc7bd27373639eb",
+          "matches_local_build": true
+        }
+      ],
+      "lifecycle_other_session_get": 404,
+      "lifecycle_csrf_rejection": 403,
+      "lifecycle_other_session_trash": 404,
+      "lifecycle_other_session_restore": 404,
+      "lifecycle_other_session_retention": 404
+    },
+    "backup": "/home/ubuntu/patternworks-before-session-fix-20261018",
+    "migration_required": false,
+    "rollback_boundary": "Old images retain R1; forward fix or block public access and plan compatible security. Source/image backups cannot recover purged content."
+  },
+  "public_session_retry_checks": {
+    "https_session_and_retry_checks": [
+      {
+        "revocation": "expired",
+        "valid_empty_session_preserved_before_revocation": true,
+        "diagnostic_id": "1fac8936-8092-494e-9809-9c5f4e367a06",
+        "diagnostic_status": "SUCCESS",
+        "expired_import_hint": false,
+        "retry_rejected": 409,
+        "expired_import_rejected": 410,
+        "old_cookie_job_read": 404,
+        "old_cookie_retry": 404,
+        "old_cookie_dataset_read": 404,
+        "old_cookie_history_empty": true,
+        "fresh_cookie_issued": true,
+        "csrf_enforced": true,
+        "only_synthetic_import_removed": true
+      },
+      {
+        "revocation": "deleted",
+        "valid_empty_session_preserved_before_revocation": true,
+        "diagnostic_id": "99e0b40c-b945-4d23-83a5-5d16d320eae1",
+        "diagnostic_status": "SUCCESS",
+        "expired_import_hint": false,
+        "retry_rejected": 409,
+        "expired_import_rejected": 410,
+        "old_cookie_job_read": 404,
+        "old_cookie_retry": 404,
+        "old_cookie_dataset_read": 404,
+        "old_cookie_history_empty": true,
+        "fresh_cookie_issued": true,
+        "csrf_enforced": true,
+        "only_synthetic_import_removed": true
+      }
+    ],
+    "real_s3_calls": 0,
+    "real_model_calls": 0,
+    "existing_data_changed": false
+  },
+  "safari_observations": {
+    "initial_user_workspace_and_result_preserved_after_reload": true,
+    "fixture_export_detail_kept_open": true,
+    "library_trash_removed_task_links_automatically": true,
+    "library_restore_restored_task_links_automatically": true,
+    "external_fixture_trash_then_manual_history_refresh_removed_links": true,
+    "external_restore_then_manual_history_refresh_restored_links": true,
+    "main_result_download_survived": true,
+    "fixture_absent_from_final_history_and_dataset_list": true,
+    "fixture_method": "One copied 100k synthetic result/CSV; synthetic export never dispatched; exact guarded cleanup."
+  },
+  "ui_cleanup": {
+    "only_named_ui_fixture_removed": true,
+    "original_datasets_untouched": true
+  },
+  "retained_artifacts": {
+    "prior_results": {
+      "previous_datasets_preserved": 5,
+      "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+      "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+      "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+      "generation_jobs": [
+        {
+          "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+          "replacement": "REDACTED",
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 377,
+            "output_tokens": 116
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+          "replacement": "",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "24907cc4-1895-483b-935e-eead88716107",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        }
+      ],
+      "rows": 8,
+      "columns": 6,
+      "matched_rows": 3,
+      "matches": 4,
+      "changed_rows": 3,
+      "exact_expected_cells": true,
+      "source_preserved": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+    },
+    "hundred_thousand_rows": {
+      "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+      "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+      "rows_checked": 100000,
+      "columns": 4,
+      "selected_columns": [
+        "c1",
+        "c2"
+      ],
+      "replacement": "  $1\\中文  ",
+      "statistics": {
+        "matched_rows": 75000,
+        "matched_cells": 100000,
+        "match_count": 125000,
+        "changed_rows": 75000,
+        "changed_cells": 100000
+      },
+      "column_stats": {
+        "c1": {
+          "match_count": 50000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        },
+        "c2": {
+          "match_count": 75000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        }
+      },
+      "source_preserved": true,
+      "unselected_cells_preserved": true,
+      "parquet_partitions": 4,
+      "actual_queued_apply_seconds": 32.053,
+      "generations": [
+        {
+          "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 555,
+            "output_tokens": 149
+          }
+        },
+        {
+          "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+          "columns": [
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        },
+        {
+          "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      ]
+    },
+    "csv": {
+      "historical_retry_job_id": "c9a2588d-f1a0-43b6-9df6-d2abdc6431c3",
+      "status": "SUCCESS",
+      "source_dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "source_preserved": true,
+      "rows": 100000,
+      "bytes": 5250024,
+      "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f",
+      "seconds": 19.299,
+      "original_cancelled_record_retained": true
+    }
+  },
+  "source_scan": {
+    "source_files": 163,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  },
+  "log_sha256": {
+    "session-tests.log": "4a6501a04590dd27cf7eb7fb64097d106cb9d6da03eb78844ded9bcc7d294695",
+    "fix-tests.log": "7f35c9938da1d764f772ef64e46dbe190a37d243613a81ec41d1c63bcea1cfa1",
+    "local-full-tests.log": "d373208780a98bc57008040f2534258aab68fff25531e81d9096f93337abcb84",
+    "cloud-tests.log": "37c2588d949cdd92f0175ac42f6108611e9e3fc68d79fe609a58fcf9e6955bf4",
+    "frontend-final-tests.log": "f7718f856bcfd210ec4a5dcacf793a46d6ccbc1ed62a843bad5af0a56dd957b3",
+    "frontend-final-build.log": "7648319d661dab922ae4beb85998d29ff8139e1f491fdb4685f41a202e25c2ca",
+    "deploy.log": "761b7a60a6b524806c02314b026804809df7b67ee497a9fdfdab730fab37f9f9"
+  },
+  "boundaries": [
+    "No new S3 or model calls.",
+    "No multi-host or new million-row performance benchmark.",
+    "Anonymous session loss does not provide account recovery for retained data.",
+    "GitHub and recording remain deferred.",
+    "R1-R5 review JSON remains a historical before-fix snapshot."
+  ]
+}

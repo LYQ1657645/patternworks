@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-18",
+  "scope": "Frontend presentation and anchor navigation; no backend changes",
+  "tests": {
+    "frontend": 18,
+    "result": "passed",
+    "production_build": "passed",
+    "backend_suite_rerun": false
+  },
+  "responsive_checks": [
+    {
+      "width": 320,
+      "document_width": 305
+    },
+    {
+      "width": 390,
+      "document_width": 375,
+      "nav_content_width": 331
+    },
+    {
+      "width": 768,
+      "document_width": 753
+    }
+  ],
+  "browser_checks": {
+    "local_in_app_browser_errors": [],
+    "public_browser": "Safari",
+    "existing_dataset_rows": 100000,
+    "table_page_2_first_row": 26,
+    "dataset_search_no_match_and_clear": true,
+    "history_export_detail_and_download_link": true,
+    "date_classification_toggle_and_restore": true,
+    "new_model_calls": 0,
+    "data_processing_jobs_submitted": 0
+  },
+  "server": {
+    "source_files_verified": 4,
+    "datasets": 16,
+    "all_ready_active_keep": true,
+    "active_jobs": 0,
+    "backend_image_unchanged": "sha256:9f6e3055feebc24c8ff242e89404649cce67ffe456172ee97660a41b1988815d",
+    "frontend_image": "sha256:7034ddf2c51cc3431c728cf8e14ca9a89ccac35b920de09452a637c99477ecb4"
+  },
+  "release": {
+    "sha256": "8cb9f717eabe9300af1f4a56e6230fcc5817d8369407b0a7e9facd23dec7d2f1",
+    "files": {
+      "frontend/src/App.tsx": "a2a247e26ae590288a698b61b6c82cd0f515974f24564c920a794235c075a269",
+      "frontend/src/DatasetPanel.tsx": "a5a515791fade390533a1a2de877b3cd7c5fa317e24489cf341a2329c3cefa82",
+      "frontend/src/WorkspaceIcon.tsx": "9417ca5c957a1ab52a9905ed015438c4befb366949bee431e60c2c0f66b12e2d",
+      "frontend/src/styles.css": "53933ee5a7fa84e861a44c43dd20f57764cc8d9e55b0288e02c3fbfe01874af8"
+    }
+  },
+  "public": {
+    "homepage": 200,
+    "unauthenticated": 401,
+    "health": "ok",
+    "assets": [
+      {
+        "path": "/assets/index-DOhrh2fB.js",
+        "sha256": "d03baa7b3e6f0ae3cfe8e2e3523f83eda4cbab05fd4291060f0d0fd044d8b985",
+        "matches_local": true
+      },
+      {
+        "path": "/assets/index-DyzT4SLc.css",
+        "sha256": "f40f09d1f7740079a8fa49a4b60d7a3a7334d99228d5e28ad4597aac49deca78",
+        "matches_local": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+/* A working desk within the universe: compact context, evidence, then action. */
+.cosmic-shell .shell-header { min-height: 76px; padding-block: 14px; }
+.cosmic-shell .workspace-nav a[aria-current="page"]::after {
+  left: 8px; right: 8px; bottom: 5px; height: 1px; width: auto; border-radius: 0;
+}
+.cosmic-shell:not(.universe-shell) .content { padding-top: 20px; padding-bottom: 40px; }
+.cosmic-shell:not(.universe-shell) .route-heading { margin-bottom: 22px; }
+.cosmic-shell:not(.universe-shell) .route-heading h1 {
+  font-size: 26px; font-weight: 500; letter-spacing: -.8px; margin: 0;
+}
+.cosmic-shell:not(.universe-shell) :is(.primary-button,.secondary-button,.danger-button) {
+  min-height: 40px; padding: 9px 16px; border-radius: 6px;
+}
+.cosmic-shell:not(.universe-shell) :is(input:not([type="checkbox"]):not([type="radio"]),select) { min-height: 40px; padding: 9px 12px; }
+.cosmic-shell:not(.universe-shell) .guidance { font-size: 14px; line-height: 1.6; color: #b6c4d9; }
+.cosmic-shell:not(.universe-shell) .source-login .connection-card {
+  max-width: 800px; margin: 0 auto; padding: 28px 32px; border: 0;
+  border-radius: 12px; background: #0b1423b8;
+}
+.connection-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+.connection-field { min-width: 0; }
+.connection-field label { margin: 0 0 8px; }
+.connection-field input { margin: 0; }
+.connection-form details { margin: 22px 0 12px; }
+.connection-form .field-optional { float: right; font-size: 13px; font-weight: 400; color: #a8b9d0; }
+.cosmic-shell .connection-card .card-heading { border: 0; padding: 0; margin-bottom: 26px; }
+.cosmic-shell .connection-card .card-heading h2 { font-size: 18px; }
+.cosmic-shell .connection-card .action-spark { margin-top: 8px; }
+.cosmic-shell:not(.universe-shell) .source-connected .files-card {
+  padding: 24px 28px; border: 0; border-radius: 12px; background: #0b1423b8;
+}
+.source-connected .card-heading { border: 0; padding-bottom: 0; }
+.source-connected .card-heading h2 { font-size: 18px; overflow-wrap: anywhere; }
+.source-connected .section-icon { display: none; }
+.source-connected .prefix-search input { margin-bottom: 20px; }
+.source-connected .file-row { min-height: 62px; padding-block: 16px; }
+.source-connected .import-actions { padding: 22px 0 0; display: flex; gap: 20px; align-items: end; flex-wrap: wrap; border: 0; }
+.source-connected .import-actions>strong { margin: 0 auto 8px 0; font-weight: 500; }
+.source-connected .import-actions>div:not(.import-command) { min-width: 220px; max-width: 360px; }
+.source-connected .import-actions label, .source-connected .import-actions select { margin-bottom: 0; }
+.source-connected .import-command { margin-left: auto; }
+.source-connected .import-command .action-spark { margin: 0; }
+.task-running-dot { display: inline-block; width: 6px; height: 6px; margin-left: 7px; border-radius: 50%; background: #cadcf7; vertical-align: middle; }
+.cosmic-shell:not(.universe-shell) .dataset-card { border: 0; border-radius: 12px; padding: 24px 28px; background: #0b1423b8; }
+.editor-filebar { display: flex; gap: 24px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.cosmic-shell:not(.universe-shell) .editor-filebar .dataset-summary { min-height: 0; margin: 0; gap: 8px 20px; }
+.editor-filebar .dataset-summary>strong { font-size: 19px; letter-spacing: -.4px; }
+.editor-filebar .dataset-summary>span { font-size: 13px; }
+.editor-filebar>.text-button { flex-shrink: 0; }
+.cosmic-shell:not(.universe-shell) .tool-switcher { gap: 26px; margin-bottom: 24px; }
+.cosmic-shell:not(.universe-shell) .tool-switcher button { padding: 12px 0; min-height: 40px; border-bottom-width: 1px; }
+.cosmic-shell:not(.universe-shell) .dataset-arrival {
+  border: 0; border-bottom: 1px solid #2b3a50; border-radius: 0;
+  background: none; padding: 0 0 15px; margin: 0 0 18px; gap: 12px; font-size: 14px;
+}
+.cosmic-shell .dataset-arrival .arrival-check { width: 22px; height: 22px; font-size: 12px; }
+.cosmic-shell .dataset-arrival strong { font-weight: 500; }
+.cosmic-shell .text-workspace { gap: 32px; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+.cosmic-shell .transform-workflow .workflow-heading { margin-bottom: 18px; }
+.cosmic-shell .transform-workflow .column-selection-actions { margin: 4px 0 8px; }
+.cosmic-shell .transform-workflow .column-selection-actions .text-button { min-height: 28px; padding-block: 2px; }
+.cosmic-shell .transform-workflow .workflow-preview-heading .action-spark { margin: 0; }
+.cosmic-shell .transform-workflow .workflow-preview-heading { margin-bottom: 14px; }
+.cosmic-shell .transform-workflow .workflow-result-summary { margin-bottom: 6px; }
+.cosmic-shell .transform-workflow .workflow-save-note { margin-bottom: 18px; }
+.replace-form>.guidance { margin-bottom: 22px; }
+.text-preview { min-width: 0; }
+.data-overlay .result-summary { padding: 14px 0; margin-bottom: 16px; }
+.data-overlay .result-summary p { margin-bottom: 8px; }
+.data-overlay .column-results { margin: 0 0 14px; }
+.data-overlay .preview-heading { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+.data-overlay .preview-heading>div:first-child { flex: 1 1 260px; min-width: 0; }
+.data-overlay .preview-actions { flex: 1 1 370px; flex-wrap: wrap; justify-content: flex-end; gap: 12px; min-width: 0; }
+.data-overlay .preview-actions :is(.primary-button,.secondary-button) { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 40px; min-height: 40px; padding: 9px 14px; line-height: 20px; white-space: nowrap; }
+/* The compact export shares the toolbar baseline; full export panel padding does not apply. */
+.data-overlay .export-panel.export-compact { padding: 0; margin: 0; }
+.appearance-controls label { width: 248px; align-items: flex-start; }
+.appearance-controls label input { flex: none; margin-top: 3px; }
+.appearance-controls label span { display: grid; gap: 6px; }
+.appearance-controls label small { font-size: 13px; line-height: 1.5; font-weight: 400; color: var(--muted); }
+.data-overlay .preview-heading h2 { font-size: 22px; }
+.activity-drawer .activity-card { padding: 20px 0; }
+.activity-drawer .activity-heading h2 { font-size: 17px; }
+.activity-drawer .task-meta:empty { display: none; }
+.activity-drawer .task-meta { margin-block: 14px; }
+@media (max-width: 800px) {
+  .connection-fields { grid-template-columns: 1fr; gap: 18px; }
+  .editor-filebar { align-items: start; gap: 16px; }
+  .cosmic-shell:not(.universe-shell) .source-login .connection-card,
+  .cosmic-shell:not(.universe-shell) .source-connected .files-card,
+  .cosmic-shell:not(.universe-shell) .dataset-card { padding: 22px; }
+}
+@media (max-width: 760px) {
+  .cosmic-shell .text-workspace { grid-template-columns: 1fr; }
+}

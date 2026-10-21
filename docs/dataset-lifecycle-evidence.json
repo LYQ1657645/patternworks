@@ -1,0 +1,457 @@
+{
+  "recorded_at": "2026-10-18T16:43:12.850339+11:00",
+  "scope": "Dependency-safe dataset Trash, restore, opt-in retention and resumable scheduled purge; deployed and verified",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "policy": {
+    "default": "Keep",
+    "originals_autoexpire": false,
+    "derived_retention_days": [
+      0,
+      7,
+      30,
+      90
+    ],
+    "trash_recovery_days": 7,
+    "cascade": false,
+    "review_token_seconds": 300,
+    "full_uuid_required": true,
+    "original_extra_confirmation": true,
+    "restore_resets_keep": true,
+    "parent_restore_first": true,
+    "purge_waits_all_children_purged": true,
+    "expiry_and_purge_batch_limit_each": 100,
+    "s3_modified": false,
+    "redis_cache": "Existing one-hour TTL; no force eviction"
+  },
+  "tests": {
+    "local_backend": {
+      "passed": 311,
+      "seconds": 47.01
+    },
+    "cloud_backend": {
+      "passed": 311,
+      "seconds": 149.46,
+      "isolated_test_database": true,
+      "test_container_memory_gib": 4
+    },
+    "real_spark_integrations": 12,
+    "lifecycle_subset_included_in_total": 33,
+    "frontend": {
+      "passed": 14,
+      "milliseconds": 271.981333
+    },
+    "typescript_vite_build_passed": true,
+    "django_checks_passed": true,
+    "missing_migrations": false
+  },
+  "deployment": {
+    "patch": {
+      "sha256": "0fdfd743e7657f36d3a2483b53ffe72f828ab89846efdcec5089b2fe1c199903",
+      "files": {
+        "compose.yaml": "b66a6c8cf654d82b4ac6f26090834aff0bc50e26a6eb1e1c9f2b3414a7c9a713",
+        "backend/processing/models.py": "9ea21f3cf3be16985f84eb691d2394e692d50cc9f78b0a3e2b1982328217aac3",
+        "backend/processing/serializers.py": "d59290a14c06c1deb8ac7a59585ddb42e059b187c331c99a0ce200c8839a8496",
+        "backend/processing/views.py": "6feb60d32cf3e41fef5d5a11e5fb7f36a193e4545f5f790ee39648dab51db94b",
+        "backend/processing/urls.py": "b3bd67c0beb44ac96730266399e4372aea34571cbc6b53a4b93a0bc7142bfa61",
+        "backend/processing/tasks.py": "03833f311c2b6f9225bda9bfe4713cce1131c839b103f5b2babe1a500fb987c9",
+        "backend/processing/services/history.py": "ff81134601e5857207c45600eca66c1c86712c2ba0429a1d3c43b4997d821d7a",
+        "backend/processing/services/lifecycle.py": "c7f1b8633c59f2af69f8f7a3f5f15812757d84fbc4136019b20d5805a5ee1cc4",
+        "backend/processing/services/recovery.py": "9dbc746e472121056b58d3054af132534457a2c7fc613dc9f038a33f3456ad37",
+        "backend/processing/management/commands/maintain_datasets.py": "e6553dc808be68b65f138588e24d07fc5152582025d2d1055a2e996b70699de5",
+        "backend/processing/migrations/0010_dataset_lifecycle.py": "c2f800f51f566affc37929862f6e0c5c9bfedf8854d223680336b2ed79068159",
+        "backend/tests/test_lifecycle.py": "749bdc86f88865d63927e4c48e52969a929119331f6b9ccba71353549256b625",
+        "frontend/src/api.ts": "a70747f1fc3e4273213197c416218c90aa1c65a467b6cb3ac4caab8220160bdb",
+        "frontend/src/DatasetBrowser.tsx": "3a6b605ee3fb9a403d760bc889b88c969b5cc21f681aae09ce073f0766762da6",
+        "frontend/src/DatasetPanel.tsx": "08e1c9cc3f8d21559f6eca264b5fc6bb0ba8d404971b2cda2aebb179f9978100",
+        "frontend/src/DatasetManager.tsx": "cb81a7e6784744adcdd774599137d058c3e2686a3fae454d9618bb96ce58f0bb",
+        "frontend/src/useCursorList.ts": "4107da97f1e15bd5743807ffa4bde90b80a90a32eb0e8e349d325a5837e6d184",
+        "frontend/src/historyLabels.ts": "766b8518d82a75fd86b6b84b0a074b9779ced7727d2546173b8760ce9c026837",
+        "frontend/src/TaskHistory.tsx": "fd2c1eb1b3c19edfe622b6ec27307ebdd69e2019521a77cf165207a6423a5dfe",
+        "frontend/src/styles.css": "8779556067593fe9863e1fc1da229a190425da749f841cd391b86b6726150e67",
+        "frontend/tests/historyLabels.test.mjs": "3a05638b5fb88dac2e1f2a2f92444f58f6225d6f84a67845c7537f9aaff5a970"
+      }
+    },
+    "host_source": {
+      "final_patch_files_checked": 21,
+      "source_matches_final_archive": true,
+      "final_archive_sha256": "0fdfd743e7657f36d3a2483b53ffe72f828ab89846efdcec5089b2fe1c199903"
+    },
+    "running_images": {
+      "backend": "sha256:26b5d9e0c2949c80d6965aefaa5b108e6e156ad77be93333d3cffea3663d3804",
+      "frontend": "sha256:d790e5b4f83f99c708d624f1ab068fa3c614ac1e490ee35c01371032dc3f3c31"
+    },
+    "services": [
+      {
+        "Service": "backend",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "caddy",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "cleanup",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "flower",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "frontend",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "postgres",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "redis",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "worker",
+        "State": "running",
+        "Health": ""
+      }
+    ],
+    "server": {
+      "cleanup_column_available": true,
+      "lifecycle_migration_applied": true,
+      "cancelled_without_cleanup": 0,
+      "jobs_by_status": [
+        {
+          "status": "CANCELLED",
+          "count": 1
+        },
+        {
+          "status": "FAILED",
+          "count": 2
+        },
+        {
+          "status": "SUCCESS",
+          "count": 43
+        }
+      ],
+      "datasets_by_status": [
+        {
+          "status": "READY",
+          "count": 16
+        }
+      ],
+      "expired_connections_with_ciphertext": 0,
+      "lifecycle_counts": [
+        {
+          "lifecycle": "ACTIVE",
+          "count": 16
+        }
+      ],
+      "opted_in_datasets": 0,
+      "active_jobs": 0,
+      "disk": {
+        "total_gib": 153.94,
+        "used_gib": 7.83,
+        "free_gib": 146.09
+      },
+      "configuration": {
+        "spark_master": "local[2]",
+        "spark_partitions": 4,
+        "watchdog": true
+      },
+      "invalid_s3_ciphertext_erased": true,
+      "backend_python_files_checked": 55,
+      "backend_source_matches_local": true
+    },
+    "public_checks": {
+      "unauthenticated_status": 401,
+      "health": {
+        "status": "ok",
+        "checks": {
+          "database": "ok",
+          "redis": "ok"
+        },
+        "openai_configured": true,
+        "phase": "Data preparation"
+      },
+      "homepage_status": 200,
+      "secure_session_cookies": true,
+      "csrf_rejection": 403,
+      "submit_seconds": 1.475,
+      "async_diagnostic": {
+        "id": "42064e74-c3b7-492b-a065-8d576d7b0276",
+        "status": "SUCCESS",
+        "attempts": 1
+      },
+      "cross_session_job_status": 404,
+      "cross_session_cancel_status": 404,
+      "export_csrf_rejection": 403,
+      "other_session_export_get": 404,
+      "other_session_export_post": 404,
+      "other_session_download": 404,
+      "unauthenticated_download": 401,
+      "frontend_assets": [
+        {
+          "path": "/assets/index-DkkdCxKs.js",
+          "sha256": "7c6f895bcea8197ff1bc700f65b507e79f4d62313907061f469eab79c7402998",
+          "matches_local_build": true
+        },
+        {
+          "path": "/assets/index-BXwwhxZp.css",
+          "sha256": "63192ecd83d0c949eb5b69bdb18067149ba59438c49f8783ddc7bd27373639eb",
+          "matches_local_build": true
+        }
+      ],
+      "lifecycle_other_session_get": 404,
+      "lifecycle_csrf_rejection": 403,
+      "lifecycle_other_session_trash": 404,
+      "lifecycle_other_session_restore": 404,
+      "lifecycle_other_session_retention": 404
+    },
+    "source_backup": "/home/ubuntu/patternworks-before-lifecycle-20261018",
+    "rollback_boundary": "Old images lack lifecycle gates; forward fix or block public access and plan compatibility. Code/image rollback cannot restore purged files."
+  },
+  "live_validation": {
+    "postgres_two_connection_races": {
+      "backend": "PostgreSQL",
+      "separate_database_connections": true,
+      "delete_first_blocks_new_work_after_lock_wait": true,
+      "task_first_blocks_delete_after_lock_wait": true,
+      "temporary_queued_record_dispatched": false,
+      "fixture_returned_active": true
+    },
+    "trash_access": {
+      "trash_reads_rejected": {
+        "rows": 409,
+        "rule": 409,
+        "transformation": 409,
+        "download": 410
+      },
+      "task_dataset_link_disabled": true,
+      "rows_retained_for_recovery": true
+    },
+    "automatic_trash": {
+      "id": "ba5466df-1222-4c0c-9196-c3324f6487ec",
+      "state": "TRASH",
+      "observed_after_seconds": 0.029,
+      "automatic_cleanup_service": true
+    },
+    "automatic_purge": {
+      "id": "ba5466df-1222-4c0c-9196-c3324f6487ec",
+      "state": "PURGED",
+      "observed_after_seconds": 0.028,
+      "automatic_cleanup_service": true
+    },
+    "purge_scope": {
+      "leaf_purged": true,
+      "parquet_and_preview_index_removed": true,
+      "all_csv_exports_removed": true,
+      "stored_model_previews_redacted": true,
+      "job_audit_preserved": true,
+      "download_rejected": 410,
+      "rows_rejected": 409,
+      "fixture_parent_and_original_preserved": true
+    },
+    "cleanup": {
+      "only_three_named_fixture_records_removed": true,
+      "real_datasets_untouched": true
+    },
+    "fixture_method": "Three copies of existing synthetic eight-row artifact; export and concurrency jobs not dispatched; only fixture timestamps aged, no system clock change; actual cleanup service observed, not manual maintenance calls. No seven-day elapsed-time claim.",
+    "safari_observations": {
+      "dependency_blockers": true,
+      "original_extra_confirmation": true,
+      "trash_restore": true,
+      "opt_in_7_days": true,
+      "automatic_trash_and_purge_review": true,
+      "review_refresh_updates_list_and_panel": true,
+      "trashed_open_disabled": true,
+      "restore_active_keep": true,
+      "fixtures_absent_after_cleanup": true,
+      "active_location_restored": true,
+      "original_100k_result_selected_and_csv_link_present": true
+    }
+  },
+  "retained_artifact_rechecks": {
+    "prior_eight_row_data": {
+      "previous_datasets_preserved": 5,
+      "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+      "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+      "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+      "generation_jobs": [
+        {
+          "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+          "replacement": "REDACTED",
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 377,
+            "output_tokens": 116
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+          "replacement": "",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "24907cc4-1895-483b-935e-eead88716107",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        }
+      ],
+      "rows": 8,
+      "columns": 6,
+      "matched_rows": 3,
+      "matches": 4,
+      "changed_rows": 3,
+      "exact_expected_cells": true,
+      "source_preserved": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+    },
+    "multicolumn_100k": {
+      "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+      "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+      "rows_checked": 100000,
+      "columns": 4,
+      "selected_columns": [
+        "c1",
+        "c2"
+      ],
+      "replacement": "  $1\\中文  ",
+      "statistics": {
+        "matched_rows": 75000,
+        "matched_cells": 100000,
+        "match_count": 125000,
+        "changed_rows": 75000,
+        "changed_cells": 100000
+      },
+      "column_stats": {
+        "c1": {
+          "match_count": 50000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        },
+        "c2": {
+          "match_count": 75000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        }
+      },
+      "source_preserved": true,
+      "unselected_cells_preserved": true,
+      "parquet_partitions": 4,
+      "actual_queued_apply_seconds": 32.053,
+      "generations": [
+        {
+          "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 555,
+            "output_tokens": 149
+          }
+        },
+        {
+          "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+          "columns": [
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        },
+        {
+          "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      ]
+    },
+    "existing_csv": {
+      "historical_retry_job_id": "c9a2588d-f1a0-43b6-9df6-d2abdc6431c3",
+      "status": "SUCCESS",
+      "source_dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "source_preserved": true,
+      "rows": 100000,
+      "bytes": 5250024,
+      "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f",
+      "seconds": 19.299,
+      "original_cancelled_record_retained": true
+    }
+  },
+  "source_scan": {
+    "source_files": 155,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  },
+  "test_and_deployment_log_sha256": {
+    "local-final-tests.log": "70b2711c54bd88e6f3333da691d56d42e333bb6e5c542633a4d6530818c77cc4",
+    "cloud-tests.log": "b54d9960be11844621c5a24f68718c433acfaf6ffd67d980a4826a24d31995d1",
+    "lifecycle-tests.log": "cf38a20665d2d870cf1d74ceebd187ab669f1ec4e6085b63d9a4fd8ac050e1dd",
+    "frontend-final-tests.log": "29bf22f6dfdf5ba3df387703a8d4e3d097a3df767e9fbecf38f3fe70c6682035",
+    "frontend-final-build.log": "ed8f105828cc5aa260d41502f95b8ec387ccc90be39ac15233d8d9343e7daa2a",
+    "deploy.log": "2e3d5ce52de0b32133de3e685b31d9808d7d350dee40585ba915427db1e03f9c",
+    "frontend-delta-deploy.log": "56c7c8b3d3133f55c2d93084a189734c9080993577be35e69b6d5437bfb851c4"
+  },
+  "limitations": [
+    "No new S3 or OpenAI calls for this feature acceptance.",
+    "No new million-row benchmark or multi-host Spark test.",
+    "Purge retains IDs, filenames, counts, lineage and job audit; backups/downloads/independent datasets are outside cleanup scope.",
+    "GitHub and video delivery remain pending."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-18",
+  "frontend_tests": {
+    "passed": 18,
+    "duration_ms": 264.102166
+  },
+  "production_build": "passed",
+  "responsive_widths": [
+    320,
+    390,
+    768,
+    1024,
+    1280,
+    1440
+  ],
+  "measured_widths": [
+    {
+      "viewport": 320,
+      "document": 305
+    },
+    {
+      "viewport": 390,
+      "document": 375
+    },
+    {
+      "viewport": 768,
+      "document": 753
+    },
+    {
+      "viewport": 1024,
+      "document": 1009
+    },
+    {
+      "viewport": 1280,
+      "document": 1265,
+      "sidebar_height": 900,
+      "sidebar_scroll_height": 900
+    }
+  ],
+  "public_browser": {
+    "browser": "Safari",
+    "existing_dataset_rows": 100000,
+    "page_two_first_row": 26,
+    "returned_to_first_page": true,
+    "csv_link_and_transformation_panels_visible": true,
+    "new_llm_or_processing_jobs": 0
+  },
+  "server": {
+    "source_files_verified": 3,
+    "datasets_ready_active_keep": 16,
+    "active_jobs": 0,
+    "frontend_image": "sha256:c4d6e9a61347df228ec1aaea46732a487bd4dce55617d03167bffd6ac5342cd5",
+    "backend_image_unchanged": "sha256:9f6e3055feebc24c8ff242e89404649cce67ffe456172ee97660a41b1988815d"
+  },
+  "source_release": {
+    "sha256": "cca3e0d7a8883fc31f184269156a24f8745938ff00e52dfdc726d22bf702535e",
+    "files": {
+      "frontend/src/App.tsx": "577d06c138f5170d55d963fa1f3f1c2c380d8052fd8b21d6d088fbe31947b4a0",
+      "frontend/src/StudioArtwork.tsx": "e295f4f79ea1b046c7515b61e67c64ba2881188e2e96f8614b37a1084a3921ab",
+      "frontend/src/styles.css": "8c45acffd6fb01f5616fb2e53fc77d602ad818b797b836d79ff9226a757191a0"
+    }
+  },
+  "public_http": {
+    "homepage": 200,
+    "unauthenticated": 401,
+    "health": "ok",
+    "assets": [
+      {
+        "path": "/assets/index-c1cH3Nv5.js",
+        "sha256": "02151ff78508d84ed46ec5bddd24e51e40ed86c054c8377d9b84845bd5748c05",
+        "matches_local": true
+      },
+      {
+        "path": "/assets/index-CEgOzPeq.css",
+        "sha256": "5039e9d4bc7f36b253461276556f81dc48699d90bb2ebdf38782dd4c3859b3f5",
+        "matches_local": true
+      }
+    ]
+  }
+}

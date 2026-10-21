@@ -1,0 +1,81 @@
+/* The editor and its evidence share one working area. Only the next step is filled. */
+.rule-panel.transform-workflow .transform-composition {
+  grid-template-columns: minmax(280px, .9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 4vw, 64px);
+}
+.transform-workflow .workflow-heading { margin-bottom: 24px; }
+.transform-workflow .workflow-heading h3,
+.transform-workflow .workflow-preview-heading h3 { margin: 0; font-size: 19px; font-weight: 500; }
+.transform-workflow .workflow-heading p {
+  margin: 7px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 34em;
+}
+.transform-workflow .workflow-editor > label { margin-bottom: 18px; }
+.transform-workflow .column-selection { margin-bottom: 22px; }
+.transform-workflow .column-selection-actions { margin: 8px 0 12px; }
+.transform-workflow .workflow-help { margin: 10px 0 16px; font-size: 13px; }
+.transform-workflow .workflow-help summary,
+.transform-workflow .workflow-evidence summary { color: var(--muted); }
+.transform-workflow .workflow-help p { margin: 12px 0; color: var(--muted); line-height: 1.65; }
+.transform-workflow .workflow-field-help { margin: -10px 0 16px; font-size: 13px; color: var(--muted); }
+.transform-workflow .workflow-editor-actions { display: flex; align-items: center; margin-top: 22px; }
+.transform-workflow .workflow-editor-actions button { min-width: 130px; }
+.transform-workflow .workflow-editor > .dataset-error { margin: 18px 0 0; }
+.transform-workflow .value-consent { margin: 20px 0; font-size: 14px; line-height: 1.55; }
+.transform-workflow .workflow-preview { position: sticky; top: 26px; min-width: 0; }
+.transform-workflow .workflow-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 32px;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.transform-workflow .workflow-preview-heading button { min-width: 100px; }
+.transform-workflow .workflow-preview-status { margin-bottom: 16px; }
+.transform-workflow .workflow-save-note { margin: 0; font-size: 13px; color: var(--muted); }
+.transform-workflow .workflow-column-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.transform-workflow .workflow-column-switch select { margin: 0; width: auto; max-width: 230px; padding: 7px 10px; }
+.transform-workflow .loom-preview { position: relative; top: auto; padding: 0; }
+.transform-workflow .workflow-sample { max-height: min(420px, 48dvh); overflow: auto; overscroll-behavior: contain; scrollbar-color: var(--border) transparent; padding: 4px 8px 0; }
+.transform-workflow .workflow-sample:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.transform-workflow .workflow-progress { margin: 0 0 18px; font-size: 14px; color: var(--ink); }
+.transform-workflow .workflow-result { margin-top: 18px; }
+.transform-workflow .workflow-result-summary { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.transform-workflow .workflow-result-summary strong { color: var(--ink); font-weight: 500; }
+.transform-workflow .workflow-warning {
+  border-left: 2px solid var(--warning);
+  padding: 2px 0 2px 12px;
+  margin: 0 0 16px;
+  color: var(--warning);
+  font-size: 14px;
+}
+.transform-workflow .workflow-evidence {
+  padding: 14px 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+.transform-workflow .workflow-evidence > summary { width: fit-content; }
+.transform-workflow .workflow-evidence > p { margin: 14px 0; color: var(--muted); }
+.transform-workflow .workflow-evidence .rule-examples { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.transform-workflow .workflow-evidence .regex-code { margin: 16px 0; font-size: 13px; }
+.transform-workflow .workflow-evidence .column-preview { margin: 14px 0 0; }
+.transform-workflow .workflow-evidence .column-preview summary { color: var(--ink); }
+@media (max-width: 760px) {
+  .rule-panel.transform-workflow .transform-composition { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .transform-workflow .workflow-preview { position: relative; top: auto; }
+}
+@media (max-width: 500px) {
+  .transform-workflow .workflow-preview-heading { flex-wrap: wrap; }
+}

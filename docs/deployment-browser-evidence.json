@@ -1,0 +1,67 @@
+{
+  "recorded_at": "2026-10-17T15:09:33.221748+11:00",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "browser": "Safari",
+  "real_s3_connection": true,
+  "supported_files": [
+    "contacts.csv",
+    "contacts.xlsx"
+  ],
+  "csv_import": {
+    "job_id": "949303d3-f5a2-4fcb-8047-2dae94aca2c7",
+    "dataset_id_prefix": "05d79c86",
+    "status": "SUCCESS",
+    "rows": 8,
+    "columns": 6
+  },
+  "xlsx_import": {
+    "job_id": "6fd74f62-cce0-481a-89bd-8e7bd47f74c5",
+    "dataset_id_prefix": "68308c25",
+    "sheet": "Contacts",
+    "status": "SUCCESS",
+    "rows": 8,
+    "columns": 6
+  },
+  "regex": {
+    "generation_job": "35c5d3fc-38f1-482f-aa40-8fef5ce2b80b",
+    "cache_job": "6a8e9624-5401-474e-bbbd-96ea4c4327a7",
+    "cache_hit_visible": true,
+    "apply_job": "a9aca2d9-2f94-4ed2-8c9b-873544c10d61",
+    "result_id_prefix": "d444006b",
+    "status": "SUCCESS",
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3
+  },
+  "date": {
+    "preview_job": "ff782bf3-f6b4-44c4-8428-52251d1c55ef",
+    "preview_model_calls": 1,
+    "apply_job": "df00cf09-7bde-42a5-b146-44f612eab6e6",
+    "result_id_prefix": "69b25881",
+    "status": "SUCCESS",
+    "rows": 8,
+    "columns": 8,
+    "normalized": 8,
+    "apply_model_calls": 0,
+    "apply_cached_values": 8
+  },
+  "category": {
+    "preview_job": "f3942f2b-9551-4a20-a02b-b960763daf67",
+    "preview_model_calls": 1,
+    "apply_job": "938d9fc8-5638-4d06-89b2-26f8f3bf37c0",
+    "result_id_prefix": "29990a11",
+    "status": "SUCCESS",
+    "rows": 8,
+    "columns": 10,
+    "classified": 8,
+    "apply_model_calls": 0,
+    "apply_cached_values": 6,
+    "visible_label_distribution": {
+      "USA": 4,
+      "Australia": 4
+    }
+  },
+  "refresh_restored_result": true,
+  "scope": "8-row synthetic fixture through actual public HTTPS UI, S3, OpenAI, Redis and Spark; separate from cached million-row benchmark",
+  "independent_server_artifact_audit": "passed; see deployment-artifact-evidence.json"
+}

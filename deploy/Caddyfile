@@ -1,0 +1,21 @@
+{
+    email {$TLS_EMAIL}
+}
+
+{$PUBLIC_HOST} {
+    encode zstd gzip
+    # Shared reviewer gate for this paid-API assessment demo.
+    basic_auth {
+        {$DEMO_USER} {$DEMO_PASSWORD_HASH}
+    }
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy same-origin
+        -Server
+    }
+    reverse_proxy frontend:80 {
+        # The demo password is for the gateway, never the application.
+        header_up -Authorization
+    }
+}

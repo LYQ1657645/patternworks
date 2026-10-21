@@ -1,0 +1,46 @@
+{
+  "mode": "3 live synthetic model prompts, real Redis cache and Spark; local fixture import transport",
+  "model": "gpt-4.1-mini",
+  "prompts": [
+    {
+      "rule_id": "0c21bd1a-6ad3-45ba-b089-59ecfc0876cd",
+      "instruction": "Find every email address anywhere in the text, including multiple addresses in a cell.",
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "usage": {
+        "input_tokens": 564,
+        "output_tokens": 186
+      }
+    },
+    {
+      "rule_id": "5811ce40-b19f-43b5-bfd3-e5fdee2446cc",
+      "instruction": "Match email addresses embedded in sentences; leave surrounding text untouched.",
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "usage": {
+        "input_tokens": 560,
+        "output_tokens": 170
+      }
+    },
+    {
+      "rule_id": "66365f83-92b7-4a44-8627-7e20043f6b05",
+      "instruction": "找出文本中所有电子邮箱地址，同一单元格中的多个邮箱都要匹配。",
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "usage": {
+        "input_tokens": 569,
+        "output_tokens": 208
+      }
+    }
+  ],
+  "cache_hit": true,
+  "multicolumn_exact": true,
+  "source_preserved": true,
+  "no_match_preserved": true,
+  "pagination_exact": true,
+  "invalid_patterns_rejected": [
+    "[",
+    "(a+)+$",
+    "(a)\\1",
+    "(?=x)"
+  ],
+  "source_id": "29f2c7a7-9247-4032-979c-69576ed139a1",
+  "result_id": "6ca3379b-e890-4d6e-927f-a1b745afa29d"
+}

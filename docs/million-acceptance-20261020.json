@@ -1,0 +1,183 @@
+{
+  "rows": 1000000,
+  "fixture_bytes": 95763934,
+  "fixture_sha256": "5b00871016b6ee2da8a1c0f1c1d6c819cabdd24eb3ee82c154885abc68f214d6",
+  "mode": "synchronous worker pipeline, local CSV transport, preseeded validated LLM fixture cache; no S3/model calls",
+  "spark_master": "local[2]",
+  "spark_partitions": 4,
+  "environment": {
+    "container_memory_limit": "4294967296",
+    "cpu_max": "max 100000",
+    "machine": "x86_64"
+  },
+  "stages": [
+    {
+      "name": "csv_import",
+      "job_id": "1bec70d4-9d08-4978-982e-93790426f68d",
+      "dataset_id": "a37090d2-dc9a-48cd-aac7-6e42875be59a",
+      "elapsed_seconds": 81.139,
+      "rows_per_second": 12325,
+      "container_cpu_seconds": 96.905,
+      "peak_container_mib": 1322.4,
+      "peak_process_rss_sum_mib": 917.3,
+      "columns": 6,
+      "metadata": {
+        "row_count": 1000000,
+        "transport": "local benchmark fixture",
+        "sheet_name": "",
+        "sheet_names": [],
+        "source_bytes": 95763934,
+        "spark_master": "local[2]",
+        "spark_version": "4.0.3",
+        "partition_count": 4,
+        "preview_cell_limit": 4096
+      },
+      "checked_rows": 1000000,
+      "exact_cell_equality": true,
+      "ordered_digest_sha256": "50cf54443f50a122f425576d27c07e965ca86fb23c159a6a6f56e4e6d7ca6a4b",
+      "verification_seconds": 11.594,
+      "parquet_partitions": 4,
+      "artifact_bytes": 159745896
+    },
+    {
+      "name": "regex_replace",
+      "job_id": "81c99c91-b609-4855-94ef-4c2437385c1c",
+      "dataset_id": "4fe51f41-1cdb-4c1b-a503-3eb6049063e5",
+      "elapsed_seconds": 73.848,
+      "rows_per_second": 13541,
+      "container_cpu_seconds": 99.152,
+      "peak_container_mib": 1530.1,
+      "peak_process_rss_sum_mib": 1284.8,
+      "columns": 6,
+      "metadata": {
+        "column": "c5",
+        "columns": [
+          "c5"
+        ],
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "rule_id": "90356617-61e8-4821-b82a-6b67398d359e",
+        "operation": "regex_replace",
+        "parent_id": "a37090d2-dc9a-48cd-aac7-6e42875be59a",
+        "row_count": 1000000,
+        "match_count": 500000,
+        "changed_rows": 375000,
+        "column_stats": {
+          "c5": {
+            "match_count": 500000,
+            "changed_rows": 375000,
+            "matched_rows": 375000
+          }
+        },
+        "matched_rows": 375000,
+        "regex_engine": "RE2",
+        "spark_master": "local[2]",
+        "changed_cells": 375000,
+        "matched_cells": 375000,
+        "spark_version": "4.0.3",
+        "partition_count": 4,
+        "preview_cell_limit": 4096
+      },
+      "checked_rows": 1000000,
+      "exact_cell_equality": true,
+      "ordered_digest_sha256": "c8297683935b853f37098467899e48b2e1c1a075479c9648b08bdda3af2cac1e",
+      "verification_seconds": 14.572,
+      "parquet_partitions": 4,
+      "artifact_bytes": 155971068
+    },
+    {
+      "name": "date_normalize_cached",
+      "job_id": "5cd82fb3-9152-4dad-80b8-aba4998fc340",
+      "dataset_id": "9d243158-73f6-4af5-9abf-2b075f15d0e1",
+      "elapsed_seconds": 48.177,
+      "rows_per_second": 20757,
+      "container_cpu_seconds": 55.206,
+      "peak_container_mib": 1667.9,
+      "peak_process_rss_sum_mib": 1289.6,
+      "columns": 8,
+      "metadata": {
+        "model": "gpt-4.1-mini",
+        "column": "c3",
+        "llm_usage": {
+          "model_calls": 0,
+          "input_tokens": 0,
+          "cached_values": 8,
+          "output_tokens": 0,
+          "unique_values": 8
+        },
+        "operation": "date_normalize",
+        "parent_id": "4fe51f41-1cdb-4c1b-a503-3eb6049063e5",
+        "row_count": 1000000,
+        "spark_master": "local[2]",
+        "output_column": "c6",
+        "spark_version": "4.0.3",
+        "status_column": "c7",
+        "status_counts": {
+          "normalized": 1000000
+        },
+        "policy_version": "column-values-v2",
+        "partition_count": 4,
+        "transformation_id": "62986fc6-487f-4ccf-99d5-401374c5cf5b",
+        "preview_cell_limit": 4096
+      },
+      "checked_rows": 1000000,
+      "exact_cell_equality": true,
+      "ordered_digest_sha256": "bf5e485a4834f0b90f47716c16be9cf589040a59f08189c609135dc2bf276c24",
+      "verification_seconds": 14.453,
+      "parquet_partitions": 4,
+      "artifact_bytes": 191962016
+    },
+    {
+      "name": "categorize_cached",
+      "job_id": "ae01f54b-6f08-40b8-980f-5d7964ddfff2",
+      "dataset_id": "79096438-6dec-464d-be65-b7823de2e443",
+      "elapsed_seconds": 51.384,
+      "rows_per_second": 19461,
+      "container_cpu_seconds": 60.597,
+      "peak_container_mib": 1974.6,
+      "peak_process_rss_sum_mib": 1404.7,
+      "columns": 10,
+      "metadata": {
+        "model": "gpt-4.1-mini",
+        "column": "c4",
+        "llm_usage": {
+          "model_calls": 0,
+          "input_tokens": 0,
+          "cached_values": 6,
+          "output_tokens": 0,
+          "unique_values": 6
+        },
+        "operation": "categorize",
+        "parent_id": "9d243158-73f6-4af5-9abf-2b075f15d0e1",
+        "row_count": 1000000,
+        "spark_master": "local[2]",
+        "output_column": "c8",
+        "spark_version": "4.0.3",
+        "status_column": "c9",
+        "status_counts": {
+          "classified": 1000000
+        },
+        "policy_version": "column-values-v2",
+        "partition_count": 4,
+        "transformation_id": "7d08c46f-a7b5-42c7-af2d-f7dfe322ddbb",
+        "preview_cell_limit": 4096
+      },
+      "checked_rows": 1000000,
+      "exact_cell_equality": true,
+      "ordered_digest_sha256": "de953a39ae96220da5f9ecde888d72103a954030af1fa4f8895b55a41f24873f",
+      "verification_seconds": 13.575,
+      "parquet_partitions": 4,
+      "artifact_bytes": 222436095
+    }
+  ],
+  "pagination": {
+    "requests": 100,
+    "rows_per_page": 25,
+    "median_ms": 0.329,
+    "p95_ms": 0.379,
+    "max_ms": 0.761,
+    "exact_rows": true,
+    "measurement": "direct persisted-page service, not HTTP"
+  },
+  "source_preserved_after_chain": true,
+  "complete": true
+}

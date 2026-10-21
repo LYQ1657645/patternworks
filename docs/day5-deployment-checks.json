@@ -1,0 +1,25 @@
+{
+  "complete": true,
+  "production_env_preflight": true,
+  "compose_merged_config": true,
+  "public_services": {
+    "caddy": [
+      "80",
+      "443",
+      "443"
+    ]
+  },
+  "caddy_validation": true,
+  "gateway_authentication_required": true,
+  "authorization_removed_before_application": true,
+  "caddy_version": "v2.11.7 h1:yj0Y4fYZGPkSvibBJ1sTWE33xC0fxztVyXEW5iIdUT4=",
+  "django_production_mode": {
+    "https_redirect": true,
+    "private_health_exemption": true,
+    "secure_session_and_csrf_cookies": true,
+    "csrf_rejects_missing_token": true,
+    "https_mutation_returns_202": true,
+    "database": "ephemeral in-memory SQLite"
+  },
+  "scope": "offline syntax/security checks and in-memory app requests; no DNS/ACME/public runtime verification"
+}

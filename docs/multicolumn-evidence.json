@@ -1,0 +1,359 @@
+{
+  "recorded_at": "2026-10-18T15:19:35.123027+11:00",
+  "scope": "Multi-column natural-language regex replacement; implemented, deployed and verified",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "tests": {
+    "local_full_before_final_maximum_column_test": {
+      "passed": 245,
+      "seconds": 34.41
+    },
+    "local_final_feature_suite": {
+      "passed": 19,
+      "seconds": 23.48,
+      "overlaps_full_suite": true
+    },
+    "cloud_final_full_suite": {
+      "passed": 246,
+      "seconds": 132.24,
+      "real_spark_integrations": 10,
+      "isolated_test_container_memory_gib": 4
+    },
+    "frontend": {
+      "passed": 8,
+      "milliseconds": 201.3805
+    },
+    "typescript_vite_build_passed": true,
+    "django_checks_passed": true,
+    "migration_changes_detected": false
+  },
+  "deployment": {
+    "patch_files": 15,
+    "patch_sha256": "8417780e50920e809e9a91559bb1d08e0b3f3da5d92d7f04d8d265c016776f84",
+    "backend_image": "sha256:c99040812f4ffaa34a638727ca4b8d3e879535d0a2fe693ce03f164deff1c73d",
+    "source_backup": "/home/ubuntu/patternworks-before-multicolumn-20261018",
+    "rollback_images": [
+      "patternworks-backend:before-multicolumn",
+      "patternworks-frontend:before-multicolumn"
+    ],
+    "production_backend_memory_mib": 768,
+    "services": [
+      {
+        "Service": "backend",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "caddy",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "cleanup",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "flower",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "frontend",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "postgres",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "redis",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "worker",
+        "State": "running",
+        "Health": ""
+      }
+    ],
+    "server_checks": {
+      "cleanup_column_available": true,
+      "multicolumn_migration_applied": true,
+      "cancelled_without_cleanup": 0,
+      "jobs_by_status": [
+        {
+          "status": "SUCCESS",
+          "count": 38
+        },
+        {
+          "status": "FAILED",
+          "count": 2
+        }
+      ],
+      "datasets_by_status": [
+        {
+          "status": "READY",
+          "count": 16
+        }
+      ],
+      "expired_connections_with_ciphertext": 0,
+      "active_jobs": 0,
+      "disk": {
+        "total_gib": 153.94,
+        "used_gib": 7.77,
+        "free_gib": 146.15
+      },
+      "configuration": {
+        "spark_master": "local[2]",
+        "spark_partitions": 4,
+        "watchdog": true
+      },
+      "invalid_s3_ciphertext_erased": true,
+      "backend_files_checked": 45,
+      "backend_source_mismatches": []
+    },
+    "frontend_assets": {
+      "assets": [
+        {
+          "path": "/assets/index-DRRaOl9d.js",
+          "sha256": "1940e34b02619768dffbf2d5c415a463455f7202e038fcae62f2d5276fb2909a",
+          "matches_fresh_local_build": true
+        },
+        {
+          "path": "/assets/index-Bw2e2_ij.css",
+          "sha256": "07cd61e37b0a73e39b7a6296e6902a0339fc422bfee03da69425a7ca49100785",
+          "matches_fresh_local_build": true
+        }
+      ],
+      "all_match": true
+    }
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 4.441,
+    "async_diagnostic": {
+      "id": "ef283912-9546-443f-9fbc-57607c43c71e",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404
+  },
+  "live_ui": {
+    "browser": "Safari",
+    "selection_path": [
+      [
+        "c1",
+        "c2"
+      ],
+      [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      [
+        "c1",
+        "c2"
+      ]
+    ],
+    "stale_selection_disables_apply": true,
+    "per_column_preview_visible": true,
+    "selection_restored_when_source_reselected": true,
+    "result_restored_after_refresh": true,
+    "result_per_column_statistics_visible": true,
+    "pagination_worked_while_apply_running": true,
+    "source_page_2_first_id": "000000026"
+  },
+  "synthetic_import": {
+    "rows": 100000,
+    "seconds": 23.345,
+    "transport": "Local CSV fixture through actual import task code; not a fresh S3 download",
+    "bound_to_current_browser_session": true
+  },
+  "persisted_multi_column_audit": {
+    "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+    "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+    "rows_checked": 100000,
+    "columns": 4,
+    "selected_columns": [
+      "c1",
+      "c2"
+    ],
+    "replacement": "  $1\\中文  ",
+    "statistics": {
+      "matched_rows": 75000,
+      "matched_cells": 100000,
+      "match_count": 125000,
+      "changed_rows": 75000,
+      "changed_cells": 100000
+    },
+    "column_stats": {
+      "c1": {
+        "match_count": 50000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      },
+      "c2": {
+        "match_count": 75000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      }
+    },
+    "source_preserved": true,
+    "unselected_cells_preserved": true,
+    "parquet_partitions": 4,
+    "actual_queued_apply_seconds": 32.053,
+    "generations": [
+      {
+        "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 555,
+          "output_tokens": 149
+        }
+      },
+      {
+        "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+        "columns": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      {
+        "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    ]
+  },
+  "prior_dataset_recheck": {
+    "previous_datasets_preserved": 5,
+    "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+    "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+    "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+    "generation_jobs": [
+      {
+        "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+        "replacement": "REDACTED",
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 377,
+          "output_tokens": 116
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+        "replacement": "",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "24907cc4-1895-483b-935e-eead88716107",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      }
+    ],
+    "rows": 8,
+    "columns": 6,
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions": 4,
+    "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+  },
+  "limitations": [
+    "100,000-row synthetic browser case; historical million-row timings are not new multi-column benchmarks.",
+    "Complete persisted SQLite source/result rows checked against explicit expected cells; index is built from Parquet, not an independent second-engine Parquet replay.",
+    "Maximum 256-column real Spark test is small correctness coverage, not a wide-table memory/throughput guarantee.",
+    "One observed queued apply time, not an SLA or controlled speedup comparison.",
+    "Spark remains local[2] on one host; GitHub and video delivery remain deferred."
+  ],
+  "runtime_artifact_sha256": {
+    "local-full.log": "64f1a4d6832d234da9d9a270d3c0eba39b5efa0564276a994c697f70b345b23f",
+    "targets-tests.log": "11ceed3003b53df4b30caa1798177dd361dfb2d36f1c03c344a234b95ffe61dd",
+    "cloud-build-tests.log": "3364cdad016390059300ab9d88fdf4450b67b0e3c58c18688846e203a374485c",
+    "frontend-tests.log": "0e75119c23360d9ceac61768758881e319bd32a3fe8d3c0f88872e5e6ddf7a7b",
+    "frontend-build.log": "ef4ff1351053d331ee21a8038d08664e82a25e746dd4c05ebe760d2ee8430784",
+    "deploy.log": "6df15b7d17c9c42b893008ea60ca39415f7ad0181f043ed429edc7b574902ee2",
+    "live-result.json": "b08dfe67682e88c4d55b5b82e5f2177338e7b19ab28a381ce43337e00ab7be7c",
+    "verify_live.py": "20c49ec0503c4e08b38001cb41d218d48ff8173cc7bae492c3ce305fc1bf077b",
+    "seed_ui.py": "b4a02b8b374b6ad98495f79ed9224c664aad35fe817fce1f3d8e896c88ba2a60",
+    "ui-source.log": "d48267861a144b735c1aadd32d2fc9cedf815119566bef7e719a4cbc2655be71",
+    "server-final.json": "03a39abee0c2f8f31c5b833693bcb985ee9e19388bbbf0974f6194491b1a64c3",
+    "retained-results.json": "f792dccd33c0060a4932920f3e4140fa0be8f45b65716e61ffb4d79c04d3ea87",
+    "public-final.json": "7593ca1af9d88f6f5a31c9fc50d192213c618cf8a79f8996924922a3177231ad",
+    "frontend-assets.json": "e432397ae803203e627f12a33fcc068da09012ea88ebcb57587fff427712a901"
+  },
+  "source_safety": {
+    "source_files": 130,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  }
+}

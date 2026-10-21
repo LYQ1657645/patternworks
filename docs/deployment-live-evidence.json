@@ -1,0 +1,192 @@
+{
+  "recorded_at": "2026-10-17T17:25:33.277305+11:00",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "infrastructure_ready": true,
+  "instance": {
+    "instance_name": "patternworks-demo",
+    "region": "ap-southeast-2",
+    "availability_zone": "ap-southeast-2a",
+    "static_public_ipv4": "32.237.44.97",
+    "static_ip_name": "patternworks-demo-ip",
+    "operating_system": "Ubuntu 24.04.4 LTS",
+    "machine": "x86_64",
+    "ram_gib_reported": 7.6,
+    "root_disk_gib_reported": 154,
+    "guest_logical_cpu_count": 2,
+    "docker_engine": "29.9.1",
+    "docker_compose": "5.6.0",
+    "backend_image": "sha256:a63b57e29e003c79be4dabe5f522d137d12607cc3b8786712d144cd2973452b5",
+    "frontend_image": "sha256:bf0bef800a11bd7dcb3f0fe878f0164e6cd2faa3ec4aee600eae238c7a0e5692",
+    "source_package_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "source_files_verified": 110
+  },
+  "https": {
+    "http": {
+      "status": 308,
+      "location": "https://patternworks.32-237-44-97.nip.io/"
+    },
+    "https": {
+      "status": 401,
+      "location": ""
+    },
+    "certificate": {
+      "trusted": true,
+      "issuer": {
+        "countryName": "US",
+        "organizationName": "Let's Encrypt",
+        "commonName": "YE1"
+      },
+      "not_after": "Jan 15 00:40:51 2027 GMT",
+      "subject_alt_names": [
+        [
+          "DNS",
+          "patternworks.32-237-44-97.nip.io"
+        ]
+      ]
+    }
+  },
+  "public_api": {
+    "url": "https://patternworks.32-237-44-97.nip.io",
+    "secure_session_cookies": true,
+    "csrf_without_token": 403,
+    "initial_http_status": 202,
+    "submission_seconds": 1.237,
+    "job_id": "f359b818-b124-451a-ac7b-ab04f7d75e8c",
+    "final_status": "SUCCESS",
+    "shared_cache": "ok",
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Day 5 \u2014 scale validation and recovery"
+    }
+  },
+  "frontend_http": {
+    "authenticated_html_status": 200,
+    "expected_title_present": true,
+    "assets": [
+      {
+        "path": "/assets/index-uaKSlhcb.js",
+        "http_status": 200,
+        "bytes": 255339,
+        "content_type": "application/javascript"
+      },
+      {
+        "path": "/assets/index-CZuo1rXl.css",
+        "http_status": 200,
+        "bytes": 14908,
+        "content_type": "text/css"
+      }
+    ],
+    "browser_rendering_verified": true
+  },
+  "private_ports": {
+    "5432": {
+      "publicly_reachable": false
+    },
+    "6379": {
+      "publicly_reachable": false
+    },
+    "5555": {
+      "publicly_reachable": false
+    },
+    "5173": {
+      "publicly_reachable": false
+    }
+  },
+  "cloud_tests": {
+    "passed": 204,
+    "elapsed_seconds": 78.16,
+    "real_spark_tests": 5
+  },
+  "openai_live_check": {
+    "passed": true,
+    "minimal_request": true,
+    "max_output_tokens": 16,
+    "source_data_or_s3_credentials_sent": false
+  },
+  "private_settings": {
+    "server_env_target": "/home/ubuntu/patternworks/.env.production",
+    "mode": "0600",
+    "local_env_or_datasets_uploaded": false,
+    "server_key_transfer_authorized": true,
+    "reviewer_password_shared_privately": true,
+    "source_secret_scan_matches": 0
+  },
+  "ssh": {
+    "password_authentication": false,
+    "public_key_authentication": true,
+    "source_ip_restriction_applied": true,
+    "restriction_blocker": null,
+    "lightsail_browser_ssh_retained": true,
+    "new_connection_after_restriction_passed": true,
+    "current_management_connection_available": true,
+    "current_management_blocker": null,
+    "management_address_updated_at": "2026-10-17T17:25:33.277305+11:00"
+  },
+  "browser_rendering_verified": true,
+  "browser_blocker": null,
+  "fresh_cloud_s3_import_verified": true,
+  "s3_acceptance_requirement": "User entered bucket-scoped read-only credentials directly in the HTTPS form; CSV and Contacts XLSX imports passed in Safari.",
+  "cloud_million_benchmark": {
+    "status": "complete",
+    "report": "deployment-million-evidence.json",
+    "scope": "synthetic CSV transport and preseeded validated value cache; no S3/model calls; production worker memory limit 4 GiB",
+    "rows": 1000000,
+    "all_four_stages_exact": true,
+    "all_stage_digests_match_local_final": true,
+    "source_preserved": true,
+    "pagination_exact": true,
+    "peak_container_mib": 2082.4
+  },
+  "post_benchmark_services": {
+    "running": 8,
+    "healthy": [
+      "backend",
+      "postgres",
+      "redis"
+    ]
+  },
+  "browser_ui": {
+    "browser": "Safari",
+    "https_login_passed": true,
+    "homepage_rendered": true,
+    "api_status_visible": true,
+    "connection_check_clicked": true,
+    "job_id": "0a446fdf-366c-4560-a72e-7b84fcddc022",
+    "final_status": "SUCCESS",
+    "progress_percent": 100,
+    "s3_connection_waiting_for_user": false,
+    "full_fixture_report": "deployment-browser-evidence.json"
+  },
+  "post_benchmark_public_health": {
+    "status": "ok",
+    "checks": {
+      "database": "ok",
+      "redis": "ok"
+    },
+    "openai_configured": true,
+    "phase": "Day 5 \u2014 scale validation and recovery"
+  },
+  "persisted_fixture_audit": {
+    "passed": true,
+    "report": "deployment-artifact-evidence.json",
+    "datasets": 5,
+    "rows_each": 8,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions_each": 4
+  },
+  "latest_functional_update": {
+    "recorded_at": "2026-10-18T13:52:05.972884+11:00",
+    "report": "day6-functional-evidence.json",
+    "local_tests_passed": 211,
+    "cloud_tests_passed": 211,
+    "replacement_input_deployed": true,
+    "live_fixture_audit_passed": true
+  }
+}

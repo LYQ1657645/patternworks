@@ -1,0 +1,96 @@
+{
+  "source_dataset_id": "6e1b0787-2393-4231-b487-0c2e283b46a9",
+  "date_result_id": "0fcc39ea-2736-4e1c-a1d7-0b4352ada055",
+  "category_result_id": "a29a027a-ee1d-41af-8da2-e7468d20b723",
+  "jobs": [
+    {
+      "id": "7023f8e4-5911-4f62-81f1-9f32340e1efb",
+      "kind": "PREVIEW_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 4.193
+    },
+    {
+      "id": "03b9b826-c916-444e-b8d6-1c31cc40e1af",
+      "kind": "APPLY_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 9.389
+    },
+    {
+      "id": "280e8d59-dfb0-42f5-a73e-8b72ed653731",
+      "kind": "PREVIEW_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 3.91
+    },
+    {
+      "id": "18c8e989-c8d9-475a-848b-99034a8adca7",
+      "kind": "PREVIEW_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 0.139
+    },
+    {
+      "id": "c13e00bb-b4bf-4191-9f2c-d988724cb8aa",
+      "kind": "APPLY_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 15.874
+    }
+  ],
+  "date_preview_usage": {
+    "model_calls": 1,
+    "input_tokens": 516,
+    "cached_values": 0,
+    "output_tokens": 142,
+    "unique_values": 8
+  },
+  "category_preview_usage": {
+    "model_calls": 1,
+    "input_tokens": 502,
+    "cached_values": 0,
+    "output_tokens": 78,
+    "unique_values": 6
+  },
+  "category_preview_after_container_rebuild": {
+    "model_calls": 0,
+    "input_tokens": 0,
+    "cached_values": 6,
+    "output_tokens": 0,
+    "unique_values": 6
+  },
+  "date_apply_usage": {
+    "model_calls": 0,
+    "input_tokens": 0,
+    "cached_values": 8,
+    "output_tokens": 0,
+    "unique_values": 8
+  },
+  "category_apply_usage": {
+    "model_calls": 0,
+    "input_tokens": 0,
+    "cached_values": 6,
+    "output_tokens": 0,
+    "unique_values": 6
+  },
+  "cache_entry_count": 14,
+  "cache_minimum_ttl_seconds": 3296,
+  "date_status_counts": {
+    "normalized": 8
+  },
+  "category_status_counts": {
+    "classified": 8
+  },
+  "category_distribution": {
+    "USA": 4,
+    "Australia": 4
+  },
+  "source_columns": 6,
+  "date_result_columns": 8,
+  "category_result_columns": 10,
+  "rows": 8,
+  "partition_counts": {
+    "6e1b0787-2393-4231-b487-0c2e283b46a9": 4,
+    "0fcc39ea-2736-4e1c-a1d7-0b4352ada055": 4,
+    "a29a027a-ee1d-41af-8da2-e7468d20b723": 4
+  },
+  "exact_expected_output": true,
+  "source_preserved": true,
+  "pagination_exact_once": true
+}

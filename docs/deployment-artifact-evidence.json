@@ -1,0 +1,388 @@
+{
+  "public_browser": "Safari",
+  "real_s3_csv_xlsx": true,
+  "real_openai_previews": true,
+  "datasets": [
+    {
+      "dataset_id": "05d79c86-f190-431d-8542-a2ac5eaa59da",
+      "parent_id": null,
+      "source_format": "csv",
+      "sheet_name": "",
+      "columns": 6,
+      "rows": 8,
+      "exact_expected_cells": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_sha256": "5daef58e30b7e3a496ff2642b77c113b206b775f0842f204f46b68331f6950f1",
+      "metadata": {
+        "row_count": 8,
+        "sheet_name": "",
+        "sheet_names": [],
+        "source_etag": "\"43d9e4e025593711efc5835d595e90a7\"",
+        "source_bytes": 831,
+        "spark_master": "local[2]",
+        "spark_version": "4.0.3",
+        "source_version": "",
+        "partition_count": 4,
+        "preview_cell_limit": 4096
+      }
+    },
+    {
+      "dataset_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+      "parent_id": null,
+      "source_format": "xlsx",
+      "sheet_name": "Contacts",
+      "columns": 6,
+      "rows": 8,
+      "exact_expected_cells": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_sha256": "5daef58e30b7e3a496ff2642b77c113b206b775f0842f204f46b68331f6950f1",
+      "metadata": {
+        "row_count": 8,
+        "sheet_name": "Contacts",
+        "sheet_names": [
+          "Contacts"
+        ],
+        "source_etag": "\"34a5a43619c816bfee29d13d65803820\"",
+        "source_bytes": 4276,
+        "spark_master": "local[2]",
+        "spark_version": "4.0.3",
+        "source_version": "",
+        "partition_count": 4,
+        "preview_cell_limit": 4096
+      }
+    },
+    {
+      "dataset_id": "d444006b-a13c-445e-b087-71befdafee6e",
+      "parent_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+      "source_format": "xlsx",
+      "sheet_name": "Contacts",
+      "columns": 6,
+      "rows": 8,
+      "exact_expected_cells": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_sha256": "25fe0b50bbf60c1105f095be31193c62420ef89088ae32532724ee45287a578e",
+      "metadata": {
+        "column": "c5",
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "rule_id": "3579a4c6-460d-4afe-a92b-3c89fb3559ab",
+        "operation": "regex_replace",
+        "parent_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+        "row_count": 8,
+        "match_count": 4,
+        "changed_rows": 3,
+        "matched_rows": 3,
+        "regex_engine": "RE2",
+        "spark_master": "local[2]",
+        "spark_version": "4.0.3",
+        "partition_count": 4,
+        "preview_cell_limit": 4096
+      }
+    },
+    {
+      "dataset_id": "69b25881-17db-4dff-a0d5-09f27e68bc45",
+      "parent_id": "d444006b-a13c-445e-b087-71befdafee6e",
+      "source_format": "xlsx",
+      "sheet_name": "Contacts",
+      "columns": 8,
+      "rows": 8,
+      "exact_expected_cells": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_sha256": "8765f86c5402b529883748a6bb2da42fe9f514eb5bea24aedbe06f207f0b742a",
+      "metadata": {
+        "model": "gpt-4.1-mini",
+        "column": "c3",
+        "llm_usage": {
+          "model_calls": 0,
+          "input_tokens": 0,
+          "cached_values": 8,
+          "output_tokens": 0,
+          "unique_values": 8
+        },
+        "operation": "date_normalize",
+        "parent_id": "d444006b-a13c-445e-b087-71befdafee6e",
+        "row_count": 8,
+        "spark_master": "local[2]",
+        "output_column": "c6",
+        "spark_version": "4.0.3",
+        "status_column": "c7",
+        "status_counts": {
+          "normalized": 8
+        },
+        "policy_version": "column-values-v1",
+        "partition_count": 4,
+        "transformation_id": "b9ffeb49-4776-417c-9f9a-a93ba0b2fde8",
+        "preview_cell_limit": 4096
+      }
+    },
+    {
+      "dataset_id": "29990a11-db4c-443d-8011-0bab813ef871",
+      "parent_id": "69b25881-17db-4dff-a0d5-09f27e68bc45",
+      "source_format": "xlsx",
+      "sheet_name": "Contacts",
+      "columns": 10,
+      "rows": 8,
+      "exact_expected_cells": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_sha256": "4f962055550e41804d3d47d82744ec3faa49fa72fa4d118e9c7914240396b466",
+      "metadata": {
+        "model": "gpt-4.1-mini",
+        "column": "c4",
+        "llm_usage": {
+          "model_calls": 0,
+          "input_tokens": 0,
+          "cached_values": 6,
+          "output_tokens": 0,
+          "unique_values": 6
+        },
+        "operation": "categorize",
+        "parent_id": "69b25881-17db-4dff-a0d5-09f27e68bc45",
+        "row_count": 8,
+        "spark_master": "local[2]",
+        "output_column": "c8",
+        "spark_version": "4.0.3",
+        "status_column": "c9",
+        "status_counts": {
+          "classified": 8
+        },
+        "policy_version": "column-values-v1",
+        "partition_count": 4,
+        "transformation_id": "1f2e83b8-cc1e-4da6-adbc-7d5eeb84eb06",
+        "preview_cell_limit": 4096
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": "0a446fdf-366c-4560-a72e-7b84fcddc022",
+      "kind": "DIAGNOSTIC",
+      "status": "SUCCESS",
+      "duration_seconds": 0.026
+    },
+    {
+      "id": "0a50696b-6ff6-4bfa-8ed9-bc528acab65c",
+      "kind": "CONNECT_S3",
+      "status": "SUCCESS",
+      "duration_seconds": 0.186
+    },
+    {
+      "id": "949303d3-f5a2-4fcb-8047-2dae94aca2c7",
+      "kind": "IMPORT_DATASET",
+      "status": "SUCCESS",
+      "duration_seconds": 17.098
+    },
+    {
+      "id": "6fd74f62-cce0-481a-89bd-8e7bd47f74c5",
+      "kind": "IMPORT_DATASET",
+      "status": "SUCCESS",
+      "duration_seconds": 1.835
+    },
+    {
+      "id": "35c5d3fc-38f1-482f-aa40-8fef5ce2b80b",
+      "kind": "GENERATE_RULE",
+      "status": "SUCCESS",
+      "duration_seconds": 4.667
+    },
+    {
+      "id": "6a8e9624-5401-474e-bbbd-96ea4c4327a7",
+      "kind": "GENERATE_RULE",
+      "status": "SUCCESS",
+      "duration_seconds": 0.053
+    },
+    {
+      "id": "a9aca2d9-2f94-4ed2-8c9b-873544c10d61",
+      "kind": "APPLY_RULE",
+      "status": "SUCCESS",
+      "duration_seconds": 6.451
+    },
+    {
+      "id": "ff782bf3-f6b4-44c4-8428-52251d1c55ef",
+      "kind": "PREVIEW_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 2.586
+    },
+    {
+      "id": "df00cf09-7bde-42a5-b146-44f612eab6e6",
+      "kind": "APPLY_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 7.054
+    },
+    {
+      "id": "f3942f2b-9551-4a20-a02b-b960763daf67",
+      "kind": "PREVIEW_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 1.513
+    },
+    {
+      "id": "938d9fc8-5638-4d06-89b2-26f8f3bf37c0",
+      "kind": "APPLY_TRANSFORM",
+      "status": "SUCCESS",
+      "duration_seconds": 6.832
+    }
+  ],
+  "regex_rules": [
+    {
+      "cache_hit": false,
+      "usage": {
+        "input_tokens": 348,
+        "output_tokens": 166
+      },
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "replacement": "[EMAIL]"
+    },
+    {
+      "cache_hit": true,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+      "replacement": "[EMAIL]"
+    }
+  ],
+  "transformations": [
+    {
+      "kind": "DATE",
+      "usage": {
+        "model_calls": 1,
+        "input_tokens": 516,
+        "cached_values": 0,
+        "output_tokens": 142,
+        "unique_values": 8
+      },
+      "status": "READY",
+      "preview": {
+        "counts": {
+          "normalized": 8
+        },
+        "examples": [
+          {
+            "after": "2026-10-01",
+            "before": "2026-10-01",
+            "status": "normalized",
+            "row_number": 1
+          },
+          {
+            "after": "2026-10-02",
+            "before": "2026/10/02",
+            "status": "normalized",
+            "row_number": 2
+          },
+          {
+            "after": "2026-10-03",
+            "before": "03 Oct 2026",
+            "status": "normalized",
+            "row_number": 3
+          },
+          {
+            "after": "2026-10-04",
+            "before": "2026-10-04",
+            "status": "normalized",
+            "row_number": 4
+          },
+          {
+            "after": "2026-10-05",
+            "before": "2026/10/05",
+            "status": "normalized",
+            "row_number": 5
+          },
+          {
+            "after": "2026-10-06",
+            "before": "06 Oct 2026",
+            "status": "normalized",
+            "row_number": 6
+          },
+          {
+            "after": "2026-10-07",
+            "before": "2026-10-07",
+            "status": "normalized",
+            "row_number": 7
+          },
+          {
+            "after": "2026-10-08",
+            "before": "2026/10/08",
+            "status": "normalized",
+            "row_number": 8
+          }
+        ],
+        "sampled_rows": 8
+      }
+    },
+    {
+      "kind": "CATEGORY",
+      "usage": {
+        "model_calls": 1,
+        "input_tokens": 502,
+        "cached_values": 0,
+        "output_tokens": 78,
+        "unique_values": 6
+      },
+      "status": "READY",
+      "preview": {
+        "counts": {
+          "classified": 8
+        },
+        "examples": [
+          {
+            "after": "USA",
+            "before": "USA",
+            "status": "classified",
+            "row_number": 1
+          },
+          {
+            "after": "USA",
+            "before": "U.S.",
+            "status": "classified",
+            "row_number": 2
+          },
+          {
+            "after": "USA",
+            "before": "United States",
+            "status": "classified",
+            "row_number": 3
+          },
+          {
+            "after": "Australia",
+            "before": "Australia",
+            "status": "classified",
+            "row_number": 4
+          },
+          {
+            "after": "Australia",
+            "before": "AU",
+            "status": "classified",
+            "row_number": 5
+          },
+          {
+            "after": "Australia",
+            "before": "AUS",
+            "status": "classified",
+            "row_number": 6
+          },
+          {
+            "after": "USA",
+            "before": "USA",
+            "status": "classified",
+            "row_number": 7
+          },
+          {
+            "after": "Australia",
+            "before": "Australia",
+            "status": "classified",
+            "row_number": 8
+          }
+        ],
+        "sampled_rows": 8
+      }
+    }
+  ],
+  "source_preserved": true,
+  "all_exact_expected_cells": true,
+  "pagination_exact_once": true,
+  "recorded_at": "2026-10-17T17:25:33.277305+11:00",
+  "verification_scope": "Read-only PostgreSQL records, persisted SQLite page cells against explicit fixture expectations, exact 3-row cursor traversal, and four Parquet partition files per dataset; no new S3/OpenAI calls."
+}

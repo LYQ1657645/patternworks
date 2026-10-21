@@ -1,0 +1,441 @@
+{
+  "checked_at": "2026-10-18T14:24:51.086461+11:00",
+  "assessment_url": "https://drive.google.com/file/d/17dskAyCYFGbcwX_7yo-VHqpEl14zeciK/view",
+  "scope": "Requirements audit; application implementation and production configuration unchanged.",
+  "overall_acceptance": "NEEDS_FIXES",
+  "existing_suite": {
+    "passed": 211,
+    "failed": 0,
+    "seconds": 16.96,
+    "spark_tests": 5,
+    "source": "current backend mounted read-only",
+    "database": "isolated SQLite",
+    "cache": "isolated local memory"
+  },
+  "new_backend_probes": {
+    "desired_behavior_failures": 5,
+    "unfixed_findings": [
+      "F1",
+      "F2",
+      "F3",
+      "F4"
+    ],
+    "xfail_initial_run": 5,
+    "runxfail_exit_code": 1,
+    "runxfail_seconds": 0.53,
+    "environment_errors_excluded": true
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "priority": "P1",
+      "name": "Truncated-cell regex preview differs from full execution",
+      "evidence": "two independent assertions fail"
+    },
+    {
+      "id": "F2",
+      "priority": "P1",
+      "name": "Native Excel dates become unsupported timestamp text",
+      "evidence": "real generated XLSX parsed then independent date validator rejects"
+    },
+    {
+      "id": "F3",
+      "priority": "P2",
+      "name": "Sparse trailing XLSX header rejects valid populated column",
+      "evidence": "real generated XLSX raises ROW_WIDTH"
+    },
+    {
+      "id": "F4",
+      "priority": "P2",
+      "name": "Cancelled cleanup repeatedly selects same newest 100 jobs",
+      "evidence": "101 synthetic records; oldest artifact remains after three passes"
+    },
+    {
+      "id": "F5",
+      "priority": "P2",
+      "name": "Generated regex matches prefixes of overlong phone/order identifiers",
+      "evidence": "two RE2 negative cases against actual provider responses"
+    },
+    {
+      "id": "F6",
+      "priority": "P2",
+      "name": "Frontend loses retryable persisted job in HTTP 503 response",
+      "evidence": "actual api.ts transpiled and invoked with controlled fetch"
+    },
+    {
+      "id": "F7",
+      "priority": "P3",
+      "name": "Deployed workflow still labels completed features as future work",
+      "evidence": "Safari visible state after reload and source inspection"
+    }
+  ],
+  "live_model_basic_examples": {
+    "model": "gpt-4.1-mini",
+    "regex": [
+      {
+        "case": "email-en",
+        "passed": true,
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "actual_matches": [
+          [
+            "alice@example.com",
+            "bob@test.org"
+          ],
+          []
+        ]
+      },
+      {
+        "case": "email-zh",
+        "passed": true,
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "actual_matches": [
+          [
+            "alice@example.com"
+          ],
+          []
+        ]
+      },
+      {
+        "case": "mobile",
+        "passed": true,
+        "pattern": "04\\d{8}",
+        "actual_matches": [
+          [
+            "0412345678",
+            "0498765432"
+          ],
+          []
+        ]
+      },
+      {
+        "case": "order",
+        "passed": true,
+        "pattern": "ORD-[0-9]{6}",
+        "actual_matches": [
+          [
+            "ORD-123456",
+            "ORD-654321"
+          ],
+          []
+        ]
+      }
+    ],
+    "date": [
+      {
+        "policy": "REJECT",
+        "passed": true,
+        "results": [
+          {
+            "value": "2024-02-29",
+            "status": "normalized"
+          },
+          {
+            "value": null,
+            "status": "invalid"
+          },
+          {
+            "value": null,
+            "status": "ambiguous"
+          },
+          {
+            "value": "2026-10-18",
+            "status": "normalized"
+          },
+          {
+            "value": "2026-10-18",
+            "status": "normalized"
+          }
+        ]
+      },
+      {
+        "policy": "DAY_FIRST",
+        "passed": true,
+        "results": [
+          {
+            "value": "2024-02-29",
+            "status": "normalized"
+          },
+          {
+            "value": null,
+            "status": "invalid"
+          },
+          {
+            "value": "2026-04-03",
+            "status": "normalized"
+          },
+          {
+            "value": "2026-10-18",
+            "status": "normalized"
+          },
+          {
+            "value": "2026-10-18",
+            "status": "normalized"
+          }
+        ]
+      }
+    ],
+    "category": {
+      "passed": true,
+      "results": [
+        {
+          "value": "Sales",
+          "status": "classified"
+        },
+        {
+          "value": "Support",
+          "status": "classified"
+        },
+        {
+          "value": "Other",
+          "status": "classified"
+        },
+        {
+          "value": "Sales",
+          "status": "classified"
+        },
+        {
+          "value": "Support",
+          "status": "classified"
+        }
+      ]
+    },
+    "input_tokens": 2968,
+    "output_tokens": 618,
+    "unsupported_request": {
+      "passed": true,
+      "error_code": "RULE_UNSUPPORTED"
+    },
+    "all_passed": true,
+    "requested_provider_calls": 8,
+    "usage_note": "Token totals cover seven supported calls; unsupported reply usage is not returned by the application."
+  },
+  "live_model_negative_examples": {
+    "basic_examples_passed": true,
+    "negative_length_cases": [
+      {
+        "case": "mobile",
+        "input": "04123456789",
+        "expected": [],
+        "actual": [
+          "0412345678"
+        ],
+        "passed": false
+      },
+      {
+        "case": "order",
+        "input": "ORD-1234567",
+        "expected": [],
+        "actual": [
+          "ORD-123456"
+        ],
+        "passed": false
+      }
+    ],
+    "all_cases_passed": false
+  },
+  "frontend_error_probe": {
+    "response_contains_retryable_job": true,
+    "error_message": "The task queue is unavailable. Please try again.",
+    "client_preserves_job_id": false,
+    "client_preserves_retry_flag": false,
+    "ui_consequence": "Caller catches Error and only sets error text; current Task activity is not updated until reload."
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Day 5 — scale validation and recovery"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 1.047,
+    "async_diagnostic": {
+      "id": "3213cd5c-bec8-43b1-8fa6-8cdd18142298",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404,
+    "invalid_s3": {
+      "job_id": "52c7f4ee-c654-4832-a30a-1fb197d980f5",
+      "status": "FAILED",
+      "error_code": "S3_ACCESS_DENIED",
+      "message": "AWS denied access. Check credentials, bucket name and IAM permissions."
+    }
+  },
+  "server_snapshot": {
+    "jobs_by_status": [
+      {
+        "status": "SUCCESS",
+        "count": 24
+      },
+      {
+        "status": "FAILED",
+        "count": 1
+      }
+    ],
+    "datasets_by_status": [
+      {
+        "status": "READY",
+        "count": 11
+      }
+    ],
+    "expired_connections_with_ciphertext": 0,
+    "active_jobs": 0,
+    "disk": {
+      "total_gib": 153.94,
+      "used_gib": 7.6,
+      "free_gib": 146.32
+    },
+    "configuration": {
+      "spark_master": "local[2]",
+      "spark_partitions": 4,
+      "watchdog": true
+    },
+    "invalid_s3_ciphertext_erased": true,
+    "backend_files_checked": 41,
+    "backend_source_mismatches": []
+  },
+  "persisted_output_recheck": {
+    "previous_datasets_preserved": 5,
+    "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+    "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+    "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+    "generation_jobs": [
+      {
+        "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+        "replacement": "REDACTED",
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 377,
+          "output_tokens": 116
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+        "replacement": "",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "24907cc4-1895-483b-935e-eead88716107",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      }
+    ],
+    "rows": 8,
+    "columns": 6,
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions": 4,
+    "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+  },
+  "frontend_assets": {
+    "assets": [
+      {
+        "path": "/assets/index-DlTX2Cp8.js",
+        "sha256": "e7e0ae709af91d614d260f607457929d46c55d09e64f8a23e069f9e225376f92",
+        "matches_fresh_local_build": true
+      },
+      {
+        "path": "/assets/index-CZuo1rXl.css",
+        "sha256": "f39f31c49155b0f26dd7058579d8197306f8ca86fb3bc7b6317657c0fbca0758",
+        "matches_fresh_local_build": true
+      }
+    ],
+    "all_match": true
+  },
+  "frontend_fresh_build": {
+    "typescript": "passed",
+    "vite": "passed",
+    "vite_seconds": 0.357
+  },
+  "django_system_check": "passed",
+  "migration_consistency": "No changes detected",
+  "source_secret_scan": {
+    "files_scanned": 118,
+    "configured_values_checked": 5,
+    "matching_file_paths": [],
+    "passed": true
+  },
+  "browser": {
+    "name": "Safari",
+    "public_result_visible": true,
+    "refresh_restored_job_and_result": true,
+    "independent_replacement_input_visible": true,
+    "stale_milestone_copy_visible": true
+  },
+  "historical_only": [
+    "million-row performance timings",
+    "active Spark cancellation fault injection",
+    "worker kill and recovery",
+    "Redis outage and recovery",
+    "successful actual S3 CSV/XLSX import"
+  ],
+  "not_claimed": [
+    "fresh successful S3 import",
+    "new million-row timing",
+    "multi-host Spark",
+    "million-row Excel",
+    "unlimited/high-cardinality paid LLM scale",
+    "complete security assessment",
+    "GitHub delivery",
+    "README video"
+  ],
+  "runtime_evidence_sha256": {
+    "test_audit_edges.py": "4c633ebf3b2fa8cfd1a2d4d813f45f16128b61efce6621f6a1f11418202dcf78",
+    "edge-failures.log": "14dbba85e4b5dbe85265bb49436d2d49da5c5cee1af61db40dcba91995a05509",
+    "baseline-tests.log": "62002e842e12432e062b3fb1be793707a4e8eec471c27721c52f05e7d049704a",
+    "model_matrix.py": "4c9010582d5238a9cc3a7094d3ac7ec5fbe4e79ebfa4c0c9ed8771a38d6710ce",
+    "live-model-matrix.json": "dd04f7c6f9b08ad757ea7c888d3b960b4e942acdd5530be0da688999481e653d",
+    "check_semantic_edges.py": "131a7c65650a49c19c715144ad704267c6781809ea0c58bdf641f5ade2b5646a",
+    "semantic-edges.json": "c30617ccf9136bf6650d88fec0fea7b126ff1bece58432d54e9e8d4a3abc214a",
+    "check_client_error.mjs": "e4bc269fb542734bf9dc197d7226e9934e5c935852a7a1a721a3b478945a5821",
+    "client-error-probe.json": "0754b5d14d816e7275082c8653747fc57d6907fb17722a01efcf7f79db054558",
+    "public-http.json": "c20a18b6d88773222902ac303c0db5f19b0d3efd522cadab7cc3229490f71182",
+    "server-readonly.json": "6ca4e5e4221d09dcc19a68d9ef103c9e106f826cc76d53ad2557426348ab0439",
+    "persisted-results.json": "f792dccd33c0060a4932920f3e4140fa0be8f45b65716e61ffb4d79c04d3ea87",
+    "frontend-assets.json": "d28ada5a1807a19d2fae9a68c2400def85debb55ca2ca75af88eddf6aae71e06",
+    "frontend-fresh-build.log": "c7c08f40c1d97cd2a7e3e9f9b9dfff3b01d61a50a8bd7a176e09966f47898bb7"
+  }
+}

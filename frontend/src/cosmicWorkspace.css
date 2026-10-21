@@ -1,0 +1,235 @@
+/* One workspace, one sky. The interactive library retains its own scene layout. */
+.cosmic-shell {
+  --bg: #070b14;
+  --surface: #111a2a;
+  --raised: #1a2639;
+  --ink: #e9edf6;
+  --muted: #afbdd0;
+  --border: #344256;
+  --accent: #d0ddf4;
+  --accent-ink: #162237;
+  --warning: #e2be88;
+  --danger: #f0a492;
+  --sheet: #eef2fa;
+  --sheet-ink: #26364c;
+  --sheet-muted: #59697c;
+  color-scheme: dark;
+  color: var(--ink);
+  background: var(--bg);
+  position: relative;
+  isolation: isolate;
+}
+
+.workspace-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 90% 18%, #49396055, transparent 52%),
+    radial-gradient(ellipse at 6% 58%, #2d527646, transparent 56%),
+    radial-gradient(ellipse at 58% 100%, #2639513b, transparent 55%),
+    #070b14;
+}
+
+.workspace-sky canvas { display: block; width: 100%; height: 100%; }
+.cosmic-shell .library-galaxy { background: transparent; }
+.cosmic-shell > main { position: relative; }
+.cosmic-shell .shell-header {
+  position: relative;
+  z-index: 5;
+  max-width: none;
+  padding-inline: 4vw;
+  border: 0;
+  background: transparent;
+}
+.cosmic-shell .brand-symbol::before,
+.cosmic-shell .brand-symbol::after { border-color: #bed0ed; }
+.cosmic-shell .workspace-nav a,
+.cosmic-shell .nav-activity { color: #b6c3d8; }
+.cosmic-shell .workspace-nav a:hover,
+.cosmic-shell .workspace-nav a[aria-current="page"],
+.cosmic-shell .nav-activity:hover { color: #f5f7fc; }
+.cosmic-shell .workspace-nav a[aria-current="page"]::after { background: #d0ddf4; }
+.cosmic-shell .appearance-controls label { background: #121b2c; }
+.cosmic-shell .activity-drawer { background: #101827; }
+.cosmic-shell .activity-drawer .history-detail { background: #172234; }
+
+/* Editing surfaces are quiet and opaque enough to read, with the sky around them. */
+.cosmic-shell:not(.universe-shell) .content {
+  max-width: 1344px;
+  padding: 24px 48px 0;
+}
+.cosmic-shell:not(.universe-shell) .route-heading {
+  min-height: 0;
+  margin-bottom: 32px;
+  gap: 24px;
+}
+.cosmic-shell:not(.universe-shell) .route-heading h1 {
+  font-size: clamp(30px, 3vw, 40px);
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.cosmic-shell:not(.universe-shell) .route-heading h1 br { display: none; }
+.cosmic-shell:not(.universe-shell) .route-heading h1 em { margin-left: .25em; color: #b9cce9; }
+.cosmic-shell:not(.universe-shell) .route-heading p { max-width: 48em; color: #b7c5d9; }
+.cosmic-shell:not(.universe-shell) .route-sources { align-items: flex-start; }
+.cosmic-shell:not(.universe-shell) .source-folder {
+  min-height: 130px;
+  height: 130px;
+  width: 190px;
+  padding: 0;
+  transform: scale(.58);
+  transform-origin: top right;
+  margin-bottom: -40px;
+  opacity: .8;
+}
+
+.cosmic-shell:not(.universe-shell) .source-login .connection-card {
+  max-width: 620px;
+  margin: 0;
+  padding: 30px 32px;
+  border: 1px solid #2b374a;
+  border-radius: 16px;
+  background: #0d1625f5;
+}
+.cosmic-shell:not(.universe-shell) .source-connected .files-card,
+.cosmic-shell:not(.universe-shell) .dataset-card {
+  padding: 28px 32px;
+  border: 1px solid #29364a;
+  border-radius: 16px;
+  background: #0d1625f5;
+}
+.cosmic-shell:not(.universe-shell) .source-connected .card-heading { margin-bottom: 20px; }
+.cosmic-shell:not(.universe-shell) .card-heading { border-color: #2c394d; }
+.cosmic-shell:not(.universe-shell) .section-icon { color: #b4c8e8; }
+.cosmic-shell:not(.universe-shell) .guidance { color: #c9d6e8; font-weight: 400; }
+.cosmic-shell:not(.universe-shell) input,
+.cosmic-shell:not(.universe-shell) textarea,
+.cosmic-shell:not(.universe-shell) select {
+  background: #121d2e;
+  border-color: #3b4d66;
+  color: #edf2fb;
+}
+.cosmic-shell:not(.universe-shell) input::placeholder,
+.cosmic-shell:not(.universe-shell) textarea::placeholder { color: #a0b1c9; }
+.cosmic-shell:not(.universe-shell) input:disabled,
+.cosmic-shell:not(.universe-shell) textarea:disabled,
+.cosmic-shell:not(.universe-shell) select:disabled { color: #b5c2d5; background: #172234; }
+.cosmic-shell:not(.universe-shell) .secondary-button { background: #172234; border-color: #3b4b63; }
+.cosmic-shell:not(.universe-shell) .secondary-button:hover:not(:disabled) { background: #24334b; }
+.cosmic-shell:not(.universe-shell) .text-button { color: #becce2; }
+.cosmic-shell:not(.universe-shell) .text-button:hover:not(:disabled) { color: #fff; }
+.cosmic-shell:not(.universe-shell) .file-row { border-color: #2d3a4e; }
+.cosmic-shell:not(.universe-shell) .file-row:hover:not(:disabled) { background: #18253a; }
+.cosmic-shell:not(.universe-shell) .file-row.selected { background: #202e45; }
+.cosmic-shell:not(.universe-shell) .column-options label { background: #162235; border-color: #3b4b62; }
+.cosmic-shell:not(.universe-shell) .column-options label:has(input:checked) {
+  background: #23324a;
+  border-color: #a6bddc;
+}
+.cosmic-shell:not(.universe-shell) .tool-switcher button[aria-pressed="true"] { color: #f6f8fd; border-color: #c0d2ef; }
+.cosmic-shell:not(.universe-shell) .loom-record { border-color: #bcc9dc; box-shadow: 0 12px 28px #0003; }
+.cosmic-shell:not(.universe-shell) .loom-record.updated::before { background: #5b7fba; }
+.cosmic-shell:not(.universe-shell) .loom-threads { color: #b8c8ed; }
+.cosmic-shell:not(.universe-shell) .table-scroll { background: #0e1828; border-color: #2e3b50; }
+.cosmic-shell:not(.universe-shell) .preview-table th { color: #b9c7dc; }
+.cosmic-shell:not(.universe-shell) .preview-table td { color: #e3ebf7; }
+.cosmic-shell:not(.universe-shell) .preview-table td,
+.cosmic-shell:not(.universe-shell) .preview-table th { border-color: #29364a; }
+.cosmic-shell:not(.universe-shell) .preview-table tbody tr:hover { background: #1a283d; }
+.cosmic-shell:not(.universe-shell) .dataset-summary { margin-bottom: 24px; }
+.cosmic-shell:not(.universe-shell) .selected-dataset-bar {
+  float: right;
+  margin: 0 0 16px 24px;
+}
+.cosmic-shell:not(.universe-shell) .selected-dataset-bar a.primary-button { color: var(--accent-ink); }
+.cosmic-shell:not(.universe-shell) .dataset-summary { min-height: 48px; align-items: center; }
+.cosmic-shell:not(.universe-shell) .tool-switcher { clear: both; }
+.cosmic-shell:not(.universe-shell) .dataset-arrival { padding: 14px 18px; margin-bottom: 24px; }
+.cosmic-shell:not(.universe-shell) .dataset-arrival h3 { font-size: 16px; letter-spacing: -.3px; }
+.cosmic-shell:not(.universe-shell) .arrival-check { width: 28px; height: 28px; }
+.cosmic-shell:not(.universe-shell) .regex-code { background: #101d30; }
+.cosmic-shell:not(.universe-shell) .page-footer { border: 0; margin-top: 24px; }
+.cosmic-shell:not(.universe-shell) .alert { background: #231c25; border-color: #9e655e; }
+.library-galaxy.is-previewing .universe-toolbar,
+.library-galaxy.is-previewing .galaxy-camera,
+.library-galaxy.is-previewing .constellation-labels { visibility: hidden; }
+.operation-panel button {
+  color: #314b72;
+  background: #e9edf3;
+  border-color: #cbd3df;
+}
+.operation-panel .inspector-actions button { color: #314b72; }
+.operation-panel .inspector-actions button:last-child { background: #314b72; color: white; }
+.operation-panel .flight-stat { border-color: #d8dce3; }
+.operation-panel .flight-stat strong,
+.operation-panel .operation-value span { color: #617087; }
+
+/* The selected planet stays in view while its data becomes the working surface. */
+@media (min-width: 1000px) {
+  .data-overlay {
+    width: 70vw;
+    margin-left: auto;
+    margin-right: 3vw;
+    max-height: calc(100dvh - 72px);
+    padding: 26px 28px;
+    animation: data-arrive .35s ease-out;
+  }
+  .data-overlay::backdrop { background: #02061125; backdrop-filter: none; }
+  .data-overlay .preview-heading { flex-wrap: wrap; gap: 14px; }
+  .data-overlay .preview-heading h2 { font-size: 23px; }
+  .data-overlay .preview-actions { gap: 20px; }
+  .data-overlay .table-scroll { max-height: 52dvh; }
+}
+@keyframes data-arrive {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.edge-hover-card {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  width: 260px;
+  display: grid;
+  gap: 7px;
+  padding: 18px 20px;
+  border: 1px solid #90a8c54d;
+  border-radius: 12px;
+  color: #eaf0fa;
+  background: #121c2ef2;
+  box-shadow: 0 12px 44px #0007;
+  backdrop-filter: blur(14px);
+}
+.edge-hover-card strong { font-size: 16px; font-weight: 500; }
+.edge-hover-card span { font-size: 13px; color: #c1cde0; overflow-wrap: anywhere; }
+.edge-hover-card small { color: #9bacbf; font-size: 12px; margin-top: 5px; }
+.search-version-row { border-top: 1px solid #d8dce3; }
+.search-versions .search-version-row button { border-top: 0!important; }
+.search-versions .search-version-row .search-operation {
+  width: auto;
+  margin: -6px 0 10px 30px;
+  padding: 5px 0!important;
+  font-size: 12px;
+  color: #536b91;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .data-overlay { animation: none; }
+}
+
+@media (max-width: 1100px) {
+  .cosmic-shell:not(.universe-shell) .content { padding-inline: 28px; }
+}
+@media (max-width: 760px) {
+  .cosmic-shell .shell-header { padding-inline: 22px; }
+  .cosmic-shell:not(.universe-shell) .content { padding: 20px 22px 0; }
+  .cosmic-shell:not(.universe-shell) .route-heading h1 { font-size: 30px; }
+  .cosmic-shell:not(.universe-shell) .source-folder { display: none; }
+  .cosmic-shell:not(.universe-shell) .source-login .connection-card,
+  .cosmic-shell:not(.universe-shell) .source-connected .files-card,
+  .cosmic-shell:not(.universe-shell) .dataset-card { padding: 22px 20px; }
+}

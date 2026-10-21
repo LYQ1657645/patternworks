@@ -1,0 +1,383 @@
+{
+  "checked_at": "2026-10-18T14:50:59.199482+11:00",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "status": "SEVEN_AUDITED_ISSUES_FIXED_AND_DEPLOYED",
+  "fixed_findings": {
+    "F1": "closed",
+    "F2": "closed",
+    "F3": "closed",
+    "F4": "closed",
+    "F5": "closed",
+    "F6": "closed",
+    "F7": "closed"
+  },
+  "backend_local": {
+    "passed": 227,
+    "seconds": 22.47
+  },
+  "backend_cloud": {
+    "passed": 227,
+    "seconds": 74.45
+  },
+  "real_spark_tests": 6,
+  "cloud_test_container_limit_gib": 4,
+  "production_api_limit_mib": 768,
+  "production_worker_limit_gib": 4,
+  "frontend_tests": {
+    "passed": 5,
+    "file": "frontend/tests/api.test.mjs",
+    "ci_enabled": true
+  },
+  "frontend_typescript": "passed",
+  "frontend_production_build": "passed",
+  "django_check": "passed",
+  "migration_consistency": "passed",
+  "live_model_checks": {
+    "regex": [
+      {
+        "case": "mobile",
+        "passed": true,
+        "pattern": "\\b04[0-9]{8}\\b",
+        "positive_examples": [
+          "0412345678",
+          "0498765432",
+          "0400000000"
+        ],
+        "negative_examples": [
+          "041234567",
+          "04123456789",
+          "05412345678"
+        ],
+        "usage": {
+          "input_tokens": 562,
+          "output_tokens": 110
+        }
+      },
+      {
+        "case": "order",
+        "passed": true,
+        "pattern": "\\bORD-[0-9]{6}\\b",
+        "positive_examples": [
+          "ORD-123456",
+          "ORD-000001",
+          "ORD-999999"
+        ],
+        "negative_examples": [
+          "ord-123456",
+          "ORD-12345",
+          "ORD-1234567"
+        ],
+        "usage": {
+          "input_tokens": 562,
+          "output_tokens": 124
+        }
+      },
+      {
+        "case": "email-zh",
+        "passed": true,
+        "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}",
+        "positive_examples": [
+          "请联系support@example.com获取帮助。",
+          "发送邮件到user.name+tag@sub.domain.co.uk。",
+          "我的邮箱是test_email123@domain.com。"
+        ],
+        "negative_examples": [
+          "这是一个错误的邮箱user@@domain.com。",
+          "请访问example.com获取更多信息。",
+          "联系邮箱user@domain,com无效。"
+        ],
+        "usage": {
+          "input_tokens": 556,
+          "output_tokens": 222
+        }
+      }
+    ],
+    "date": {
+      "passed": true,
+      "items": [
+        {
+          "value": "2024-02-29",
+          "status": "normalized"
+        },
+        {
+          "value": "2026-10-18",
+          "status": "normalized"
+        },
+        {
+          "value": null,
+          "status": "invalid"
+        },
+        {
+          "value": null,
+          "status": "invalid"
+        },
+        {
+          "value": "2000-02-29",
+          "status": "normalized"
+        }
+      ],
+      "usage": {
+        "input_tokens": 562,
+        "output_tokens": 81
+      }
+    },
+    "all_passed": true
+  },
+  "actual_queue_retry_and_full_result": {
+    "original_job_id": "30527bf0-8716-437b-ad5d-d334ff66d95f",
+    "new_preview_id": "0e6757d8-5ec3-42e5-a4ab-7eaa88f7c7d0",
+    "apply_id": "4a725f76-abdd-427a-9fa9-860aea8e72d0",
+    "source_id": "1d252295-bf60-490a-8eec-a9baf0d5954f",
+    "result_id": "1012ccac-8387-4731-8e44-f61fa4736962",
+    "dates_correct": true,
+    "timestamps_preserved": true,
+    "full_replacement_correct": true,
+    "original_failure_retained": true,
+    "source_preserved": true
+  },
+  "server_snapshot": {
+    "cleanup_column_available": true,
+    "cleanup_migration_applied": true,
+    "cancelled_without_cleanup": 0,
+    "jobs_by_status": [
+      {
+        "status": "SUCCESS",
+        "count": 31
+      },
+      {
+        "status": "FAILED",
+        "count": 2
+      }
+    ],
+    "datasets_by_status": [
+      {
+        "status": "READY",
+        "count": 14
+      }
+    ],
+    "expired_connections_with_ciphertext": 0,
+    "active_jobs": 0,
+    "disk": {
+      "total_gib": 153.94,
+      "used_gib": 7.75,
+      "free_gib": 146.18
+    },
+    "configuration": {
+      "spark_master": "local[2]",
+      "spark_partitions": 4,
+      "watchdog": true
+    },
+    "invalid_s3_ciphertext_erased": true,
+    "backend_files_checked": 43,
+    "backend_source_mismatches": []
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 2.792,
+    "async_diagnostic": {
+      "id": "29272946-45f4-4ef8-85b5-5b2b5a189730",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404
+  },
+  "retained_outputs": {
+    "previous_datasets_preserved": 5,
+    "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+    "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+    "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+    "generation_jobs": [
+      {
+        "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+        "replacement": "REDACTED",
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 377,
+          "output_tokens": 116
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+        "replacement": "",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "24907cc4-1895-483b-935e-eead88716107",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      }
+    ],
+    "rows": 8,
+    "columns": 6,
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions": 4,
+    "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+  },
+  "frontend_assets": {
+    "assets": [
+      {
+        "path": "/assets/index-Cb3LScEO.js",
+        "sha256": "8f950570adf93a4d8b6b5b0c7aa1a2124e308b586d1942a2d84671f0065c949e",
+        "matches_fresh_local_build": true
+      },
+      {
+        "path": "/assets/index-CZuo1rXl.css",
+        "sha256": "f39f31c49155b0f26dd7058579d8197306f8ca86fb3bc7b6317657c0fbca0758",
+        "matches_fresh_local_build": true
+      }
+    ],
+    "all_match": true
+  },
+  "safari_check": {
+    "new_workflow_copy_visible": true,
+    "obsolete_milestone_copy_removed": true,
+    "existing_result_restored": true
+  },
+  "backend_image": "sha256:912861624ff54065cb3eb4ac09c388aa9dac6b1a9f8f1819e515dc41fa932d55",
+  "source_patches": {
+    "a": {
+      "stage": "a",
+      "sha256": "7f74b43b410a7bac45099da62d603fd93d413231a0d4bda82cc71c34be156726",
+      "files": {
+        "backend/processing/services/datasets.py": "a362bdc53b0b43a6eab9f1b107f8fa95e968a7e4800b25278ca6b87d46bb8f36",
+        "backend/processing/services/rules.py": "39064e2349d3a8d17871540717c97daabb5d4e55b74a0d139b1b0a079afe5ed3",
+        "backend/tests/test_audit_fixes.py": "6337cfb6e70e47d01cbd66be15e0f17bda93046d8f382fe766f680752f61fadd",
+        "frontend/src/api.ts": "59c3b5f133516d278f66ee002267bac9983766d26798f821e27fe286d154a50e",
+        "frontend/src/RulePanel.tsx": "c57ce6165b4df951627a9a993c2ed6693bd5b1d0374fbe3672926c5867299383"
+      }
+    },
+    "b": {
+      "stage": "b",
+      "sha256": "4219221ab0d952f000fdc44e1b40ee9e8460a2342971d6927719ce69dcfb5610",
+      "files": {
+        "backend/processing/services/datasets.py": "00bc5b63258cd3b19c99e4249e5fc1cdb129779138fd327f3a476d3228f22029",
+        "backend/processing/services/rules.py": "394ae696ea805bf944a3d7451da5d4a41478a28c5b84fcc5b9244f94c95b9b9d",
+        "backend/processing/services/transformations.py": "caf39fbfdc9145a40847dfdf1a7ea1289e57e263dc5b33936153206fbd5d5fbb",
+        "backend/processing/services/execution.py": "4839288b9dd661e607b5d800f6bd1185c62f0679c60baa55ead214be6d2bb52c",
+        "backend/processing/services/recovery.py": "7c2f3f19f2f7dd9bfac226be0f985c8674f1fd9b222e92410de8aaf59ff570f1",
+        "backend/processing/models.py": "4d6e660ffab446c6c9527bffe87a6afeebd641ff59f4654a300fa73e54adc9b2",
+        "backend/processing/views.py": "3abcf38d71f2a2a39a4071ec5cb6a154f48ecaa4d7f61c4ff8668d1dfadb1de7",
+        "backend/processing/migrations/0006_job_cleanup_completed_at.py": "9b1de32fc452ce27e4c4b455f318cfa3162733ecc0f15839171cafdd47ba23f8",
+        "backend/tests/test_audit_fixes.py": "569549609e8b8f7ed720bf1da4dceb103f6961ce0e51c868d5f39d541560750c",
+        "backend/tests/test_rules.py": "0560f10af83dd2665c59de15550dc9ee7c1237031984e76487703a7dcffdd296",
+        "frontend/src/api.ts": "8173b658c1531066ff26d339a2590488bae1c3f6da3251fc35b761f62f8c2942",
+        "frontend/src/App.tsx": "5c2a64653e9623f67fc56bd7fecd17197faba0fdccd58a1defe9f8de07cf7fef",
+        "frontend/src/DatasetPanel.tsx": "9abdb42eff1b0ed71791fe30d93f8c3df19241d4d57e038aadaafdbfcdaa968d",
+        "frontend/src/RulePanel.tsx": "f6b5170f65005036d860656f2cb80636e46717c69644cadce6e5f3fef1b494b1",
+        "frontend/src/TransformPanel.tsx": "09548a8fd4e8a74e36626cd2880530f1254377114c2b3512a9fd637cc0dd844a",
+        "frontend/package.json": "a640b332ab1675bc22d4d2bac35e4c04382590c4a1caae506366250378f214dc",
+        "frontend/tests/api.test.mjs": "de636b747ee508c921e0f8b2de1cfc2da842c4b93cbea29d4cd4576a24caff08"
+      }
+    },
+    "c": {
+      "stage": "c",
+      "sha256": "c3bf20ee763f234a887bb50695886ed7b5fa0a7868a889df2cb58fc067990d46",
+      "files": {
+        "backend/processing/services/rules.py": "7e682eba6082e0b3245f56f1f02c09d5ee6154164f1438255fe9f43fd1de6e3b",
+        "backend/tests/test_audit_fixes.py": "091e295f079731c67c7af7e0b5ab433940b886146990fbb41dccecf53bd23b92"
+      }
+    },
+    "d": {
+      "stage": "d",
+      "sha256": "90c133056688e669328f318c7f38f679a3710749648a7a19c62a597b80371e79",
+      "files": {
+        "backend/processing/services/datasets.py": "51c8c2c638864cdcd74c9985042b5b2c18378431b9da8ad0c5b45d0fdffa260d",
+        "backend/tests/test_audit_fixes.py": "d5ba93d9efe898970854eee23f551fbbf1c756610c6a2a89f93fabd462363f10"
+      }
+    }
+  },
+  "rollback": {
+    "source_directories": "/home/ubuntu/patternworks-before-audit-fixes-{a,b,c,d}",
+    "backend_tags": "patternworks-backend:audit-before-{a,b,c,d}",
+    "frontend_tags": [
+      "patternworks-frontend:audit-before-a",
+      "patternworks-frontend:audit-before-b"
+    ],
+    "database_change": "One nullable Job.cleanup_completed_at field; no records dropped"
+  },
+  "preserved_failures": {
+    "initial_cloud_run": "216 passed / 2 failed: Spark JVM killed by 768 MiB test-container cgroup; verified with kernel OOM event",
+    "initial_live_date": "LLM_INVALID_DATE for valid leap day; independent validator rejected it, prompt clarified and normal retry succeeded; original FAILED record retained"
+  },
+  "limits": [
+    "Old Excel date-only imports must be re-imported to recover original cell-format semantics",
+    "True timestamps and hidden nonzero time values are preserved; date-only transformation does not normalize timestamps",
+    "Regex syntax/safety, generated examples and exact numeric checks do not prove every natural-language intent",
+    "XLS format adapter changed, but new real workbook integration checks use XLSX",
+    "No new successful live S3 import or million-row timing in this fix pass",
+    "Multiple columns, high-cardinality inference, export, multi-host Spark, GitHub and video remain separate work"
+  ],
+  "runtime_evidence_sha256": {
+    "final-d-local.log": "fbfcda6dd1284bbbc2fe0c760aeeef5afa70de7acafaae45d087ae2de1f2764a",
+    "final-d-cloud.log": "944b4c53d977d01d21d099ecda735bde2b946d742481717533dd46350aa4721a",
+    "frontend-api-tests.log": "48fd9f8bfbe2bfd58ee67ed8622c6baa32651e2ef7204b0af56a198edfc0bf70",
+    "stage-b-frontend.log": "236f6a9de3d9c2a2f8539556b2e0dd16b08a9a85177ed9d8465fec3bf303cfb9",
+    "final-models.log": "ac4ec1af8a9b2ae5f40133949be604ec5e098bd3774afd7eab3eeae622b02b9f",
+    "final-live-retry.log": "7950fcce45c3f2fec6df6cd394358dd88eef20186a0e5f3a73617720b78201b6",
+    "final-d-deploy.log": "ac0daa7affe43a06b754a3b5b5b012a742ecb90ab296c176f95c17c53f6db54a",
+    "public-final.json": "79aa559830188f4b00128b70ab3c70b486eef83f5ede64e047801978b9910f39",
+    "server-final.json": "c071976510eca85d93f5b51775b262657235e85bdcf9019625a5b874201b9bf1",
+    "retained-results.json": "f792dccd33c0060a4932920f3e4140fa0be8f45b65716e61ffb4d79c04d3ea87",
+    "frontend-assets.json": "c00182b7aa8967d207ebdad0b567cfefe054c1554a2d4bfa04353c21b9d67326",
+    "stage-a-cloud-build-tests.log": "276ac2dcda1ef47f79ed0a911444971a628a0091d395736ba816634918fc3ce5",
+    "stage-a-cloud-full-4g.log": "cad0ee50eb00bd977e0246b3bc0c5c6059c39cbaf04c5e4293dab2e95d6e4ed4",
+    "stage-a-live.log": "4286ec393affa889b9b3adca6a57753d94915578c8703bb109fe89b21785e696",
+    "date-provider-debug.json": "764fe63d187dcf2fd72a7ca16605909053508dcbd9a3e9def0054bc425be0e9c"
+  },
+  "source_safety_checks": {
+    "source_files": 124,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  }
+}

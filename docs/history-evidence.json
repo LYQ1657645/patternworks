@@ -1,0 +1,431 @@
+{
+  "recorded_at": "2026-10-18T16:06:38.995393+11:00",
+  "scope": "Task history pagination, searchable/paginated dataset library, independent details and tab-local restoration; deployed and verified",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "api": {
+    "order": [
+      "-created_at",
+      "-id"
+    ],
+    "pagination": "Signed session/resource/filter/limit-bound timestamp+UUID keyset",
+    "cursor_ttl_seconds": 86400,
+    "max_limit": 100,
+    "jobs_default_limit": 10,
+    "datasets_default_limit": 25,
+    "ui_page_size": 10,
+    "job_filters": [
+      "status",
+      "kind"
+    ],
+    "dataset_filters": [
+      "status",
+      "q"
+    ],
+    "search_fields": [
+      "source_key substring",
+      "sheet_name substring",
+      "exact full UUID"
+    ],
+    "max_query_characters": 256,
+    "cross_session_visibility": false
+  },
+  "tests": {
+    "local_backend": {
+      "passed": 278,
+      "seconds": 47.08
+    },
+    "cloud_backend": {
+      "passed": 278,
+      "seconds": 145.89,
+      "test_container_memory_gib": 4
+    },
+    "real_spark_integrations": 12,
+    "focused_history_tests": 18,
+    "frontend": {
+      "passed": 14,
+      "milliseconds": 214.356625
+    },
+    "typescript_vite_build_passed": true,
+    "django_checks_passed": true,
+    "migration_changes_detected": false
+  },
+  "deployment": {
+    "source_files": 17,
+    "archive_sha256": "37979ad3b6a05266031516354c5d4a07f43b1d40273c3ff56df69dd92c4ccd5f",
+    "source_backup": "/home/ubuntu/patternworks-before-history-20261018",
+    "rollback_images": [
+      "patternworks-backend:before-history",
+      "patternworks-frontend:before-history"
+    ],
+    "running_images": {
+      "backend": "sha256:6dd06cb9ca1ba0db68f377d85004a6f14734506a14453d00c9637b0b1da3eab6",
+      "frontend": "sha256:0c499b86e21b70f91fe432f916da051704ebdad814f63e654a9b0f751d26db83"
+    },
+    "services": [
+      {
+        "Service": "backend",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "caddy",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "cleanup",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "flower",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "frontend",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "postgres",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "redis",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "worker",
+        "State": "running",
+        "Health": ""
+      }
+    ],
+    "server_checks": {
+      "cleanup_column_available": true,
+      "history_migration_applied": true,
+      "cancelled_without_cleanup": 0,
+      "jobs_by_status": [
+        {
+          "status": "CANCELLED",
+          "count": 1
+        },
+        {
+          "status": "FAILED",
+          "count": 2
+        },
+        {
+          "status": "SUCCESS",
+          "count": 42
+        }
+      ],
+      "datasets_by_status": [
+        {
+          "status": "READY",
+          "count": 16
+        }
+      ],
+      "expired_connections_with_ciphertext": 0,
+      "active_jobs": 0,
+      "disk": {
+        "total_gib": 153.94,
+        "used_gib": 7.81,
+        "free_gib": 146.12
+      },
+      "configuration": {
+        "spark_master": "local[2]",
+        "spark_partitions": 4,
+        "watchdog": true
+      },
+      "invalid_s3_ciphertext_erased": true,
+      "backend_files_checked": 51,
+      "backend_source_mismatches": []
+    },
+    "host_source": {
+      "final_patch_files_checked": 17,
+      "source_matches_final_archive": true,
+      "final_archive_sha256": "37979ad3b6a05266031516354c5d4a07f43b1d40273c3ff56df69dd92c4ccd5f"
+    }
+  },
+  "live_browser": {
+    "browser": "Safari",
+    "task_page_2": true,
+    "dataset_page_3_beyond_old_cap": true,
+    "old_task_details": true,
+    "old_dataset_preview": true,
+    "oldest_dataset_filename_search": true,
+    "unicode_worksheet_search": true,
+    "empty_search_retains_open_dataset": true,
+    "combined_task_filters": true,
+    "search_resets_page": true,
+    "page_filter_task_and_dataset_selection_restore_after_refresh": true,
+    "real_historical_retry_submitted": true,
+    "view_old_cancelled_task_while_current_retry_running": true,
+    "active_retry_continued_to_success": true,
+    "source_and_result_opened_from_task_details": true,
+    "final_state": "Default first pages, empty dataset search, original processed result selected, historical details closed; no fixtures visible"
+  },
+  "deployed_postgresql_traversal": {
+    "jobs": {
+      "records_checked": 37,
+      "pages_at_limit_7": 6,
+      "exact_order_no_duplicates_or_omissions": true
+    },
+    "datasets": {
+      "records_checked": 30,
+      "pages_at_limit_7": 5,
+      "exact_order_no_duplicates_or_omissions": true
+    },
+    "search": {
+      "oldest_filename": true,
+      "full_uuid": true,
+      "unicode_worksheet": true
+    },
+    "cross_session_cursor_rejected": true,
+    "scope": "Actual deployed Django views and PostgreSQL through an internal APIClient; real public browser controls are checked separately."
+  },
+  "real_history_retry": {
+    "historical_retry_job_id": "c9a2588d-f1a0-43b6-9df6-d2abdc6431c3",
+    "status": "SUCCESS",
+    "source_dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "source_preserved": true,
+    "rows": 100000,
+    "bytes": 5250024,
+    "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f",
+    "seconds": 19.299,
+    "original_cancelled_record_retained": true
+  },
+  "synthetic_fixture_scope": {
+    "dataset_copies": 28,
+    "closed_history_records": 28,
+    "history_fixtures_queued": 0,
+    "dataset_content": "Copies of an existing known synthetic eight-row contact fixture",
+    "created_before_originals_in_sort_order": true,
+    "cleaned_with_id_group_and_dependency_guards": {
+      "only_this_runs_fixtures_removed": true,
+      "fixture_datasets_removed": 28,
+      "fixture_closed_jobs_removed": 28,
+      "original_records_untouched": true
+    }
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 2.995,
+    "async_diagnostic": {
+      "id": "334276af-33ef-473d-a4e0-b0063f1c5d36",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404,
+    "export_csrf_rejection": 403,
+    "other_session_export_get": 404,
+    "other_session_export_post": 404,
+    "other_session_download": 404,
+    "unauthenticated_download": 401,
+    "frontend_assets": [
+      {
+        "path": "/assets/index-PXIF8v_i.js",
+        "sha256": "75d159c9f1cd959a064a5c060cc0886fdf86ec24eba0e38e38fef122b49d18b4",
+        "matches_local_build": true
+      },
+      {
+        "path": "/assets/index-noUy7kD2.css",
+        "sha256": "e055c2d1c2e98133d7e22025d42db33e0604311b83d18765cd877d057e198a39",
+        "matches_local_build": true
+      }
+    ]
+  },
+  "previous_five_dataset_recheck": {
+    "previous_datasets_preserved": 5,
+    "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+    "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+    "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+    "generation_jobs": [
+      {
+        "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+        "replacement": "REDACTED",
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 377,
+          "output_tokens": 116
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+        "replacement": "",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "24907cc4-1895-483b-935e-eead88716107",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      }
+    ],
+    "rows": 8,
+    "columns": 6,
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions": 4,
+    "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+  },
+  "previous_100k_source_result_recheck": {
+    "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+    "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+    "rows_checked": 100000,
+    "columns": 4,
+    "selected_columns": [
+      "c1",
+      "c2"
+    ],
+    "replacement": "  $1\\中文  ",
+    "statistics": {
+      "matched_rows": 75000,
+      "matched_cells": 100000,
+      "match_count": 125000,
+      "changed_rows": 75000,
+      "changed_cells": 100000
+    },
+    "column_stats": {
+      "c1": {
+        "match_count": 50000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      },
+      "c2": {
+        "match_count": 75000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      }
+    },
+    "source_preserved": true,
+    "unselected_cells_preserved": true,
+    "parquet_partitions": 4,
+    "actual_queued_apply_seconds": 32.053,
+    "generations": [
+      {
+        "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 555,
+          "output_tokens": 149
+        }
+      },
+      {
+        "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+        "columns": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      {
+        "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    ]
+  },
+  "source_safety": {
+    "source_files": 148,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  },
+  "limitations": [
+    "Session-scoped history; no new user accounts or visibility into other sessions.",
+    "Tab sessionStorage is optional; server cursor lifetime is 24 hours and invalid saved pages reset to the first page.",
+    "Status values are live, not a frozen membership snapshot. No total-page count or arbitrary page-number jump.",
+    "Owner-scoped substring search has no dedicated full-text index; no large-history throughput or concurrent-user benchmark claimed.",
+    "Deletion/retention, GitHub/video delivery and multi-host Spark remain outside this feature."
+  ],
+  "runtime_artifact_sha256": {
+    "local-tests.log": "611750c86fd96eefef4f6e6082cc04ad64921ac43dff7b36c35c21b5070d186e",
+    "cloud-tests.log": "dc293590e1b73bc15cf10a7d285a78655988a850bf8101c15cefc5eeaca33144",
+    "frontend-tests.log": "960f4836a0861b86f43ca9f053e4fe53201d981b29cbfc4faeb058f7933844be",
+    "frontend-build.log": "b40c2d5801d0e28767c996797f03a9e74b3236ad245880bc875d2e99f060ec0a",
+    "unit-tests.log": "79e4ba00e63fc08d8d512c2fa4b1016cef741ad8e43a8c7970419d5fd5578dff",
+    "deploy.log": "62c9aeabe9102b0face9a2eae903355e0f9ca6fd106c5dfb0036d3fa45712d19",
+    "source-manifest.json": "9eabe7161d4e102ff364f17a2ce845041e9a99a2cd94168bc80981c3b5eefef1",
+    "seed_history.py": "ffef108a57228457fdfc1bfc2e2172a350ec8d1bb7bf3dea9bd377696e6bae83",
+    "verify_history.py": "8c4db6ea56d2020f8f8bcd3e3d9ded8b7b17fda6066803c69c269a875e0c283c",
+    "cleanup_history.py": "f1af8d537440a4a1f794e069a36932efef8a2648719bc2b7fb522644a84088aa",
+    "fixtures.json": "9f60787977e249abce84f5507688da91c2f6cf0f026f46a7017c66419130d344",
+    "cleanup.json": "7a8064b6a889db4567e58501b5b5718737c5713d4f098f2370f1485013acf920",
+    "postgres-history.json": "0eb420e7196a8f691dfac0c8e4d97535eafdca545be54b25570b512687a81133",
+    "history-retry.json": "f5331b48829f04d4f6ac5fd581a20f71badca17005897be92ee29f25f9d0c1a6",
+    "public-final.json": "33299b131a6d78e0ee6848eb16ee2535cc3c3396e52459ef580fde2938450111",
+    "server-final.json": "ab6e8703d1eb49988814bbffa919c82c7666a746df99ebc293a380812cfb46ca",
+    "host-source.json": "5013ac59c4cd56d75a74306101e544b43d3a2608cbb2b7c9ab647a8694b83be9",
+    "retained-results.json": "f792dccd33c0060a4932920f3e4140fa0be8f45b65716e61ffb4d79c04d3ea87",
+    "retained-multicolumn.json": "b08dfe67682e88c4d55b5b82e5f2177338e7b19ab28a381ce43337e00ab7be7c",
+    "source-scan.json": "225ef7fc9c1f77ae771c40b4d3d70e360ef531160d1f48b1f8c966ef44e7c268"
+  }
+}

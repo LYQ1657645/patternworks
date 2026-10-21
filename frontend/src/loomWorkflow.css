@@ -1,0 +1,75 @@
+.loom-preview .loom-preview-heading {
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.loom-preview .loom-record {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 0;
+  height: 64px;
+  padding: 10px 16px;
+}
+
+.loom-preview .loom-record.has-comparison {
+  height: 84px;
+}
+
+.loom-preview .loom-row-label {
+  align-self: center;
+  font-size: 11px;
+}
+
+.loom-preview .loom-values {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.loom-preview .loom-values code {
+  display: block;
+  width: 100%;
+  margin: 0;
+  min-width: 0;
+  text-align: right;
+  line-height: 1.3;
+}
+
+.loom-preview .loom-values .loom-before {
+  color: var(--sheet-muted);
+  font-size: 12px;
+}
+
+.loom-preview .loom-values .loom-before.value-changed {
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--sheet-muted) 48%, transparent);
+}
+
+.loom-preview .loom-values .loom-after,
+.loom-preview .loom-values .loom-source {
+  font-size: 16px;
+}
+
+.loom-preview .loom-values .loom-after {
+  font-weight: 600;
+}
+
+.loom-preview .loom-record.flagged .loom-review-status {
+  grid-column: 2;
+  width: auto;
+  margin-top: 3px;
+  line-height: 1;
+  font-size: 10px;
+}
+
+.loom-preview .loom-record.flagged .loom-row-label {
+  grid-row: 1 / 3;
+}
+
+.loom-preview .loom-empty {
+  font-size: 21px;
+  letter-spacing: -.4px;
+}

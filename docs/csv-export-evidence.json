@@ -1,0 +1,401 @@
+{
+  "recorded_at": "2026-10-18T15:39:56.441995+11:00",
+  "scope": "Complete-value CSV result export, cancellation/retry and protected browser download; deployed and verified",
+  "public_url": "https://patternworks.32-237-44-97.nip.io/",
+  "format": {
+    "encoding": "UTF-8 with BOM",
+    "delimiter": ",",
+    "record_terminator": "CRLF",
+    "header": true,
+    "column_order": "Dataset schema order",
+    "row_order": "Original ascending source row ID",
+    "internal_row_id_exported": false,
+    "null": "Blank field; indistinguishable from empty text",
+    "preview_truncation_applied": false,
+    "formula_like_text": "Preserved exactly; UI instructs Excel users to import columns as Text"
+  },
+  "tests": {
+    "local_full_before_three_final_boundary_cases": {
+      "passed": 257,
+      "seconds": 46.7
+    },
+    "local_focused_non_spark_export_tests": {
+      "passed": 12,
+      "overlaps_full_suite": true
+    },
+    "cloud_final_full_suite": {
+      "passed": 260,
+      "seconds": 143.5,
+      "real_spark_integrations": 12,
+      "test_container_memory_gib": 4
+    },
+    "frontend_regression": {
+      "passed": 8,
+      "milliseconds": 179.1815
+    },
+    "typescript_vite_build_passed": true,
+    "django_checks_passed": true,
+    "migration_changes_detected": false,
+    "initial_test_launcher_issue": "First local run overrode cwd to /app and existing Spark imports failed; corrected backend cwd run passed."
+  },
+  "deployment": {
+    "source_files": 14,
+    "final_archive_sha256": "90a32b6968fdab4a26e7c3d8dd98072c83301175a08574b28216d013d04e2d41",
+    "host_source_check": {
+      "final_patch_files_checked": 14,
+      "source_matches_final_archive": true,
+      "final_archive_sha256": "90a32b6968fdab4a26e7c3d8dd98072c83301175a08574b28216d013d04e2d41"
+    },
+    "server_checks": {
+      "cleanup_column_available": true,
+      "export_migration_applied": true,
+      "cancelled_without_cleanup": 0,
+      "jobs_by_status": [
+        {
+          "status": "CANCELLED",
+          "count": 1
+        },
+        {
+          "status": "FAILED",
+          "count": 2
+        },
+        {
+          "status": "SUCCESS",
+          "count": 40
+        }
+      ],
+      "datasets_by_status": [
+        {
+          "status": "READY",
+          "count": 16
+        }
+      ],
+      "expired_connections_with_ciphertext": 0,
+      "active_jobs": 0,
+      "disk": {
+        "total_gib": 153.94,
+        "used_gib": 7.79,
+        "free_gib": 146.14
+      },
+      "configuration": {
+        "spark_master": "local[2]",
+        "spark_partitions": 4,
+        "watchdog": true
+      },
+      "invalid_s3_ciphertext_erased": true,
+      "backend_files_checked": 48,
+      "backend_source_mismatches": []
+    },
+    "services": [
+      {
+        "Service": "backend",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "caddy",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "cleanup",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "flower",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "frontend",
+        "State": "running",
+        "Health": ""
+      },
+      {
+        "Service": "postgres",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "redis",
+        "State": "running",
+        "Health": "healthy"
+      },
+      {
+        "Service": "worker",
+        "State": "running",
+        "Health": ""
+      }
+    ],
+    "running_images": {
+      "backend": "sha256:e1ad4b9d612aa7fda94151720713ba069c14bdd21e4e7f1f359edc97bc399efc",
+      "frontend": "sha256:83d4462f3fa3b41e1918125bc1b2c1759f41837d74c14879e3fb40b3b9103f4f"
+    },
+    "source_backup": "/home/ubuntu/patternworks-before-csv-export-20261018",
+    "rollback_images": [
+      "patternworks-backend:before-csv-export",
+      "patternworks-frontend:before-csv-export"
+    ],
+    "volumes_preserved": true,
+    "production_api_memory_mib": 768
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 0.088,
+    "async_diagnostic": {
+      "id": "8dffa5e7-c88c-4a37-b892-10e1172c20da",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404,
+    "export_csrf_rejection": 403,
+    "other_session_export_get": 404,
+    "other_session_export_post": 404,
+    "other_session_download": 404,
+    "unauthenticated_download": 401,
+    "frontend_assets": [
+      {
+        "path": "/assets/index-Dwal99sh.js",
+        "sha256": "c45a26c41e075c2555084bcae54efad00aa524f7963eddfc87dbdc08b6567eed",
+        "matches_local_build": true
+      },
+      {
+        "path": "/assets/index-DX9WsL9r.css",
+        "sha256": "6e6245e7391d56f77f49f39ffd9ea3585aa7ca207b81c8194813950e0eb956e6",
+        "matches_local_build": true
+      }
+    ]
+  },
+  "live_browser": {
+    "browser": "Safari",
+    "dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "running_export_cancelled": true,
+    "retry_submitted_through_task_activity": true,
+    "actual_attachment_downloaded": true,
+    "download_link_restored_after_refresh": true,
+    "first_download_reviewer_auth_and_site_download_prompt_completed": true
+  },
+  "browser_download_cell_audit": {
+    "download_filename": "patternworks-07840491-cf24-4c92-bae3-8bd8bd2265f0.csv",
+    "rows_checked": 100000,
+    "columns": 4,
+    "all_cells_exact": true,
+    "leading_zero_ids_preserved": true,
+    "literal_spaces_unicode_dollar_backslash_preserved": true,
+    "null_as_blank": true,
+    "unselected_column_preserved": true,
+    "utf8_bom": true,
+    "bytes": 5250024,
+    "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f"
+  },
+  "server_export_cell_audit": {
+    "source_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "source_ready": true,
+    "source_rows": 100000,
+    "export_rows_checked": 100000,
+    "cancelled_job_id": "8c274f7a-3caf-4e08-886d-38ba5ccc7dc9",
+    "cancelled_artifact_removed": true,
+    "cancel_cleanup_completed": true,
+    "successful_retry_job_id": "9b542a0d-c550-40be-b15f-44418221969a",
+    "new_job_id": true,
+    "new_dataset_created": false,
+    "queued_retry_seconds": 8.004,
+    "bytes": 5250024,
+    "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f",
+    "result": {
+      "bytes": 5250024,
+      "filename": "patternworks-07840491-cf24-4c92-bae3-8bd8bd2265f0.csv",
+      "row_count": 100000,
+      "dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "column_count": 4,
+      "download_url": "/api/jobs/9b542a0d-c550-40be-b15f-44418221969a/download/"
+    }
+  },
+  "prior_results_recheck": {
+    "previous_datasets_preserved": 5,
+    "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+    "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+    "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+    "generation_jobs": [
+      {
+        "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+        "replacement": "REDACTED",
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 377,
+          "output_tokens": 116
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+        "replacement": "",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      },
+      {
+        "id": "24907cc4-1895-483b-935e-eead88716107",
+        "replacement": "  $1\\中文  ",
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "status": "SUCCESS"
+      }
+    ],
+    "rows": 8,
+    "columns": 6,
+    "matched_rows": 3,
+    "matches": 4,
+    "changed_rows": 3,
+    "exact_expected_cells": true,
+    "source_preserved": true,
+    "pagination_exact_once": true,
+    "parquet_partitions": 4,
+    "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+  },
+  "prior_multicolumn_recheck": {
+    "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+    "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+    "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+    "rows_checked": 100000,
+    "columns": 4,
+    "selected_columns": [
+      "c1",
+      "c2"
+    ],
+    "replacement": "  $1\\中文  ",
+    "statistics": {
+      "matched_rows": 75000,
+      "matched_cells": 100000,
+      "match_count": 125000,
+      "changed_rows": 75000,
+      "changed_cells": 100000
+    },
+    "column_stats": {
+      "c1": {
+        "match_count": 50000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      },
+      "c2": {
+        "match_count": 75000,
+        "changed_rows": 50000,
+        "matched_rows": 50000
+      }
+    },
+    "source_preserved": true,
+    "unselected_cells_preserved": true,
+    "parquet_partitions": 4,
+    "actual_queued_apply_seconds": 32.053,
+    "generations": [
+      {
+        "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": false,
+        "usage": {
+          "input_tokens": 555,
+          "output_tokens": 149
+        }
+      },
+      {
+        "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+        "columns": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      {
+        "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+        "columns": [
+          "c1",
+          "c2"
+        ],
+        "cache_hit": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    ]
+  },
+  "source_safety": {
+    "source_files": 136,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  },
+  "limitations": [
+    "One observed 100,000-row synthetic processed-result export; no new million-row export benchmark or throughput guarantee.",
+    "CSV null/empty values and types cannot be distinguished; Excel text import preserves leading-zero/formula-like values.",
+    "Worker requires temporary JSON disk space plus the completed CSV; automatic retention/deletion is not included.",
+    "Existing single-host local[2] Spark architecture retained; GitHub and video delivery deferred."
+  ],
+  "runtime_artifact_sha256": {
+    "local-tests.log": "acf0d37cc8e3a8d2f395f5538590f65235e978901dafe5f9dabd63bc77da9962",
+    "cloud-tests.log": "e07d524108aae70cb4adc134f02dd7ddc244dc0f82c861e7db0a0e053127f566",
+    "frontend-tests.log": "7929c3e93f8443a42702d601857d985c805e65c56c28435875f9fd2f915ace51",
+    "frontend-build.log": "a7aef6dab8c30db6979a430387083fcb29f018367d57410ecbec3b0747b9f2cb",
+    "deploy.log": "864eb0009a2ba09500fd231a4a095eedc232769a3148a974310cc9e8c21b1a49",
+    "source-manifest.json": "7467f46c887418f42ea77b51f685a9d9fa33111b7051b5d5077f386c8f62b20f",
+    "verify_csv_download.py": "87785bb5f28c09538d1a484513336a4f35e539b16023e148b1320a5ed7eb4dcd",
+    "verify_server_export.py": "1611f5e06fc9457521be0ae6be448f7b580ab8c75b568f48639f776906238d9b",
+    "browser-download.json": "509c8fcfea1ad82c7005c3ae8e7a5632abf9f0db3c6f48f212a9557753c20189",
+    "server-export.json": "a8b36061a8527614f675919ade44adfabb62553be2d1bf12d97cf1cee36cfb5b",
+    "server-final.json": "cee51eb59e02ce45355cd3d844ed86db24e27951f18fd360175a8a3d389d8819",
+    "host-source.json": "79993bcc07ebdf010c1d658b3b560b8955a9183c3d1d32a5753ac91961d84f86",
+    "public-final.json": "a5a03c967788e68e6ea3d59e6c9926fde91c460938aec509baf5f7aef38de6e8",
+    "retained-results.json": "f792dccd33c0060a4932920f3e4140fa0be8f45b65716e61ffb4d79c04d3ea87",
+    "retained-multicolumn.json": "b08dfe67682e88c4d55b5b82e5f2177338e7b19ab28a381ce43337e00ab7be7c",
+    "source-scan.json": "8665990069f037225492b3987742c931cc73831e2ba503308a0e895c1845e35b"
+  }
+}

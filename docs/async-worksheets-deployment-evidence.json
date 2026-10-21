@@ -1,0 +1,39 @@
+{
+  "public_smoke": {
+    "public_url": "https://patternworks.32-237-44-97.nip.io",
+    "http_status": 202,
+    "submission_seconds": 0.957,
+    "job_id": "d46aa4ed-4b44-46f8-8864-6452f752f486",
+    "status": "SUCCESS",
+    "shared_cache": "ok",
+    "expected_frontend_bundle": true
+  },
+  "browser": "Safari",
+  "live_s3": {
+    "worksheet_job": "41d07c0e-6c4a-44ea-9563-965dd2571762",
+    "worksheet_status": "SUCCESS",
+    "worksheet_result": {
+      "source_key": "contacts.xlsx",
+      "sheet_names": [
+        "Contacts"
+      ]
+    },
+    "discovery_has_no_dataset": true,
+    "import_job": "3271b90d-3f6c-491f-937a-c5495c3579b8",
+    "import_status": "SUCCESS",
+    "dataset_id": "d0bbaedc-f7a4-4342-8ed9-8decc981741a",
+    "rows": 8,
+    "columns": 6,
+    "exact_expected_cells": true
+  },
+  "backend_worker_image": "sha256:1b3e01976e7bb22749ed24c719b51b403efad0590d4306a3e7306850d1774d24",
+  "frontend_image": "sha256:157c2a0c2cc785c88af8ae0b84caf1bf455d6f008d2fa3deba1c71d583dbefce",
+  "backend_tests": 341,
+  "frontend_tests": 26,
+  "migration": "0011_alter_job_kind applied",
+  "limitations": [
+    "Single-host Spark local[2], not a multi-node cluster.",
+    "Million-row run uses local CSV transport and preseeded validated LLM cache.",
+    "Cancel/network interruption/recovery for worksheet discovery verified by automated tests; live Safari acceptance exercised the successful S3 flow."
+  ]
+}

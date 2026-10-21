@@ -1,0 +1,484 @@
+{
+  "recorded_at": "2026-10-18T16:57:27.952292+11:00",
+  "scope": "Read-only functional/requirements review, recording excluded; no app code/config/migration changes or deployment",
+  "original_requirements": {
+    "url": "https://drive.google.com/file/d/17dskAyCYFGbcwX_7yo-VHqpEl14zeciK/view",
+    "title": "Web_Application_for_Regex_Pattern_Matching_and_Replacement.pdf",
+    "freshly_fetched_via_google_drive_skill": true,
+    "source_modified_at": "2026-09-17T09:08:28.810Z"
+  },
+  "tests": {
+    "local_backend": {
+      "passed": 311,
+      "seconds": 47.35,
+      "real_spark": 12
+    },
+    "frontend": {
+      "passed": 14,
+      "milliseconds": 199.342833
+    },
+    "audit_probes": {
+      "passed": 7,
+      "seconds": 0.27,
+      "assertions_describe_observed_defects_not_fixed_behavior": true
+    },
+    "typescript_vite_build": true,
+    "django_check": true,
+    "missing_migrations": false,
+    "cloud_full_suite_this_turn": false,
+    "prior_same_source_cloud_suite": {
+      "passed": 311,
+      "seconds": 149.46,
+      "reference": "docs/dataset-lifecycle-evidence.json"
+    }
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "kind": "session validation",
+      "file": "backend/processing/views.py",
+      "line": 42,
+      "verified": "Isolated Django middleware/API requests",
+      "observed": "Expired and deleted DB Session cookies still read old-owner resources. With valid CSRF, an expired-session submit is also accepted; dispatch mocked.",
+      "fixed": false
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "kind": "expired import UI",
+      "file": "frontend/src/App.tsx",
+      "line": 245,
+      "verified": "Actual TSX handler in controlled hook/API VM plus isolated API 410",
+      "observed": "Import 410 shows error but keeps Connected/file/selection.",
+      "fixed": false
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "kind": "history lifecycle invalidation",
+      "file": "frontend/src/TaskHistory.tsx",
+      "line": 18,
+      "verified": "Controlled hook dependency/refresh probe and source trace; backend safety separately tested",
+      "observed": "Refresh updates list, not cached terminal detail after library Trash/restore. Backend returns dataset_available=false and download410 when reread.",
+      "fixed": false
+    },
+    {
+      "id": "R4",
+      "priority": "P2",
+      "kind": "retry eligibility",
+      "file": "backend/processing/serializers.py",
+      "line": 28,
+      "verified": "Isolated API GET then retry POST",
+      "observed": "Expired import connection still has retry_allowed=true, but retry correctly returns409 without creating a job.",
+      "fixed": false
+    },
+    {
+      "id": "R5",
+      "priority": "P3",
+      "kind": "documentation contradiction",
+      "file": "README.md",
+      "line": 139,
+      "verified": "Source read",
+      "observed": "Old manual-only artifact retention statement contradicts implemented opt-in lifecycle.",
+      "fixed": false
+    }
+  ],
+  "frontend_probes": {
+    "method": "Actual TSX transpiled in a VM with controlled hook/API mocks; not a browser test",
+    "import_410": {
+      "request": "/datasets/",
+      "error_shown": true,
+      "connection_cleared": false,
+      "selected_file_cleared": false,
+      "connected_badge_remains": true
+    },
+    "terminal_history_after_library_trash_and_refresh": {
+      "history_list_refreshed": true,
+      "detail_effect_dependencies_unchanged": true,
+      "cached_download_link_remains": true,
+      "backend_still_enforces_lifecycle": true
+    }
+  },
+  "server": {
+    "cleanup_column_available": true,
+    "lifecycle_migration_applied": true,
+    "cancelled_without_cleanup": 0,
+    "jobs_by_status": [
+      {
+        "status": "CANCELLED",
+        "count": 1
+      },
+      {
+        "status": "FAILED",
+        "count": 2
+      },
+      {
+        "status": "SUCCESS",
+        "count": 43
+      }
+    ],
+    "datasets_by_status": [
+      {
+        "status": "READY",
+        "count": 16
+      }
+    ],
+    "expired_connections_with_ciphertext": 0,
+    "lifecycle_counts": [
+      {
+        "lifecycle": "ACTIVE",
+        "count": 16
+      }
+    ],
+    "opted_in_datasets": 0,
+    "active_jobs": 0,
+    "disk": {
+      "total_gib": 153.94,
+      "used_gib": 7.84,
+      "free_gib": 146.09
+    },
+    "configuration": {
+      "spark_master": "local[2]",
+      "spark_partitions": 4,
+      "watchdog": true
+    },
+    "invalid_s3_ciphertext_erased": true,
+    "backend_files_checked": 55,
+    "backend_matches_local": true
+  },
+  "public_http": {
+    "unauthenticated_status": 401,
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "homepage_status": 200,
+    "secure_session_cookies": true,
+    "csrf_rejection": 403,
+    "submit_seconds": 0.993,
+    "async_diagnostic": {
+      "id": "08bc12bc-1f73-47e1-a523-9f1b5f2fe687",
+      "status": "SUCCESS",
+      "attempts": 1
+    },
+    "cross_session_job_status": 404,
+    "cross_session_cancel_status": 404,
+    "export_csrf_rejection": 403,
+    "other_session_export_get": 404,
+    "other_session_export_post": 404,
+    "other_session_download": 404,
+    "unauthenticated_download": 401,
+    "frontend_assets": [
+      {
+        "path": "/assets/index-DkkdCxKs.js",
+        "sha256": "7c6f895bcea8197ff1bc700f65b507e79f4d62313907061f469eab79c7402998",
+        "matches_local_build": true
+      },
+      {
+        "path": "/assets/index-BXwwhxZp.css",
+        "sha256": "63192ecd83d0c949eb5b69bdb18067149ba59438c49f8783ddc7bd27373639eb",
+        "matches_local_build": true
+      }
+    ],
+    "lifecycle_other_session_get": 404,
+    "lifecycle_csrf_rejection": 403,
+    "lifecycle_other_session_trash": 404,
+    "lifecycle_other_session_restore": 404,
+    "lifecycle_other_session_retention": 404
+  },
+  "services": [
+    {
+      "Service": "backend",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "caddy",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "cleanup",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "flower",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "frontend",
+      "State": "running",
+      "Health": ""
+    },
+    {
+      "Service": "postgres",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "redis",
+      "State": "running",
+      "Health": "healthy"
+    },
+    {
+      "Service": "worker",
+      "State": "running",
+      "Health": ""
+    }
+  ],
+  "retained_results": {
+    "eight_row": {
+      "previous_datasets_preserved": 5,
+      "source_id": "68308c25-77c1-46b6-8ffe-2877f9ac6c2e",
+      "result_id": "ac89b88d-3fb0-4a4f-b2dd-a437c02dd6f3",
+      "apply_job_id": "17610b54-5bac-4d3f-b9c5-ed0c9fdcc124",
+      "generation_jobs": [
+        {
+          "id": "346bf9e8-a7c4-42f5-943a-32d1b410f2d2",
+          "replacement": "REDACTED",
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 377,
+            "output_tokens": 116
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0605393d-64b9-4a74-8fce-356b390fab54",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "0f696298-8320-4c75-a4e7-91c957e1db55",
+          "replacement": "",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "fa4ae0e5-db73-462c-b91a-dee8fb448d6c",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        },
+        {
+          "id": "24907cc4-1895-483b-935e-eead88716107",
+          "replacement": "  $1\\中文  ",
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          },
+          "status": "SUCCESS"
+        }
+      ],
+      "rows": 8,
+      "columns": 6,
+      "matched_rows": 3,
+      "matches": 4,
+      "changed_rows": 3,
+      "exact_expected_cells": true,
+      "source_preserved": true,
+      "pagination_exact_once": true,
+      "parquet_partitions": 4,
+      "ordered_result_sha256": "2680bfac43d4fe9944eba8fc3b0b72d26dd7232ec3a29a70f7c2ddba7f19db3b"
+    },
+    "hundred_thousand": {
+      "source_id": "c1a6a79c-3c10-451f-8cc3-fe05c1d77ac0",
+      "result_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "apply_job_id": "5113854f-da7d-4cd6-9d11-ea90e326a8ee",
+      "rows_checked": 100000,
+      "columns": 4,
+      "selected_columns": [
+        "c1",
+        "c2"
+      ],
+      "replacement": "  $1\\中文  ",
+      "statistics": {
+        "matched_rows": 75000,
+        "matched_cells": 100000,
+        "match_count": 125000,
+        "changed_rows": 75000,
+        "changed_cells": 100000
+      },
+      "column_stats": {
+        "c1": {
+          "match_count": 50000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        },
+        "c2": {
+          "match_count": 75000,
+          "changed_rows": 50000,
+          "matched_rows": 50000
+        }
+      },
+      "source_preserved": true,
+      "unselected_cells_preserved": true,
+      "parquet_partitions": 4,
+      "actual_queued_apply_seconds": 32.053,
+      "generations": [
+        {
+          "rule_id": "3070ae0c-3a4d-4be5-bfa5-579353b0ad23",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": false,
+          "usage": {
+            "input_tokens": 555,
+            "output_tokens": 149
+          }
+        },
+        {
+          "rule_id": "5a8bed56-5410-4654-b7fe-dc35d7552644",
+          "columns": [
+            "c1",
+            "c2",
+            "c3"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        },
+        {
+          "rule_id": "aca09e41-13ef-43e0-a7bb-9982ddd1d896",
+          "columns": [
+            "c1",
+            "c2"
+          ],
+          "cache_hit": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      ]
+    },
+    "csv": {
+      "historical_retry_job_id": "c9a2588d-f1a0-43b6-9df6-d2abdc6431c3",
+      "status": "SUCCESS",
+      "source_dataset_id": "07840491-cf24-4c92-bae3-8bd8bd2265f0",
+      "source_preserved": true,
+      "rows": 100000,
+      "bytes": 5250024,
+      "sha256": "ac29b334de9052a0f8eb2d51730dab5d15c41f208bac87e414d754b24f4f337f",
+      "seconds": 19.299,
+      "original_cancelled_record_retained": true
+    },
+    "million": {
+      "mode": "Read-only persisted SQLite preview artifact cells; Parquet file count only, no Spark rerun or Parquet cell replay",
+      "stages": [
+        {
+          "stage": "csv_import",
+          "dataset_id": "cc3261b9-bb70-4029-8a85-20162939612f",
+          "checked_rows": 1000000,
+          "exact_cell_equality": true,
+          "ordered_digest_sha256": "50cf54443f50a122f425576d27c07e965ca86fb23c159a6a6f56e4e6d7ca6a4b",
+          "verification_seconds": 10.912,
+          "parquet_partitions": 4,
+          "artifact_bytes": 159741800
+        },
+        {
+          "stage": "regex_replace",
+          "dataset_id": "cf109e93-9f15-4c1e-8f9c-c1d000b40c74",
+          "checked_rows": 1000000,
+          "exact_cell_equality": true,
+          "ordered_digest_sha256": "c8297683935b853f37098467899e48b2e1c1a075479c9648b08bdda3af2cac1e",
+          "verification_seconds": 14.183,
+          "parquet_partitions": 4,
+          "artifact_bytes": 155966972
+        },
+        {
+          "stage": "date_normalize_cached",
+          "dataset_id": "fb82f62e-9ca0-4803-bf97-8862095b1a5f",
+          "checked_rows": 1000000,
+          "exact_cell_equality": true,
+          "ordered_digest_sha256": "bf5e485a4834f0b90f47716c16be9cf589040a59f08189c609135dc2bf276c24",
+          "verification_seconds": 14.601,
+          "parquet_partitions": 4,
+          "artifact_bytes": 191957920
+        },
+        {
+          "stage": "categorize_cached",
+          "dataset_id": "5b2484b7-e84d-4646-b6fb-fb033bc85e12",
+          "checked_rows": 1000000,
+          "exact_cell_equality": true,
+          "ordered_digest_sha256": "de953a39ae96220da5f9ecde888d72103a954030af1fa4f8895b55a41f24873f",
+          "verification_seconds": 14.044,
+          "parquet_partitions": 4,
+          "artifact_bytes": 222431999
+        }
+      ]
+    }
+  },
+  "safari_readonly_observation": {
+    "public_page_visible": true,
+    "healthy_indicator": true,
+    "source_and_result_100k_ready_active": true,
+    "active_dataset_location": true,
+    "existing_csv_link_present": true,
+    "no_mutation_or_new_browser_e2e": true
+  },
+  "delivery": {
+    "git_commits": 0,
+    "git_remotes": 0,
+    "github_delivered": false,
+    "actions_executed": false,
+    "video_excluded_by_user": true
+  },
+  "boundaries": {
+    "spark": "local[2], four partitions, one Celery execution slot; no multi-host proof",
+    "llm_distinct_limit": 500,
+    "llm_value_character_limit": 1024,
+    "format": "UTF-8 comma CSV; XLSX formulas rejected; XLS binary integration not covered",
+    "long_term_identity": "New browser session cannot recover old session-owned Keep datasets; owner recovery/retention strategy needed for long-term use"
+  },
+  "online_mutation": {
+    "only_one_diagnostic_job_created": true,
+    "diagnostic_id": "08bc12bc-1f73-47e1-a523-9f1b5f2fe687",
+    "real_s3_calls": 0,
+    "real_model_calls": 0,
+    "existing_datasets_modified": false,
+    "online_failure_injection": false
+  },
+  "log_and_probe_sha256": {
+    "backend-tests.log": "0887ace13927811aa97e8289754d0f193cb78e05542317ab46e74a6607fa4f2b",
+    "frontend-tests.log": "5fba1e437fbfe2af6108c04152460d2a764543ee6e070baad9efecff6c60958e",
+    "frontend-build.log": "60d471b98b1b219b79b9dcf732e61a240e8e6969e63f892fb9843e934e2d042a",
+    "edge-tests-final.log": "ef6fcf23b9a4b39a2ede1b1b0506d9138be99adb5871e3f2d7d0f8a302af6599",
+    "django-check.log": "8457656fd132625ae39ddd31c0149151ad285de5c45d0899c96c286b1ecdfce9",
+    "migration-check.log": "47edbe32c4b190c3c4ddc60f11289135a430ca0b3da8fd244eaef8c30e5c914e",
+    "frontend-probes.cjs": "63ccd8785665db46999632d6d25d48f330ac88f7895ea138a28157ae0e866615",
+    "test_remaining_edges.py": "29ebf77ef431f2e27f7820e939776f3c1bc6911636a910d648696ddae895eaaf"
+  },
+  "source_scan": {
+    "source_files": 157,
+    "configured_secrets_checked": 5,
+    "matching_paths": [],
+    "original_archive_sha256": "b5d777dcb66536b233252adf0c1c8ab99e4c82779be73770e6bbc07494b50180",
+    "original_archive_unchanged": true
+  }
+}

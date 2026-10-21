@@ -1,0 +1,44 @@
+{
+  "fixture_rows": 1000000,
+  "source_dataset_id": "3611d6a9-a3a3-4d6e-ab81-ac91dad18f5a",
+  "checks": [
+    {
+      "name": "cancel_during_million_row_spark_re2_stage",
+      "job_id": "a1f5120f-1d94-4601-ac81-1b1f9c80f6c9",
+      "worker_available_seconds": 1.923,
+      "job_status": "CANCELLED",
+      "dataset_status": "CANCELLED",
+      "output_exists": false,
+      "source_ready": true
+    },
+    {
+      "name": "hard_worker_container_crash_and_automatic_recovery",
+      "job_id": "e280e47c-89b9-4d4e-a8f2-5ad381439cfa",
+      "seconds_from_kill_to_success": 143.708,
+      "attempt_count": 2,
+      "recovery_count": 1
+    },
+    {
+      "name": "permanent_failure_then_manual_new_job_retry",
+      "failed_job_id": "8df4e17e-f28f-4eb4-8315-3d575cbf8208",
+      "retry_job_id": "2e0b6085-d623-45e8-9552-a4e7a5085186",
+      "failed_record_preserved": true,
+      "separate_output_dataset": true
+    },
+    {
+      "name": "real_broker_outage_and_manual_recovery",
+      "failed_job_id": "9c71d167-32e4-4bf5-99c8-676f901d0e62",
+      "retry_job_id": "ba1deed2-c046-45d6-8b0b-115266171a19",
+      "http_status_on_outage": 503,
+      "final_status": "SUCCESS"
+    }
+  ],
+  "result_checks": {
+    "source_ready": true,
+    "exact_rows_per_result": [
+      1000000,
+      1000000
+    ]
+  },
+  "complete": true
+}
