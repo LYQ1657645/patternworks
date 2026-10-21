@@ -30,7 +30,7 @@ defaults = {
     'DJANGO_CSRF_TRUSTED_ORIGINS': '' if args.production else 'http://localhost:5173,http://127.0.0.1:5173',
     'CELERY_BROKER_URL': 'redis://redis:6379/0',
     'CELERY_RESULT_BACKEND': 'redis://redis:6379/1',
-    'CACHE_URL': 'redis://redis:6379/2',
+    'CACHE_URL': 'redis://cache:6379/0',
     'OPENAI_MODEL': 'gpt-4.1-mini',
     'CONNECTION_TTL_SECONDS': '3600',
 }

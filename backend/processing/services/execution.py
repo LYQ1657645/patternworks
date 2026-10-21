@@ -27,6 +27,11 @@ class JobAttempt:
     def __call__(self, stage, value):
         if self.cancelled.is_set():
             raise DatasetCancelled()
+        if self.job.kind == Job.Kind.APPLY_TRANSFORM:
+            # Profiling, model slices and the final Spark pass share one job.
+            # Stage-local percentages must not make its progress jump backwards.
+            value = max(self.job.progress, value)
+            self.job.progress = value
         # Million-row parsing/indexing can emit thousands of identical-percent
         # updates. Heartbeats and cancellation checks run independently.
         if stage.startswith(('Parsing source rows (', 'Indexing preview (', 'Exporting CSV (')):

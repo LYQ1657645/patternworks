@@ -1,0 +1,161 @@
+{
+  "rows": 1204,
+  "distinct_categories": 1201,
+  "provider": "deterministic mock, no paid API calls",
+  "transport": "local synthetic XLSX, no S3 calls",
+  "database": "isolated local SQLite",
+  "execution": "real Celery/Redis worker",
+  "spark_master": "local[2]",
+  "partitions": 4,
+  "fixture_bytes": 29426,
+  "redis_policy": "separate noeviction broker and 256 MiB allkeys-lru cache",
+  "fixture_sha256": "c0cd068bbba3db9549be06f084b66e7cbfaf93ac061c853c7e6c9d384a2d6745",
+  "stages": [
+    {
+      "stage": "xlsx_import",
+      "elapsed_seconds": 5.213,
+      "attempts": 1,
+      "metadata": {
+        "source_bytes": 29426,
+        "transport": "synthetic local XLSX fixture",
+        "sheet_names": [
+          "Scale"
+        ],
+        "sheet_name": "Scale",
+        "row_count": 1204,
+        "content_hash": "771aeb4a33d784fdd52b226251e41f4c9a2cd4135edcf4f6315b464311532609",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1204,
+      "exact_cells_checked": 3612,
+      "ordered_sha256": "cc01e4ccb21d92b27d0886b95d4b10b8d6806e94d4d89898ed24f69246f43da0"
+    },
+    {
+      "stage": "date_normalization",
+      "elapsed_seconds": 1.45,
+      "attempts": 5,
+      "metadata": {
+        "operation": "date_normalize",
+        "transformation_id": "442f3694-561f-41be-a240-18d69d1eaf15",
+        "column": "c1",
+        "output_column": "c3",
+        "status_column": "c4",
+        "parent_id": "f994274e-fff8-4f87-b7a6-79d760344e68",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "normalized": 1204
+        },
+        "llm_usage": {
+          "model_calls": 101,
+          "cached_values": 0,
+          "unique_values": 1204,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1204,
+        "content_hash": "100b1371fdc751920895b921bbedbda376db1afed3066c38c34af6815f903a5f",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1204,
+      "exact_cells_checked": 6020,
+      "ordered_sha256": "5895d56011dadc103a05f31cc394c66130ca268ce3fbe4bb4f2cc3acf04421e2",
+      "simulated_requests": 101,
+      "plan": {
+        "distinct_values": 1204,
+        "pending_values": 0,
+        "estimated_new_requests": 0,
+        "remaining_requests": 999899
+      }
+    },
+    {
+      "stage": "classification",
+      "elapsed_seconds": 1.457,
+      "attempts": 5,
+      "metadata": {
+        "operation": "categorize",
+        "transformation_id": "022b3a80-dc52-4cfd-b7c9-f1651b1072c5",
+        "column": "c2",
+        "output_column": "c5",
+        "status_column": "c6",
+        "parent_id": "589f1f73-a7c7-46ea-a625-c4f571f9023e",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "classified": 1204
+        },
+        "llm_usage": {
+          "model_calls": 101,
+          "cached_values": 0,
+          "unique_values": 1201,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1204,
+        "content_hash": "a44fd7a6ffe6f529c673a913d0f96846c6de87436ef8cdd7ab63674fd6dfd384",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1204,
+      "exact_cells_checked": 8428,
+      "ordered_sha256": "382c03d68946fe576fb9face80277b0e4032d5b09f9b428c9affeac768ce5cc5",
+      "simulated_requests": 101,
+      "plan": {
+        "distinct_values": 1201,
+        "pending_values": 0,
+        "estimated_new_requests": 0,
+        "remaining_requests": 999899
+      }
+    },
+    {
+      "stage": "csv_export",
+      "elapsed_seconds": 0.622,
+      "attempts": 1,
+      "metadata": {
+        "operation": "categorize",
+        "transformation_id": "022b3a80-dc52-4cfd-b7c9-f1651b1072c5",
+        "column": "c2",
+        "output_column": "c5",
+        "status_column": "c6",
+        "parent_id": "589f1f73-a7c7-46ea-a625-c4f571f9023e",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "classified": 1204
+        },
+        "llm_usage": {
+          "model_calls": 101,
+          "cached_values": 0,
+          "unique_values": 1201,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1204,
+        "content_hash": "a44fd7a6ffe6f529c673a913d0f96846c6de87436ef8cdd7ab63674fd6dfd384",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1204,
+      "exact_cells_checked": 8428,
+      "ordered_sha256": "382c03d68946fe576fb9face80277b0e4032d5b09f9b428c9affeac768ce5cc5",
+      "csv_exact_cells_checked": 8428
+    }
+  ],
+  "complete": true,
+  "source_preserved": true,
+  "pagination_exact": true,
+  "cache_evictions": 0
+}

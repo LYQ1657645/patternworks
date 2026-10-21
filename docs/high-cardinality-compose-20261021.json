@@ -1,0 +1,35 @@
+{
+  "scope": "isolated local Docker Compose, not public deployment",
+  "services_started": [
+    "postgres",
+    "redis",
+    "cache",
+    "backend",
+    "worker",
+    "frontend",
+    "cleanup",
+    "flower"
+  ],
+  "worker_tests_passed": 383,
+  "spark_tests_included": 14,
+  "worker_suite_seconds": 63.07,
+  "http_diagnostics": [
+    {
+      "accepted_seconds": 0.318,
+      "initial": "QUEUED",
+      "final": "SUCCESS"
+    },
+    {
+      "accepted_seconds": 0.296,
+      "initial": "QUEUED",
+      "final": "SUCCESS",
+      "after_cache_pressure": true
+    }
+  ],
+  "deliberate_cache_evictions": 426,
+  "separate_broker_marker_preserved": true,
+  "merged_production_config_valid": true,
+  "existing_local_datasets_preserved": 21,
+  "paid_api_calls": 0,
+  "openai_key_present_in_test_stack": false
+}

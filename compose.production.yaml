@@ -29,6 +29,9 @@ services:
   redis:
     mem_limit: 512m
     command: ['redis-server', '--appendonly', 'yes', '--maxmemory', '256mb', '--maxmemory-policy', 'noeviction']
+  cache:
+    mem_limit: 512m
+    <<: *production
   frontend:
     ports: !reset []
     mem_limit: 128m

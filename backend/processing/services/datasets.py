@@ -355,6 +355,9 @@ def prepare_dataset(job, report):
     spark = None
     cached_frame = None
     try:
+        if job.kind == 'APPLY_TRANSFORM':
+            from .transform_store import prepare
+            prepare(job.transformation, report)
         with TemporaryDirectory(prefix=f'.import-{job.pk}-{job.attempt_token}-', dir=root) as temporary:
             work = Path(temporary)
             staging = work / 'artifact'

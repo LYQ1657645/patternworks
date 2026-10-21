@@ -121,6 +121,50 @@ test('valid Apply submits the existing reviewed rule or transformation with cons
   assert.equal(dates.calls[0].body.allow_send_values, true);
 });
 
+test('full-column request estimate blocks Apply until the user raises the budget, without regenerating a preview', async () => {
+  const planned = { ...transformation, request_budget: 100, requests_used: 2,
+    plan: { distinct_values: 1201, pending_values: 1181, estimated_new_requests: 99, remaining_requests: 98 } };
+  const h = component('TransformPanel', { ...transformPreset, 7: planned });
+  let tree = h.render(props);
+  assert(text(tree).includes('1,201'));
+  assert.equal(button(tree, 'Apply').props.disabled, true);
+  button(tree, 'Apply').props.onClick(); await settle();
+  assert.equal(h.calls.length, 0);
+  nodes(tree).find(node => node.props['aria-label'] === 'Maximum model requests').props.onChange({ target: { value: '120' } });
+  tree = h.render(props);
+  assert.equal(button(tree, 'Apply').props.disabled, false);
+  button(tree, 'Apply').props.onClick(); await settle();
+  assert.equal(h.calls[0].path, '/transformations/transform/apply/');
+  assert.equal(h.calls[0].body.request_budget, 120);
+});
+
+test('invalid request budgets block both the Apply button and its handler', async () => {
+  for (const value of [0, -1, 1.5, 1000001, NaN]) {
+    const h = component('TransformPanel', { ...transformPreset, 10: value });
+    const tree = h.render(props);
+    assert.equal(button(tree, 'Apply').props.disabled, true);
+    button(tree, 'Apply').props.onClick(); await settle();
+    assert.equal(h.calls.length, 0);
+  }
+});
+
+test('pre-upgrade transformations with an empty plan still render without crashing', () => {
+  const tree=component('TransformPanel',{...transformPreset,7:{...transformation,plan:{}}}).render(props);
+  assert.equal(button(tree,'Apply').props.disabled,false);
+  assert(!text(tree).includes('undefined distinct'));
+});
+
+test('editing the budget prevents a late saved-plan response from overwriting it', async () => {
+  let resolveSaved;
+  const response=new Promise(resolve=>{resolveSaved=resolve;});
+  const h=component('TransformPanel',{},()=>response);
+  h.render(props);h.effects[0]();
+  const tree=h.render(props);
+  nodes(tree).find(node=>node.props['aria-label']==='Maximum model requests').props.onChange({target:{value:'300'}});
+  resolveSaved({transformations:[{...transformation,request_budget:100}]});await settle();
+  assert.equal(nodes(h.render(props)).find(node=>node.props['aria-label']==='Maximum model requests').props.value,300);
+});
+
 test('late saved regex responses preserve user input while new Generate results still load', async () => {
   let resolveSaved;
   const savedResponse = new Promise(resolve => { resolveSaved = resolve; });

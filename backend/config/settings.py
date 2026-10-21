@@ -101,6 +101,7 @@ CONNECTION_TTL_SECONDS = int(os.environ.get('CONNECTION_TTL_SECONDS', '3600'))
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
 OPENAI_MODEL = os.environ.get('OPENAI_MODEL', 'gpt-4.1-mini')
 RULE_CACHE_TTL_SECONDS = int(os.environ.get('RULE_CACHE_TTL_SECONDS', '3600'))
+TRANSFORM_REQUESTS_PER_SLICE = 25
 OPENAI_RULE_TIMEOUT_SECONDS = 25
 DATASET_ROOT = Path(os.environ.get('DATASET_ROOT', BASE_DIR.parent / '.runtime' / 'datasets'))
 MAX_SOURCE_BYTES = int(os.environ.get('MAX_SOURCE_BYTES', str(1024 * 1024 * 1024)))

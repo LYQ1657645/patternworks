@@ -187,8 +187,7 @@ def test_corrupt_cache_is_validated_before_reuse(request, source):
 def test_preflight_limits_and_cache_failure_never_make_paid_requests(source):
     record = new_record(source)
     with patch('processing.services.transformations.request_batch') as model:
-        for values, code in [(['x' * 1025], 'TRANSFORM_VALUE_TOO_LONG'),
-                             ([str(i) for i in range(501)], 'TRANSFORM_TOO_MANY_VALUES')]:
+        for values, code in [(['x' * 65537], 'TRANSFORM_VALUE_TOO_LONG')]:
             with pytest.raises(RuleProblem) as caught:
                 transform_values(record, values, lambda *args: None)
             assert caught.value.code == code
@@ -379,19 +378,20 @@ def test_real_spark_full_column_preflight_empty_null_and_unseen_values(settings,
     schema = StructType([StructField('_row_id', LongType(), False), StructField('c0', StringType(), True)])
     try:
         with patch('processing.services.transformations.request_batch') as model:
-            for rows, expected in [([(1, 'x' * 1025)], 'TRANSFORM_VALUE_TOO_LONG'),
-                                   ([(i + 1, str(i)) for i in range(501)], 'TRANSFORM_TOO_MANY_VALUES')]:
+            for rows, expected in [([(1, 'x' * 65537)], 'TRANSFORM_VALUE_TOO_LONG')]:
                 with pytest.raises(RuleProblem) as caught:
                     apply_transformation(spark.createDataFrame(rows, schema), output, record, lambda *args: None)
                 assert caught.value.code == expected
             model.assert_not_called()
         for rows, count in [([], 0), ([(1, None), (2, '')], 2)]:
+            record = new_record(source, status='READY')
             with patch('processing.services.transformations.request_batch') as model:
                 frame, metadata = apply_transformation(spark.createDataFrame(rows, schema), output, record, lambda *args: None)
                 assert frame.count() == count and metadata['llm_usage']['model_calls'] == 0
                 if count:
                     assert metadata['status_counts'] == {'missing': 2}
                 model.assert_not_called()
+        record = new_record(source, status='READY')
         cache.set(value_cache_key(record, '2024/02/29'), EXPECTED['2024/02/29'])
         with patch('processing.services.transformations.request_batch', side_effect=fake_dates) as model:
             _, metadata = apply_transformation(spark.createDataFrame([(1, '2024/02/29'), (2, '3 October 2026')], schema),

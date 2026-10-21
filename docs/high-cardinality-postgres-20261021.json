@@ -1,0 +1,7 @@
+{
+  "postgresql_migration": "passed",
+  "known_usage_preserved": true,
+  "concurrent_budget_reservations": "one accepted, one refused",
+  "concurrent_apply": "one durable job",
+  "paid_api_calls": 0
+}

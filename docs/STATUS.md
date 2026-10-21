@@ -1,3 +1,11 @@
+# Public high-cardinality release — 2026-10-21
+
+The new backend/worker/frontend and isolated cache are deployed. AWS passed 383 backend tests, and fresh Safari S3 CSV/Excel import → multi-column regex → date normalization → classification → actual CSV download passed all 80 final-cell checks. All 51 pre-release datasets and artifact hashes were preserved. See [release acceptance](HIGH_CARDINALITY_RELEASE_2026-10-21.md). Video remains paused; source/CI delivery is tracked in the private repository.
+
+# Current scope — 2026-10-21
+
+The high-cardinality implementation removes the old 500-distinct-value/1,024-character transformation restrictions. See [current acceptance and requirement matrix](HIGH_CARDINALITY_ACCEPTANCE_2026-10-21.md) for tests, scope and publication state. The sections below are historical snapshots, including limits and pending items that applied at their recorded date. Video preparation is paused until this work is accepted.
+
 > Current release: [planet release acceptance](PLANET_RELEASE_ACCEPTANCE_2026-10-21.md), 2026-10-21: 77 frontend tests, 368 backend tests including 12 real Spark integrations, and fresh public S3 Excel import → two-column regex → downloaded CSV acceptance passed. The [README](../README.md) is the current setup and delivery entry point. All entries below are historical snapshots, including older references to pending features and deferred GitHub delivery.
 
 > Latest frontend update: [four-page navigation acceptance](NAVIGATION_ACCEPTANCE.md), 2026-10-18.

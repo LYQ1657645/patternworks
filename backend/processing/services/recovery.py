@@ -117,6 +117,8 @@ def retry_job(previous):
                                                      column=old.column, columns=old.target_columns, instruction=old.instruction)
         if previous.kind == Job.Kind.PREVIEW_TRANSFORM:
             old = previous.transformation
-            fields['transformation'] = LLMTransformation.objects.create(owner_session=old.owner_session, dataset=old.dataset,
-                kind=old.kind, column=old.column, instruction=old.instruction, options=old.options, model=old.model)
+            # Retry is a new job, but keeps the immutable plan, checkpoint and
+            # cumulative spending ledger rather than resetting its budget.
+            LLMTransformation.objects.filter(pk=old.pk).update(status='PENDING')
+            fields['transformation'] = old
         return Job.objects.create(**fields)

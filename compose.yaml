@@ -6,6 +6,9 @@ x-backend: &backend
     dockerfile: backend/Dockerfile
   image: patternworks-backend:dev
   env_file: ${APP_ENV_FILE:-.env.local}
+  environment:
+    # Cache eviction must never evict broker queues or task-delivery state.
+    CACHE_URL: redis://cache:6379/0
   init: true
   restart: unless-stopped
   volumes:
@@ -39,6 +42,16 @@ services:
       retries: 20
     restart: unless-stopped
 
+  cache:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
   backend:
     <<: *backend
     command: ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --timeout 30 --access-logfile -"]
@@ -46,6 +59,8 @@ services:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      cache:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health/', timeout=3)"]

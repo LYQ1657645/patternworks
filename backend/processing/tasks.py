@@ -5,7 +5,7 @@ from celery import shared_task
 from celery.exceptions import SoftTimeLimitExceeded
 from django.core.cache import cache
 from django.db import transaction
-from django.db.models import F
+from django.db.models import Case, F, When, Value
 from django.utils import timezone
 
 from .models import Dataset, Job, RegexRule, S3Connection, LLMTransformation
@@ -18,6 +18,7 @@ from .services.rules import RuleProblem, generate_rule
 from .services.transformations import preview_transformation
 from .services.exports import prepare_csv
 from .services.worksheets import list_worksheets
+from .services.transform_store import TransformYield
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +29,8 @@ def run_job(self, job_id):
     claimed = Job.objects.filter(pk=job_id, status=Job.Status.QUEUED).update(
         status=Job.Status.RUNNING, started_at=timezone.now(), heartbeat_at=timezone.now(),
         attempt_token=token, attempt_count=F('attempt_count') + 1,
-        progress=10, stage='Worker started', error_code='', error_message='',
+        progress=Case(When(stage='Progress saved; continuing next batch', then=F('progress')), default=Value(10)),
+        stage='Worker started', error_code='', error_message='',
     )
     if not claimed:
         return {'job_id': job_id, 'skipped': True}
@@ -91,6 +93,15 @@ def run_job(self, job_id):
             Job.objects.filter(pk=job_id).update(
                 status=Job.Status.SUCCESS, progress=100, stage='Completed', result=result, finished_at=timezone.now(),
             )
+    except TransformYield:
+        # A continuation is not a failure/retry and must not erase saved values.
+        changed = Job.objects.filter(pk=job_id, status=Job.Status.RUNNING, attempt_token=token).update(
+            status=Job.Status.QUEUED, stage='Progress saved; continuing next batch',
+            heartbeat_at=timezone.now(), last_dispatched_at=timezone.now())
+        if changed:
+            from .services.jobs import dispatch
+            if not dispatch(job):
+                cleanup_outputs(job)
     except DatasetCancelled:
         cleanup_outputs(job, cancelled=True)
     except (RuleProblem, S3Problem) as exc:

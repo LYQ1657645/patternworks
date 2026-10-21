@@ -23,6 +23,7 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
   const version = useRef(0);
   const panel = useRef<HTMLElement>(null);
   const draftEdited = useRef(false);
+  const [requestBudget, setRequestBudget] = useState(100);
   const labels = labelsText.split("\n").map((label) => label.trim()).filter(Boolean);
   const labelsValid = labels.length >= 2 && labels.length <= 12 && new Set(labels).size === labels.length && labels.includes(fallback);
   const options = kind === "DATE" ? { date_order: dateOrder } : { labels, fallback };
@@ -37,6 +38,7 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
     setDateOrder(previous.options.date_order || "REJECT");
     setLabelsText((previous.options.labels || []).join("\n"));
     setFallback(previous.options.fallback || "");
+    setRequestBudget(previous.request_budget ?? 100);
   }
 
   useEffect(() => {
@@ -68,28 +70,41 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
     } else if (job.status === "FAILED") setError(job.error_message);
   }, [job?.id, job?.status, dataset.id]);
 
+  useEffect(() => {
+    if (job?.kind !== "APPLY_TRANSFORM" || !job.transformation_id || !["SUCCESS", "FAILED", "CANCELLED"].includes(job.status)) return;
+    let alive = true;
+    api<LLMTransformation>(`/transformations/${job.transformation_id}/`).then(updated => {
+      if (alive && updated.dataset_id === dataset.id) setRecord(previous => previous?.id === updated.id ? updated : previous);
+    }).catch(() => {});
+    return () => { alive = false; };
+  }, [job?.id, job?.status, dataset.id]);
+
   async function preview(event: FormEvent) {
     event.preventDefault();
-    if (busy || submitting || !consent || !column || (kind === "CATEGORY" && !labelsValid)) return;
+    if (busy || submitting || !consent || !column || !Number.isInteger(requestBudget) || requestBudget < 1 || requestBudget > 1000000 || (kind === "CATEGORY" && !labelsValid)) return;
     version.current += 1; setSubmitting(true); setRecord(null); setError("");
     try {
       onJob(await api<Job>(`/datasets/${dataset.id}/transformations/`,
-        { kind, column, instruction, options, allow_send_values: consent }));
+        { kind, column, instruction, options, allow_send_values: consent, request_budget: requestBudget }));
     } catch (err) { setError(submissionError(err, onJob)); }
     finally { setSubmitting(false); }
   }
 
   async function apply() {
-    if (!record || record.status !== "READY" || busy || submitting || edited || !consent) return;
+    if (!record || record.status !== "READY" || busy || submitting || edited || !consent || !budgetValid || overBudget) return;
     setSubmitting(true); setError("");
     try {
-      onJob(await api<Job>(`/transformations/${record.id}/apply/`, { allow_send_values: consent }));
+      onJob(await api<Job>(`/transformations/${record.id}/apply/`, { allow_send_values: consent, request_budget: requestBudget }));
     } catch (err) { setError(submissionError(err, onJob)); }
     finally { setSubmitting(false); }
   }
 
   const ready = record?.status === "READY";
   const current = ready && !edited;
+  const budgetValid = Number.isInteger(requestBudget) && requestBudget >= 1 && requestBudget <= 1000000;
+  const requestsRemaining = Math.max(0, requestBudget - (record?.requests_used ?? 0));
+  const plan = record?.plan && typeof record.plan.distinct_values === "number" && typeof record.plan.estimated_new_requests === "number" ? record.plan : null;
+  const overBudget = Boolean(plan && plan.estimated_new_requests > requestsRemaining);
   const previewing = busy && job?.kind === "PREVIEW_TRANSFORM";
   const applying = busy && job?.kind === "APPLY_TRANSFORM";
   const flaggedCount = record ? Object.entries(record.preview.counts)
@@ -132,11 +147,14 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
           disabled={busy || submitting} onChange={(event) => { draftEdited.current = true; setInstruction(event.target.value); }}
           placeholder="Optional instructions for choosing a category" /></label></details>
       </>}
-      <details className="workflow-help"><summary>Data and limits</summary><p>OpenAI receives the selected values, your instructions and options. Preview uses the first 20 rows; Apply processes the full column. Limits: 500 distinct non-empty values and 1,024 characters per value.</p></details>
+      <label>Maximum model requests<input type="number" aria-label="Maximum model requests" min={1} max={1000000} step={1}
+        value={requestBudget || ""} disabled={busy || submitting} onChange={event => { draftEdited.current = true; setRequestBudget(Number(event.target.value)); }} /></label>
+      <p className="workflow-field-help">Includes preview, Apply and retries for this plan. Billing is by tokens; this is a request limit.</p>
+      <details className="workflow-help"><summary>Data and limits</summary><p>OpenAI receives selected values, instructions and options. Preview checks the full column and shows up to 20 sample rows. Apply processes distinct values in small batches and saves progress on disk. Long text uses smaller batches, up to the same 65,536-character cell limit as import. No values are silently truncated.</p></details>
       <label className="value-consent"><input type="checkbox" checked={consent} disabled={busy || submitting}
         onChange={(event) => setConsent(event.target.checked)} />Allow OpenAI to process the selected values for preview and Apply</label>
       <div className="workflow-editor-actions">
-      <ActionSpark disabled={busy || submitting}><button className={current ? "secondary-button" : "primary-button"} disabled={busy || submitting || !consent || !column || (kind === "CATEGORY" && !labelsValid)}>
+      <ActionSpark disabled={busy || submitting}><button className={current ? "secondary-button" : "primary-button"} disabled={busy || submitting || !consent || !column || !budgetValid || (kind === "CATEGORY" && !labelsValid)}>
         {previewing ? "Preparing preview" : submitting ? "Submitting" : ready ? "Update preview" : "Preview"}
       </button></ActionSpark>
       </div>
@@ -144,7 +162,7 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
     </form>
     <div className="workflow-preview">
       <div className="workflow-preview-heading"><h3>Preview</h3>
-        {ready && <ActionSpark disabled={busy || submitting}><button type="button" className={current ? "primary-button" : "secondary-button"} disabled={busy || submitting || !current || !consent} onClick={() => void apply()}>{applying ? "Applying" : "Apply"}</button></ActionSpark>}
+        {ready && <ActionSpark disabled={busy || submitting}><button type="button" className={current ? "primary-button" : "secondary-button"} disabled={busy || submitting || !current || !consent || !budgetValid || overBudget} onClick={() => void apply()}>{applying ? "Applying" : "Apply"}</button></ActionSpark>}
       </div>
     {ready && <div className="workflow-preview-status">
       {edited ? <p className="workflow-warning" role="status">Your changes need a new preview before applying</p>
@@ -152,6 +170,8 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
       {!edited && flaggedCount > 0 && <p className="workflow-warning">{flaggedCount} sample {flaggedCount === 1 ? "value needs" : "values need"} review. Check the flagged rows before applying.</p>}
       {!consent && <p className="workflow-warning">Allow OpenAI to process the selected values before applying</p>}
       <p className="workflow-save-note">Saves a new version with result and status columns</p>
+      {plan && <p className="workflow-result-summary"><strong>{plan.distinct_values.toLocaleString()}</strong> distinct values in the full column. Up to <strong>{plan.estimated_new_requests.toLocaleString()}</strong> additional requests; {requestsRemaining.toLocaleString()} remaining.</p>}
+      {overBudget && <p role="status" className="workflow-warning">Increase Maximum model requests before applying. Completed values are kept when resuming.</p>}
     </div>}
     {(previewing || applying) && <p role="status" className="workflow-progress">{applying ? "Applying changes" : "Preparing preview"} {job?.progress}%</p>}
     <div className="workflow-sample" role="region" aria-label="Transformation sample preview" tabIndex={0}>
@@ -172,6 +192,7 @@ export default function TransformPanel({ dataset, busy, job, onJob, rows = [], a
         <p>{record.kind === "DATE" ? "Date and calendar validation" : "Category validation"} completed. Full-column counts appear after applying.</p>
         <p>{record.usage.cached_values} of {record.usage.unique_values} distinct values used cached results.</p>
         <p>{record.usage.model_calls === 0 ? "No model call was needed." : `${record.usage.model_calls} model calls using ${record.model}.`}</p>
+        {record.requests_used !== undefined && <p>Plan total: {record.requests_used} requests reserved, {record.input_tokens?.toLocaleString()} confirmed input tokens and {record.output_tokens?.toLocaleString()} confirmed output tokens. Interrupted or rejected responses may also be billed; their request reservations remain counted.</p>}
       </details>
     </div>}
     </div>

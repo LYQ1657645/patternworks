@@ -9,6 +9,8 @@ def retry_problem(job):
         return 'Only a failed or cancelled task can be retried.'
     if job.kind == Job.Kind.CONNECT_S3:
         return 'Enter the S3 credentials again to reconnect.'
+    if job.error_code == 'TRANSFORM_BUDGET':
+        return 'Increase the model request budget in Transform, then Apply to resume saved progress.'
     sources = [job.dataset, job.rule.dataset if job.rule_id else None,
                job.transformation.dataset if job.transformation_id else None]
     if any(d.lifecycle != 'ACTIVE' or (d.parent_id and d.parent.lifecycle != 'ACTIVE') for d in sources if d):

@@ -99,6 +99,9 @@ export type LLMTransformation = {
   id: string; dataset_id: string; kind: "DATE" | "CATEGORY"; column: string; instruction: string;
   options: { date_order?: string; labels?: string[]; fallback?: string };
   status: "PENDING" | "READY" | "FAILED" | "CANCELLED"; model: string;
+  request_budget?: number; requests_used?: number; requests_completed?: number;
+  input_tokens?: number; output_tokens?: number;
+  plan?: { distinct_values: number; pending_values: number; estimated_new_requests: number; remaining_requests: number };
   preview: { sampled_rows: number; counts: Record<string, number>;
     examples: { row_number: number; before: string | null; after: string | null; status: string }[] };
   usage: { model_calls: number; cached_values: number; unique_values: number; input_tokens: number; output_tokens: number };

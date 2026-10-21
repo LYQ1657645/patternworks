@@ -20,7 +20,8 @@ from .models import Dataset, Job, RegexRule, S3Connection, LLMTransformation
 from .serializers import (ConnectSerializer, DatasetSerializer, FileQuerySerializer, ImportSerializer,
                           JobSerializer, ReplaceTextSerializer, RowsQuerySerializer,
                           GenerateRuleSerializer, RegexRuleSerializer, TransformRequestSerializer, LLMTransformationSerializer,
-                          DatasetListQuerySerializer, HistoryQuerySerializer, TrashDatasetSerializer, RetentionSerializer)
+                          DatasetListQuerySerializer, HistoryQuerySerializer, TrashDatasetSerializer, RetentionSerializer,
+                          TransformApplySerializer)
 from .services.credentials import CredentialsUnavailable, encrypt_credentials
 from .services.jobs import dispatch
 from .services.s3 import S3Problem, list_files
@@ -545,8 +546,17 @@ class ApplyTransformationView(SessionAPIView):
             require_active(source)
             if record.status != Dataset.Status.READY or source.status != Dataset.Status.READY:
                 return Response({'detail': 'The transformation or source dataset is not ready.'}, status=409)
-            if request.data.get('allow_send_values') is not True:
-                return Response({'detail': 'Confirm sending full-column distinct values to OpenAI.'}, status=400)
+            serializer = TransformApplySerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            active = Job.objects.filter(transformation=record, kind=Job.Kind.APPLY_TRANSFORM,
+                                        status__in=[Job.Status.QUEUED, Job.Status.RUNNING]).first()
+            if active:
+                return Response(JobSerializer(active).data, status=202)
+            if 'request_budget' in serializer.validated_data:
+                budget = serializer.validated_data['request_budget']
+                if budget < record.requests_used:
+                    return Response({'detail': 'Budget cannot be lower than requests already used.'}, status=400)
+                LLMTransformation.objects.filter(pk=record.pk).update(request_budget=budget)
             dataset = Dataset.objects.create(owner_session=record.owner_session, parent=source,
                 source_key=source.source_key, source_format=source.source_format, sheet_name=source.sheet_name)
             job = Job.objects.create(owner_session=record.owner_session, kind=Job.Kind.APPLY_TRANSFORM,

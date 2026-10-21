@@ -1,0 +1,180 @@
+{
+  "public_url": "https://patternworks.32-237-44-97.nip.io",
+  "source_archive_sha256": "d311a0fbda19364e42fad2c3c4127e8b03f32bd8ea3a0c3bdb9c3b20d520c82b",
+  "packaged_files": 251,
+  "aws_backend_tests_passed": 383,
+  "aws_backend_suite_seconds": 187.65,
+  "preservation": {
+    "existing_dataset_count": 51,
+    "existing_artifact_files": 511,
+    "existing_artifact_bytes": 1480097215,
+    "before_after_exact_match": true,
+    "dataset_digest": "0b58e3d71691f19738f12c944d86e60ae9f8e2f5a1c32c92e5e45db85f21d44c",
+    "artifact_digest": "adaaa942f62ffe2a51c88589f2b54623f53e0d04e9820d1fb8e15991f3e90439"
+  },
+  "public_smoke": {
+    "url": "https://patternworks.32-237-44-97.nip.io",
+    "tls_verified": true,
+    "reviewer_gate": 401,
+    "csrf_without_token": 403,
+    "secure_cookies": true,
+    "assets": [
+      {
+        "path": "/assets/index-CI7t-R2S.js",
+        "matches_local_build": true,
+        "bytes": 394755
+      },
+      {
+        "path": "/assets/index-kLZWCiMR.css",
+        "matches_local_build": true,
+        "bytes": 67567
+      },
+      {
+        "path": "/assets/3d-force-graph-BUkhemYs.js",
+        "matches_local_build": true,
+        "bytes": 1175109
+      },
+      {
+        "path": "/assets/PlanetScene-3E51HW6_.js",
+        "matches_local_build": true,
+        "bytes": 243188
+      }
+    ],
+    "health": {
+      "status": "ok",
+      "checks": {
+        "database": "ok",
+        "redis": "ok"
+      },
+      "openai_configured": true,
+      "phase": "Data preparation"
+    },
+    "diagnostic": {
+      "id": "39e989f1-b38f-4dc9-bc17-3fb046c8954b",
+      "status": "SUCCESS",
+      "observed": [
+        {
+          "status": "SUCCESS",
+          "progress": 100
+        }
+      ],
+      "elapsed_seconds": 1.385
+    },
+    "datasets_and_history": 200
+  },
+  "browser_workflow": {
+    "csv_import_exact_cells": 48,
+    "csv_import_dataset_id": "0e515f51-0f8c-4343-aa30-8c8bdc3e250e",
+    "chain": [
+      {
+        "dataset_id": "bbc0b939-102f-4e00-b6c0-7fae97c9c31e",
+        "operation": "import",
+        "rows": 8,
+        "columns": 6,
+        "exact_cells": 48,
+        "pagination": [
+          3,
+          3,
+          2
+        ]
+      },
+      {
+        "dataset_id": "e08c8c75-5c57-4938-b51f-376c8d2d20cf",
+        "operation": "regex",
+        "rows": 8,
+        "columns": 6,
+        "exact_cells": 48,
+        "pagination": [
+          3,
+          3,
+          2
+        ]
+      },
+      {
+        "dataset_id": "203a1ee8-a10b-4a3e-8b7b-888b29575353",
+        "operation": "date",
+        "rows": 8,
+        "columns": 8,
+        "exact_cells": 64,
+        "pagination": [
+          3,
+          3,
+          2
+        ],
+        "requests": {
+          "used": 1,
+          "completed": 1,
+          "budget": 1,
+          "input_tokens": 611,
+          "output_tokens": 142
+        }
+      },
+      {
+        "dataset_id": "c89b5ebf-c117-465f-8f28-23d2d97fa727",
+        "operation": "category",
+        "rows": 8,
+        "columns": 10,
+        "exact_cells": 80,
+        "pagination": [
+          3,
+          3,
+          2
+        ],
+        "requests": {
+          "used": 1,
+          "completed": 1,
+          "budget": 1,
+          "input_tokens": 571,
+          "output_tokens": 81
+        }
+      }
+    ],
+    "source_preserved_cells": 48,
+    "csv_exact_cells": 80,
+    "export_job_id": "513f60c6-44a1-42df-9e98-996d159e6784",
+    "jobs": [
+      {
+        "id": "513f60c6-44a1-42df-9e98-996d159e6784",
+        "kind": "EXPORT_CSV",
+        "status": "SUCCESS"
+      },
+      {
+        "id": "541952aa-7b1a-438e-8eaa-00c882d3f57d",
+        "kind": "APPLY_TRANSFORM",
+        "status": "SUCCESS"
+      },
+      {
+        "id": "b99a2ac7-609f-49f7-b7a8-428fc0d69fba",
+        "kind": "APPLY_TRANSFORM",
+        "status": "SUCCESS"
+      },
+      {
+        "id": "f561923d-c63b-4281-8ec0-8f05411a789b",
+        "kind": "APPLY_RULE",
+        "status": "SUCCESS"
+      },
+      {
+        "id": "c867b49f-f1cf-4fe0-b030-4500670ffbff",
+        "kind": "IMPORT_DATASET",
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  "actual_browser_download": {
+    "browser": "Safari",
+    "public_download": true,
+    "dataset_id": "c89b5ebf-c117-465f-8f28-23d2d97fa727",
+    "rows": 8,
+    "columns": 10,
+    "exact_cells_checked": 80,
+    "bytes": 1081,
+    "sha256": "c99caeefba9e6b8e5244203f90b23322b2d72f5958c5e04683f211ff2fb6e5ff",
+    "export_job_id": "513f60c6-44a1-42df-9e98-996d159e6784"
+  },
+  "published": true,
+  "video_recording": "paused",
+  "images": {
+    "backend_worker": "sha256:b03bbdf2e515df3ce80aaf2431c5f2c568853ddc6bdc933f8eb42a8dc06613ca",
+    "frontend": "sha256:c610c7413a86ad21d989e141425b416d4bece0838cb7b43bf9b0e2d07c945fd8"
+  }
+}

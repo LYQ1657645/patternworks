@@ -143,6 +143,7 @@ class TransformRequestSerializer(serializers.Serializer):
     instruction = serializers.CharField(max_length=1000, required=False, default='', allow_blank=True)
     options = serializers.JSONField()
     allow_send_values = serializers.BooleanField()
+    request_budget = serializers.IntegerField(min_value=1, max_value=1000000, default=100)
 
     def validate(self, values):
         from .services.transformations import validate_config
@@ -161,5 +162,16 @@ class TransformRequestSerializer(serializers.Serializer):
 class LLMTransformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = LLMTransformation
-        fields = ['id', 'dataset_id', 'kind', 'column', 'instruction', 'options', 'status', 'model', 'preview', 'usage', 'created_at']
+        fields = ['id', 'dataset_id', 'kind', 'column', 'instruction', 'options', 'status', 'model', 'preview', 'usage', 'created_at',
+                  'request_budget', 'requests_used', 'requests_completed', 'input_tokens', 'output_tokens', 'plan']
         read_only_fields = fields
+
+
+class TransformApplySerializer(serializers.Serializer):
+    allow_send_values = serializers.BooleanField()
+    request_budget = serializers.IntegerField(min_value=1, max_value=1000000, required=False)
+
+    def validate_allow_send_values(self, value):
+        if value is not True:
+            raise serializers.ValidationError('Confirm sending selected values to OpenAI.')
+        return value

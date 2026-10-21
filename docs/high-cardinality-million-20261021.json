@@ -1,0 +1,161 @@
+{
+  "rows": 1000000,
+  "distinct_categories": 1000000,
+  "provider": "deterministic mock, no paid API calls",
+  "transport": "local synthetic XLSX, no S3 calls",
+  "database": "isolated local SQLite",
+  "execution": "synchronous worker entrypoint with durable continuation slices",
+  "spark_master": "local[2]",
+  "partitions": 4,
+  "fixture_bytes": 24952037,
+  "redis_policy": "separate noeviction broker and 256 MiB allkeys-lru cache",
+  "fixture_sha256": "46f74abc27c929fe3df8bbc02a34c472bee38670bd7943d5b808c5c9c44ce519",
+  "stages": [
+    {
+      "stage": "xlsx_import",
+      "elapsed_seconds": 52.146,
+      "attempts": 1,
+      "metadata": {
+        "source_bytes": 24952037,
+        "transport": "synthetic local XLSX fixture",
+        "sheet_names": [
+          "Scale"
+        ],
+        "sheet_name": "Scale",
+        "row_count": 1000000,
+        "content_hash": "d2a92560d324b671af09dfba9fdf7907d81a6c2e62c97f9b0a4f4ad2cb57ee0a",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1000000,
+      "exact_cells_checked": 3000000,
+      "ordered_sha256": "ec8acd2a35c8e72e6f50ced8aeb013b5b20b722baced8e4a3dbcbd92a82d7439"
+    },
+    {
+      "stage": "date_normalization",
+      "elapsed_seconds": 22.579,
+      "attempts": 101,
+      "metadata": {
+        "operation": "date_normalize",
+        "transformation_id": "1633a899-76f2-462a-9e2f-a9bb0e0225a3",
+        "column": "c1",
+        "output_column": "c3",
+        "status_column": "c4",
+        "parent_id": "2ae39114-efcc-4e01-958f-bf22868940bf",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "normalized": 1000000
+        },
+        "llm_usage": {
+          "model_calls": 2501,
+          "cached_values": 0,
+          "unique_values": 30003,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1000000,
+        "content_hash": "6828d6130716715bb6b0682fe7286b2f498f79552a41f6044cb9f7f883359f35",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1000000,
+      "exact_cells_checked": 5000000,
+      "ordered_sha256": "5afc4b739ce4344ef747323cdabbdac24584e875df91cef707a0e93eef497ebb",
+      "simulated_requests": 2501,
+      "plan": {
+        "distinct_values": 30003,
+        "pending_values": 0,
+        "estimated_new_requests": 0,
+        "remaining_requests": 997499
+      }
+    },
+    {
+      "stage": "classification",
+      "elapsed_seconds": 416.035,
+      "attempts": 3334,
+      "metadata": {
+        "operation": "categorize",
+        "transformation_id": "232a880f-2393-45ef-87b5-0667c4d82644",
+        "column": "c2",
+        "output_column": "c5",
+        "status_column": "c6",
+        "parent_id": "12eb63d5-a410-4644-89a5-addb7202e47f",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "classified": 1000000
+        },
+        "llm_usage": {
+          "model_calls": 83334,
+          "cached_values": 0,
+          "unique_values": 1000000,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1000000,
+        "content_hash": "04284988e0e97af07c6efa14e10f9f59a9389270a9308956b8564ac3a78a545e",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1000000,
+      "exact_cells_checked": 7000000,
+      "ordered_sha256": "405cadb78112cb52e5392b449fb8d5ad7d7499e4a6700fc8969ce1a8d79b7496",
+      "simulated_requests": 83334,
+      "plan": {
+        "distinct_values": 1000000,
+        "pending_values": 0,
+        "estimated_new_requests": 0,
+        "remaining_requests": 916666
+      }
+    },
+    {
+      "stage": "csv_export",
+      "elapsed_seconds": 3.556,
+      "attempts": 1,
+      "metadata": {
+        "operation": "categorize",
+        "transformation_id": "232a880f-2393-45ef-87b5-0667c4d82644",
+        "column": "c2",
+        "output_column": "c5",
+        "status_column": "c6",
+        "parent_id": "12eb63d5-a410-4644-89a5-addb7202e47f",
+        "model": "mock-only",
+        "policy_version": "column-values-v2",
+        "status_counts": {
+          "classified": 1000000
+        },
+        "llm_usage": {
+          "model_calls": 83334,
+          "cached_values": 0,
+          "unique_values": 1000000,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "requests_without_confirmed_usage": 0
+        },
+        "row_count": 1000000,
+        "content_hash": "04284988e0e97af07c6efa14e10f9f59a9389270a9308956b8564ac3a78a545e",
+        "partition_count": 4,
+        "spark_version": "4.0.3",
+        "spark_master": "local[2]",
+        "preview_cell_limit": 4096
+      },
+      "exact_rows_checked": 1000000,
+      "exact_cells_checked": 7000000,
+      "ordered_sha256": "405cadb78112cb52e5392b449fb8d5ad7d7499e4a6700fc8969ce1a8d79b7496",
+      "csv_exact_cells_checked": 7000000
+    }
+  ],
+  "complete": true,
+  "source_preserved": true,
+  "pagination_exact": true,
+  "cache_evictions": 0
+}
