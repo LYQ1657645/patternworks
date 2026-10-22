@@ -1,81 +1,89 @@
 # Patternworks demo narration
 
-Read the numbered paragraphs aloud. The headings are editing cues, not spoken text. The matching clicks and checkpoints are in [the recording guide](DEMO_RECORDING_GUIDE_ZH.md). Recommended edited length: about 6–7 minutes, depending on speaking pace and actual task duration.
+Simple, workflow-first version. Read only the paragraphs under 01–12 aloud. Matching actions are in [the recording guide](DEMO_RECORDING_GUIDE_ZH.md). Allow about 5–6 minutes for narration and clicks, plus task waiting time. Read result sentences only after the results appear. Updated 22 October 2026.
 
-## 01 Introduction
+## 01 Introduce the website
 
-Hi, I'm Yingqi. This is Patternworks, a web application for transforming tabular data with natural language. I'll connect my own Amazon S3 bucket, replace email addresses, normalize dates, classify country values, and download the result.
+Hi, I'm Yingqi. This is Patternworks. It helps users clean and transform table data using plain language. I'll show the full workflow: connect a file, preview changes, apply them, and download the result.
 
 ## 02 Connect to S3
 
-I enter my bucket name, region, and read-only AWS credentials. Both credential fields are masked. The credentials are encrypted on the server and expire after one hour. After the connection succeeds, the application shows the files available in my bucket.
+First, I enter my own S3 bucket name, region, and AWS credentials. The keys stay hidden on screen and are encrypted on the server. I click Connect bucket. Here are the files in my bucket.
 
-## 03 Select and import a file
+## 03 Choose and import a file
 
-The application supports CSV and Excel. Selecting an Excel file discovers its worksheets automatically. For this walkthrough, I'll import a CSV with sixty fictional contacts, so I can also show pagination. The import runs in the background, with its progress displayed here.
+Patternworks supports CSV and Excel. For Excel, I can select a worksheet from this list. For this demo, I'll import a CSV with sixty sample contacts. The import runs in the background, and I can follow its progress.
 
-## 04 Inspect the original data
+## 04 Review the data
 
-The data contains email addresses, mixed date formats, and different names for the same country. Some email values are blank or deliberately invalid. Results load in pages of twenty-five rows. Here, the second page starts at row twenty-six.
+Here is the original data. It has email addresses, mixed date formats, and different names for the same country. The table loads one page at a time. Next takes me to row twenty-six. Now I'll select Transform.
 
-## 05 Generate and review a regex
+## 05 Describe a replacement
 
-I select Email and Notes, describe the pattern as “Find email addresses,” and enter a replacement value. Generate creates a validated rule and a sample preview. It has not changed the dataset yet. I can inspect the expression and compare the original and replacement values in both columns.
+I select Email and Notes. I type “Find email addresses” and enter the replacement text. Generate creates a regex rule, checks it, and shows a preview. I can compare the changes in both columns. The data has not changed yet.
 
-## 06 Change the preview and show caching
+## 06 Check the updated preview
 
-If I change the replacement, Apply becomes unavailable until I update the preview. This prevents applying an outdated preview. The description is unchanged, so the validated pattern can be reused from Redis. The rule details confirm that this request used the cache without another model call.
+I'll change the replacement to EMAIL in brackets. I need to update the preview before I can apply it. Since the description is the same, this request reuses a cached rule without another AI call.
 
-## 07 Apply and inspect the result
+## 07 Apply and follow the task
 
-Now I apply the rule. Django submits the job, Celery runs the work, and Spark processes the selected columns. Tasks shows its progress and completion. The result is saved as a separate version. Email addresses are replaced in both columns, while blank values, unmatched text, and unselected columns are preserved.
+Now I click Apply. The work runs in the background. In Tasks, I can see its progress and when it finishes. Here is the result: emails are replaced in both columns. The application saves a new version and keeps the original.
 
-## 08 Normalize dates
+## 08 Standardize dates
 
-The first additional LLM-assisted transformation is date normalization. I select JoinDate and allow the selected values to be processed. I preview the output, then apply it. The result adds standardized dates and a status column. The original date values remain available for comparison.
+There are also two extra AI transformations. The first standardizes dates. I select JoinDate, allow the selected values to be sent to OpenAI, and set a request limit. I preview the changes, check the estimate, and apply. The new date column uses one format. The original dates stay available.
 
-## 09 Classify country values
+## 09 Group country names
 
-The second transformation is classification. I select Country, provide three categories, and choose Other as the fallback. The preview maps country-name variations to consistent labels. Applying it adds category and status columns to a new version, while preserving the original country values.
+The second transformation groups values into categories. I select Country and define United States, Australia, and Other. I preview the results and apply. USA and U.S. now map to United States. The earlier email and date changes are also kept in this version.
 
-## 10 Download the final data
+## 10 Download the result
 
-The final dataset has sixty rows and ten columns. Export CSV prepares a download in the background. I download and open the file to check that it includes the masked emails, normalized dates, categories, and all sixty records.
+The final version has sixty rows and ten columns. I click Export CSV, wait for it to finish, and download the file. Here it is, with the email replacements, standard dates, and country categories.
 
-## 11 Review versions and tasks
+## 11 Explain versions and tasks
 
-The library connects saved versions through their transformations. I can open the original or a processed version. Tasks keeps the execution history separately, including progress, failures, cancellations, and eligible retries. The original S3 file is never overwritten.
+In the library, each planet represents a different saved version. The lines show how the versions are connected. I can open an earlier version here. Tasks keeps the operation history, with cancel and retry available for eligible tasks. The source file in S3 stays unchanged.
 
-## 12 Architecture, scale evidence, and closing
+## 12 Explain the implementation and close
 
-The repository includes Docker Compose, setup instructions, architecture notes, and automated checks. A separate single-server benchmark verified one million synthetic CSV rows, including exact result checks. Import took about eighty-one seconds, and regex replacement took about seventy-four. Date and category measurements used cached mappings. These results exclude S3 transfer and live model latency. The public demo and reproduction details are linked in the README. Thank you.
+The interface uses React, with Django on the server. Celery runs background tasks. Redis supports the task queue and caches repeated requests. PySpark processes data across partitions.
 
-## Optional narration for an existing completed cancellation and retry demonstration
+The repository includes Docker Compose setup, tests, monitoring instructions, and million-row test reports. The large tests use simulated or cached AI results, so they test the data pipeline, not live AI speed. The README explains the setup and trade-offs. That's the workflow, from S3 to a downloaded result. Thank you.
 
-Use this only if the matching actions are actually recorded. It is not part of the main narration.
+---
 
-I cancel this running task. It remains in history as cancelled. Retry creates a new task, and the original cancellation record is preserved. The new task completes and saves its own result.
+## Recording notes — do not read aloud
 
-## Optional narration for an actual retryable failure
+- **06:** Say “reuses a cached rule” only when Rule details confirms a cache hit. Otherwise replace that last sentence with: “I check the new preview before applying the change.” The actual input is `[EMAIL]`; brackets are ordinary replacement text, not required syntax.
+- **08–09:** Use the actual request estimate and remaining budget. Raise the budget if needed before Apply. Do not claim the limit is a dollar amount or that every run uses exactly one request.
+- **10:** Open this run's downloaded file and check the final record, ID 60. Only state sixty rows and ten columns when the actual result matches.
+- **11:** Mention cancel and retry while showing Tasks. An actual cancellation or failure demonstration can be recorded separately; do not describe one as completed unless shown.
+- **12:** Show the README architecture, Compose setup, automated checks, and linked scale report. The report distinguishes real parsing/Spark/export from simulated or cached model results. Do not describe a multi-machine deployment or a live million-row AI benchmark.
+- **Required video evidence:** Record your own masked S3 credential entry and a successful connection. Keep at least one real asynchronous task visible from submission to completion. The final video must be embedded in README; this draft does not complete that submission step.
+- **Optional Replace text:** No extra scene is needed. If asked: “Replace text replaces exact text, such as USA with US, without AI.”
 
-Use this only when the displayed error allows Retry and the required recovery has actually been completed. Do not describe a corrected new import as retrying the original task.
+## Optional cancellation and retry narration
 
-This task failed with a clear error message. After resolving the cause, I retry it as a new task. The failed record stays in history, and the new attempt completes successfully.
+Read only if the corresponding actions are recorded:
 
-## Short pronunciation notes
+I cancel this task. Its cancelled record stays in history. Retry starts a new task. This attempt finishes successfully.
+
+For a real retryable failure, after resolving its cause:
+
+This task failed with an error message. I retry it as a new task. The new attempt finishes, and the failed record stays in history.
+
+## Pronunciation
 
 | Term | Reading cue |
 | --- | --- |
 | Patternworks | PAT-ern-works |
 | S3 | S three |
-| AWS | A W S |
-| CSV | C S V |
 | Django | JANG-go |
 | Celery | SELL-er-ee |
 | Redis | RED-iss |
 | PySpark | pie-spark |
 | regex | REG-ex |
-| asynchronous | ay-SINK-ruh-nus |
-| pagination | paj-ih-NAY-shun |
 
-You do not need to read the regex symbols, UUIDs, URLs, or every category name aloud.
+Do not read regex symbols, IDs, URLs, or test counts aloud.

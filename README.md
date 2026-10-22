@@ -4,9 +4,28 @@ A technical assessment project for natural-language tabular transformations, bui
 
 **Public demo:** <https://patternworks.32-237-44-97.nip.io/> — reviewer credentials are shared privately.
 
-**Source:** <https://github.com/LYQ1657645/patternworks> (private; reviewers need repository access).
+**Source:** <https://github.com/LYQ1657645/patternworks> — public repository.
 
-**Demo video:** recording and README embedding are pending.
+## Demo video
+
+A 4 minute 37 second recording of the deployed application. It shows user-entered S3 credentials (masked), a completed asynchronous import, regex previews, date normalization, CSV export and the version library.
+
+https://github.com/user-attachments/assets/8e0a5240-b036-4328-87b8-cb9d7b8caa78
+
+[Download the MP4](https://github.com/LYQ1657645/patternworks/releases/download/submission-2026-10-22/patternworks-demo.mp4).
+
+| Time | Demonstration |
+| --- | --- |
+| 00:00 | Connect to Amazon S3 with read-only credentials |
+| 00:32 | Browse source files and discover Excel worksheets |
+| 00:44 | Import the 60-row CSV and view the completed result |
+| 01:00 | Generate and update a multi-column regex preview |
+| 02:10 | Preview date normalization and apply it to the full column |
+| 02:50 | Inspect the completed result and export CSV |
+| 03:20 | Explore dataset versions and their transformation links |
+
+Reviewers can use their own S3 bucket. Website access credentials are supplied privately in the submission email; the repository and video require no project password.
+
 
 Patternworks turns a plain-language request into a validated regex, previews its effect, and applies it to a new dataset version. It also provides LLM-assisted date normalization and classification. Your source S3 objects stay unchanged.
 
@@ -26,7 +45,6 @@ Planet texture identifies a file family; color identifies the operation. Slow an
 - The current implementation passed **383 backend tests** (including 14 real Spark integrations), the same 383 tests in its rebuilt Docker image, and **81 frontend tests/build**. New checks cover million-row XLSX → 30,003 date strings → 1,000,000 distinct category strings → exact 7,000,000-cell CSV output with a **simulated provider**, plus PostgreSQL budget races and real queued continuations. The new AWS image also passed 383 tests; fresh public CSV/Excel import and the full transformation/download chain passed exact checks of all 80 final cells.
 - [Recovery acceptance](docs/DAY5_ACCEPTANCE.md) records cancellation, worker crash recovery and manual retries; [lifecycle acceptance](docs/DATASET_LIFECYCLE_ACCEPTANCE.md) covers deletion and retention.
 - Dated reports describe the implementation at the time of each run; their timings and test counts are not claims of a fresh run for every release.
-- The 2026-10-21 release passed 77 frontend tests and 368 backend tests, including 12 real Spark integrations. Public Safari acceptance covered a renewed S3 connection, Excel worksheet discovery/import, Chinese email matching across two columns, Apply and an actual CSV download with all 48 data cells checked independently.
 
 ## Run with Docker Compose
 
@@ -243,7 +261,7 @@ This repository contains the application, migrations, dependency locks, Docker/H
 
 GitHub Actions runs backend/Spark tests, Django and Compose checks, frontend tests/build, and the repository secret check. A green workflow establishes automated checks; real S3/model, public browser and million-row measurements have separate acceptance reports.
 
-The public application is deployed. Reviewers require the privately supplied demo login and access to this private repository. The final demonstration video still needs to be recorded and embedded above; it should show user-entered S3 credentials and an asynchronous task reaching completion.
+The public application is deployed, the repository is public, and the real demonstration recording is embedded above. The website retains a reviewer access password, supplied privately with the submission. Reviewers connect their own S3 credentials inside the application.
 
 Third-party component notices and their original license are retained in [React Bits sources](frontend/src/vendor/react-bits/README.md). An author-wide open-source license has not been assigned to this assessment repository.
 
