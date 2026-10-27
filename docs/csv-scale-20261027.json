@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-27",
+  "status": "local only; not deployed",
+  "runs": [
+    {
+      "rows": 1000000,
+      "columns": 16,
+      "source_bytes": 431650871,
+      "mode": "Isolated CSV import -> Generate -> Apply -> export acceptance, no paid calls.\n\nUses real CSV/Spark/RE2/artifacts and worker entrypoints, isolated SQLite/locmem\ninstead of PostgreSQL/Redis/broker, local transport instead of S3, simulated SDK\nresponses instead of OpenAI. Checks every exported cell against an independent\nexpectation. Does not read or modify existing workspace data.\n",
+      "spark_master": "local[2]",
+      "stages": [
+        {
+          "kind": "IMPORT_DATASET",
+          "status": "SUCCESS",
+          "seconds": 35.429
+        },
+        {
+          "kind": "GENERATE_RULE",
+          "status": "SUCCESS",
+          "seconds": 0.009
+        },
+        {
+          "kind": "APPLY_RULE",
+          "status": "SUCCESS",
+          "seconds": 33.213
+        },
+        {
+          "kind": "EXPORT_CSV",
+          "status": "SUCCESS",
+          "seconds": 9.088
+        }
+      ],
+      "simulated_model_requests": 2,
+      "checked_cells": 16000000,
+      "exact_export": true,
+      "original_unchanged": true,
+      "partitions": 4,
+      "export_bytes": 387274785,
+      "last_page_rows": 100,
+      "source_sha256": "99b01bd01fc43debbc8777d70de6813928b6f78c2517f085d45796b897daa64d"
+    },
+    {
+      "rows": 2194488,
+      "columns": 16,
+      "source_bytes": 957665123,
+      "mode": "Isolated CSV import -> Generate -> Apply -> export acceptance, no paid calls.\n\nUses real CSV/Spark/RE2/artifacts and worker entrypoints, isolated SQLite/locmem\ninstead of PostgreSQL/Redis/broker, local transport instead of S3, simulated SDK\nresponses instead of OpenAI. Checks every exported cell against an independent\nexpectation. Does not read or modify existing workspace data.\n",
+      "spark_master": "local[2]",
+      "stages": [
+        {
+          "kind": "IMPORT_DATASET",
+          "status": "SUCCESS",
+          "seconds": 81.293
+        },
+        {
+          "kind": "GENERATE_RULE",
+          "status": "SUCCESS",
+          "seconds": 0.01
+        },
+        {
+          "kind": "APPLY_RULE",
+          "status": "SUCCESS",
+          "seconds": 112.654
+        },
+        {
+          "kind": "EXPORT_CSV",
+          "status": "SUCCESS",
+          "seconds": 18.122
+        }
+      ],
+      "simulated_model_requests": 2,
+      "checked_cells": 35111808,
+      "exact_export": true,
+      "original_unchanged": true,
+      "partitions": 4,
+      "export_bytes": 856504893,
+      "last_page_rows": 100,
+      "source_sha256": "161c4fa9aa4a1abc6cec6039bead6068a74f1170b67d6bec12e77ac27d7abf54"
+    }
+  ]
+}

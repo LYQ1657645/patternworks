@@ -221,6 +221,7 @@ def test_transform_transient_failure_retries_then_marks_preview_failed(source):
     retry.assert_called_once_with(countdown=2)
     job.refresh_from_db(); record.refresh_from_db()
     assert job.status == 'QUEUED' and record.status == 'PENDING'
+    Job.objects.filter(pk=job.pk).update(retry_not_before=timezone.now()-timedelta(seconds=1))
     run_job.push_request(retries=2)
     try:
         with patch('processing.tasks.preview_transformation', side_effect=RuleProblem('LLM_TEMPORARY', 'Retry.', True)):

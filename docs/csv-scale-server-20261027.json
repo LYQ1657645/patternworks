@@ -1,0 +1,37 @@
+{
+  "rows": 2194488,
+  "columns": 16,
+  "source_bytes": 957665123,
+  "source_sha256": "161c4fa9aa4a1abc6cec6039bead6068a74f1170b67d6bec12e77ac27d7abf54",
+  "mode": "Isolated CSV import -> Generate -> Apply -> export acceptance, no paid calls.\n\nUses real CSV/Spark/RE2/artifacts and worker entrypoints, isolated SQLite/locmem\ninstead of PostgreSQL/Redis/broker, local transport instead of S3, simulated SDK\nresponses instead of OpenAI. Checks every exported cell against an independent\nexpectation. Does not read or modify existing workspace data.\n",
+  "spark_master": "local[2]",
+  "stages": [
+    {
+      "kind": "IMPORT_DATASET",
+      "status": "SUCCESS",
+      "seconds": 370.1
+    },
+    {
+      "kind": "GENERATE_RULE",
+      "status": "SUCCESS",
+      "seconds": 0.023
+    },
+    {
+      "kind": "APPLY_RULE",
+      "status": "SUCCESS",
+      "seconds": 909.072
+    },
+    {
+      "kind": "EXPORT_CSV",
+      "status": "SUCCESS",
+      "seconds": 98.371
+    }
+  ],
+  "simulated_model_requests": 2,
+  "checked_cells": 35111808,
+  "exact_export": true,
+  "original_unchanged": true,
+  "partitions": 4,
+  "export_bytes": 856504893,
+  "last_page_rows": 100
+}

@@ -110,9 +110,8 @@ def request_batch(record, values):
     except (AuthenticationError, PermissionDeniedError):
         raise RuleProblem('LLM_ACCESS_DENIED', 'OpenAI access was denied. Check the configured project key.') from None
     except RateLimitError as exc:
-        quota = exc.code in {'insufficient_quota', 'billing_hard_limit_reached'}
-        raise RuleProblem('LLM_QUOTA' if quota else 'LLM_RATE_LIMIT',
-                          'OpenAI quota is exhausted.' if quota else 'OpenAI is busy. Please retry shortly.', not quota) from None
+        from .provider_errors import rate_limit_details
+        raise RuleProblem(*rate_limit_details(exc)) from None
     except (APITimeoutError, APIConnectionError):
         raise RuleProblem('LLM_TEMPORARY', 'Could not reach OpenAI in time. Please retry shortly.', True) from None
     except APIError as exc:

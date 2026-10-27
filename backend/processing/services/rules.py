@@ -10,6 +10,7 @@ from openai import (OpenAI, APIConnectionError, APIError, APITimeoutError, Authe
 
 from .datasets import column_samples
 from .regex_engine import POLICY_VERSION, RuleValidationError, apply_cell, validate_pattern
+from .provider_errors import rate_limit_details
 
 PROMPT_VERSION = 'regex-replacement-v4'
 SYSTEM_PROMPT = """Translate the user's text transformation request into a regex replacement rule.
@@ -63,8 +64,9 @@ RULE_SCHEMA = {
 
 
 class RuleProblem(Exception):
-    def __init__(self, code, message, transient=False):
+    def __init__(self, code, message, transient=False, retry_after=None):
         self.code, self.message, self.transient = code, message, transient
+        self.retry_after = retry_after
         super().__init__(message)
 
 
@@ -136,29 +138,42 @@ def request_rule(instruction):
     if not settings.OPENAI_API_KEY:
         raise RuleProblem('LLM_NOT_CONFIGURED', 'OpenAI is not configured. Ask the workspace owner to configure it.')
     try:
+        messages = [{'role': 'user', 'content': model_instruction(instruction)}]
+        usage = {'input_tokens': 0, 'output_tokens': 0}
         with OpenAI(api_key=settings.OPENAI_API_KEY, timeout=settings.OPENAI_RULE_TIMEOUT_SECONDS, max_retries=0) as client:
-            response = client.responses.create(
-                model=settings.OPENAI_MODEL, instructions=SYSTEM_PROMPT,
-                input=[{'role': 'user', 'content': model_instruction(instruction)}],
-                text={'format': {'type': 'json_schema', 'name': 'regex_rule', 'strict': True, 'schema': RULE_SCHEMA}},
-                max_output_tokens=900, temperature=0, store=False,
-            )
-        if response.status != 'completed':
-            raise RuleProblem('LLM_INCOMPLETE', 'The model could not finish the rule. Simplify the instruction and retry.')
-        try:
-            data = json.loads(response.output_text)
-        except (TypeError, ValueError):
-            raise RuleProblem('LLM_INVALID_OUTPUT', 'The model did not return a usable rule. Rephrase your instruction.') from None
-        data = validate_output(data, instruction)
-        usage = {'input_tokens': getattr(response.usage, 'input_tokens', 0),
-                 'output_tokens': getattr(response.usage, 'output_tokens', 0)}
-        return data, usage
+            for attempt in range(2):
+                response = client.responses.create(
+                    model=settings.OPENAI_MODEL, instructions=SYSTEM_PROMPT, input=messages,
+                    text={'format': {'type': 'json_schema', 'name': 'regex_rule', 'strict': True, 'schema': RULE_SCHEMA}},
+                    max_output_tokens=900, temperature=0, store=False,
+                )
+                for name in usage:
+                    usage[name] += getattr(getattr(response, 'usage', None), name, 0) or 0
+                if response.status != 'completed':
+                    raise RuleProblem('LLM_INCOMPLETE', 'The model could not finish the rule. Simplify the instruction and retry.')
+                try:
+                    try:
+                        data = json.loads(response.output_text)
+                    except (TypeError, ValueError):
+                        raise RuleProblem('LLM_INVALID_OUTPUT', 'The model did not return a usable rule. Rephrase your instruction.') from None
+                    return validate_output(data, instruction), usage
+                except RuleProblem as exc:
+                    # One correction of generated syntax/examples; never reinterpret
+                    # an unsupported request or send source cells to the provider.
+                    repairable = (exc.code in {'RULE_EXAMPLES_FAILED', 'LLM_INVALID_OUTPUT'}
+                                  or exc.code.startswith('REGEX_'))
+                    if attempt or not repairable:
+                        raise
+                    messages = [*messages,
+                        {'role': 'assistant', 'content': str(response.output_text)[:8192]},
+                        {'role': 'user', 'content': (
+                            f'The rule failed local validation: {exc.code}. {exc.message} '
+                            'Correct the rule and synthetic examples for the original request. '
+                            'Keep all schema and RE2 constraints. Return the complete corrected JSON.')}]
     except (AuthenticationError, PermissionDeniedError):
         raise RuleProblem('LLM_ACCESS_DENIED', 'OpenAI access was denied. Check the configured project key and model access.') from None
     except RateLimitError as exc:
-        if exc.code in {'insufficient_quota', 'billing_hard_limit_reached'}:
-            raise RuleProblem('LLM_QUOTA', 'The OpenAI project has insufficient quota. Check project billing or usage limits.') from None
-        raise RuleProblem('LLM_RATE_LIMIT', 'OpenAI is busy or rate limited. Please retry shortly.', True) from None
+        raise RuleProblem(*rate_limit_details(exc)) from None
     except (APITimeoutError, APIConnectionError):
         raise RuleProblem('LLM_TEMPORARY', 'Could not reach OpenAI in time. Please retry shortly.', True) from None
     except APIError as exc:

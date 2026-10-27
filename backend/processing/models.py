@@ -61,6 +61,7 @@ class Job(models.Model):
     recovery_count = models.PositiveSmallIntegerField(default=0)
     heartbeat_at = models.DateTimeField(null=True, blank=True)
     last_dispatched_at = models.DateTimeField(null=True, blank=True)
+    retry_not_before = models.DateTimeField(null=True, blank=True)
     cleanup_completed_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:

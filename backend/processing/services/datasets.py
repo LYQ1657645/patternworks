@@ -107,7 +107,12 @@ def parse_source(source, suffix, sheet_name, target, report):
             with Path(source).open(encoding='utf-8-sig', newline='') as stream:
                 columns, count = normalize_rows(csv.reader(stream, strict=True), target, report)
             return columns, count, {'sheet_names': [], 'sheet_name': ''}
-        except (UnicodeError, csv.Error):
+        except csv.Error as exc:
+            if 'field larger than field limit' in str(exc):
+                raise DatasetProblem('CELL_TOO_LARGE',
+                    f'A CSV cell exceeds the {settings.MAX_CELL_CHARACTERS:,}-character import limit. Nothing was truncated.') from None
+            raise DatasetProblem('CSV_INVALID', 'Cannot read this CSV. Use UTF-8 encoding, comma delimiters and valid quoting.') from None
+        except UnicodeError:
             raise DatasetProblem('CSV_INVALID', 'Cannot read this CSV. Use UTF-8 encoding, comma delimiters and valid quoting.') from None
     if suffix == '.xlsx':
         from openpyxl import load_workbook
@@ -250,6 +255,7 @@ def build_page_index(json_directory, database_path, columns, report):
     from .content_identity import row_digest, content_digest
     keys = [column['key'] for column in columns]
     count, batch, batch_bytes = 0, [], 0
+    digest_batch = []
     with closing(sqlite3.connect(database_path)) as database, database:
         database.execute('CREATE TABLE rows (row_id INTEGER PRIMARY KEY, cells TEXT NOT NULL)')
         database.execute('CREATE TABLE full_samples (row_id INTEGER PRIMARY KEY, cells TEXT NOT NULL)')
@@ -259,8 +265,7 @@ def build_page_index(json_directory, database_path, columns, report):
                 for line in stream:
                     record = json.loads(line)
                     cells = [record.get(key) for key in keys]
-                    database.execute('INSERT INTO content_rows VALUES (?, ?)',
-                                     (record['_row_id'], row_digest(record['_row_id'], cells)))
+                    digest_batch.append((record['_row_id'], row_digest(record['_row_id'], cells)))
                     if record['_row_id'] <= 20:
                         database.execute('INSERT INTO full_samples VALUES (?, ?)',
                                          (record['_row_id'], json.dumps(cells, ensure_ascii=False)))
@@ -272,11 +277,14 @@ def build_page_index(json_directory, database_path, columns, report):
                     count += 1
                     if len(batch) >= 500 or batch_bytes >= 4 * 1048576:
                         database.executemany('INSERT INTO rows VALUES (?, ?)', batch)
+                        database.executemany('INSERT INTO content_rows VALUES (?, ?)', digest_batch)
                         batch.clear()
+                        digest_batch.clear()
                         batch_bytes = 0
                         report(f'Indexing preview ({count:,} rows)', 85)
         if batch:
             database.executemany('INSERT INTO rows VALUES (?, ?)', batch)
+            database.executemany('INSERT INTO content_rows VALUES (?, ?)', digest_batch)
         signature = content_digest(columns, (row[0] for row in database.execute(
             'SELECT digest FROM content_rows ORDER BY row_id')))
         database.execute('CREATE TABLE content_identity (digest TEXT NOT NULL)')
@@ -353,7 +361,6 @@ def prepare_dataset(job, report):
     root = settings.DATASET_ROOT
     root.mkdir(parents=True, exist_ok=True)
     spark = None
-    cached_frame = None
     try:
         if job.kind == 'APPLY_TRANSFORM':
             from .transform_store import prepare
@@ -400,7 +407,6 @@ def prepare_dataset(job, report):
                     frame, metadata = apply_transformation(frame, dataset, job.transformation, report)
                 elif job.kind == 'APPLY_RULE':
                     from functools import partial
-                    from pyspark import StorageLevel
                     from pyspark.sql.types import ArrayType, BooleanType, LongType, StringType, StructField, StructType
                     from .regex_engine import RuleValidationError, apply_cells, validate_pattern
                     rule = job.rule
@@ -419,8 +425,15 @@ def prepare_dataset(job, report):
                         StructField('match_count', LongType()), StructField('changed', BooleanType()), StructField('problem', StringType())])
                     transform = functions.udf(partial(apply_cells, pattern=rule.pattern, replacement=rule.replacement,
                         ignore_case=rule.ignore_case, maximum=settings.MAX_CELL_CHARACTERS), ArrayType(cell_schema, containsNull=False))
-                    cached_frame = frame.withColumn('_rule_results',
-                        transform(functions.array(*[functions.col(key) for key in columns]))).persist(StorageLevel.DISK_ONLY)
+                    # Materialize each partition directly to Parquet. SQL cache
+                    # construction still buffers column batches even with
+                    # DISK_ONLY, duplicating wide source and replacement values.
+                    # A staged file bounds this work and lets stats/publication
+                    # reuse the exact same evaluated RE2 results.
+                    evaluated = work / 'rule-results'
+                    frame.withColumn('_rule_results', transform(functions.array(
+                        *[functions.col(key) for key in columns]))).write.parquet(str(evaluated))
+                    evaluated_frame = spark.read.parquet(str(evaluated))
                     results = functions.col('_rule_results')
                     aggregates = [
                         functions.sum(functions.exists(results, lambda cell: cell['matched']).cast('long')).alias('matched_rows'),
@@ -432,7 +445,7 @@ def prepare_dataset(job, report):
                             functions.sum(cell['match_count']).alias(f'{key}_match_count'),
                             functions.sum(cell['changed'].cast('long')).alias(f'{key}_changed_rows'),
                             functions.max(cell['problem']).alias(f'{key}_problem')])
-                    statistics = cached_frame.agg(*aggregates).first()
+                    statistics = evaluated_frame.agg(*aggregates).first()
                     for key in columns:
                         if statistics[f'{key}_problem']:
                             raise DatasetProblem(statistics[f'{key}_problem'],
@@ -440,7 +453,7 @@ def prepare_dataset(job, report):
                     column_stats = {key: {name: int(statistics[f'{key}_{name}'] or 0)
                         for name in ('matched_rows', 'match_count', 'changed_rows')} for key in columns}
                     replacements = {key: results[index]['value'].alias(key) for index, key in enumerate(columns)}
-                    frame = cached_frame.select(*[replacements.get(key, functions.col(key)) for key in frame.columns])
+                    frame = evaluated_frame.select(*[replacements.get(key, functions.col(key)) for key in frame.columns])
                     metadata = {'operation': 'regex_replace', 'rule_id': str(rule.pk), 'column': rule.column, 'columns': columns,
                         'parent_id': str(parent.pk), 'regex_engine': 'RE2', 'pattern': rule.pattern,
                         'matched_rows': int(statistics['matched_rows'] or 0),
@@ -469,8 +482,6 @@ def prepare_dataset(job, report):
             return {'columns': dataset.columns, 'sheet_name': dataset.sheet_name,
                     'row_count': info['row_count'], 'metadata': metadata}
     finally:
-        if cached_frame is not None:
-            cached_frame.unpersist()
         if spark:
             spark.stop()
 

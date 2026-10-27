@@ -404,6 +404,7 @@ def test_temporary_provider_failure_has_bounded_retry(source):
             with pytest.raises(Retry):
                 run_job.run(str(job.pk))
     retry.assert_called_once_with(countdown=2)
+    Job.objects.filter(pk=job.pk).update(retry_not_before=timezone.now()-timedelta(seconds=1))
     run_job.push_request(retries=2)
     try:
         with patch('processing.tasks.generate_rule', side_effect=RuleProblem('LLM_TEMPORARY', 'Retry.', True)):
@@ -489,4 +490,17 @@ def test_real_spark_re2_matches_preview_and_preserves_source(settings, tmp_path)
     rejected.refresh_from_db()
     assert rejected.status == Job.Status.FAILED and rejected.error_code == 'REGEX_NESTED_REPEAT'
     assert not artifact_directory(invalid.pk).exists()
+    assert read_page(source)['rows'] == before
+    # A failure discovered after partition staging must not publish partial data.
+    rule.pattern = '.'
+    rule.replacement = 'xx'
+    rule.save()
+    settings.MAX_CELL_CHARACTERS = 10
+    oversized = Dataset.objects.create(owner_session='owner', parent=source, source_key='contacts.csv', source_format='csv')
+    rejected = Job.objects.create(owner_session='owner', kind='APPLY_RULE', rule=rule, dataset=oversized)
+    run_job.run(str(rejected.pk))
+    rejected.refresh_from_db()
+    assert rejected.status == 'FAILED' and rejected.error_code == 'OUTPUT_TOO_LARGE'
+    assert not artifact_directory(oversized.pk).exists()
+    assert not list(settings.DATASET_ROOT.glob('.import-*'))
     assert read_page(source)['rows'] == before

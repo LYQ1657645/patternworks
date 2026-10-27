@@ -64,11 +64,13 @@ def recover_jobs():
     # healthy long queue is republished periodically, never failed for waiting.
     queued_cutoff = now - timedelta(seconds=settings.JOB_QUEUE_REPUBLISH_SECONDS)
     queued = Q(last_dispatched_at__lt=queued_cutoff) | Q(last_dispatched_at__isnull=True, created_at__lt=queued_cutoff)
-    for job_id in list(Job.objects.filter(queued, status=Job.Status.QUEUED).values_list('pk', flat=True)[:100]):
+    due = Q(retry_not_before__isnull=True) | Q(retry_not_before__lte=now)
+    for job_id in list(Job.objects.filter(queued, due, status=Job.Status.QUEUED).values_list('pk', flat=True)[:100]):
         with transaction.atomic():
             job = Job.objects.select_for_update().get(pk=job_id)
             stamp = job.last_dispatched_at or job.created_at
-            if job.status != Job.Status.QUEUED or stamp >= queued_cutoff:
+            if (job.status != Job.Status.QUEUED or stamp >= queued_cutoff
+                    or (job.retry_not_before and job.retry_not_before > now)):
                 continue
             job.last_dispatched_at = now
             job.save(update_fields=['last_dispatched_at'])

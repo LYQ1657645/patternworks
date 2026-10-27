@@ -1,11 +1,12 @@
 import logging
 import uuid
+from datetime import timedelta
 
 from celery import shared_task
 from celery.exceptions import SoftTimeLimitExceeded
 from django.core.cache import cache
 from django.db import transaction
-from django.db.models import Case, F, When, Value
+from django.db.models import Case, F, Q, When, Value
 from django.utils import timezone
 
 from .models import Dataset, Job, RegexRule, S3Connection, LLMTransformation
@@ -19,6 +20,7 @@ from .services.transformations import preview_transformation
 from .services.exports import prepare_csv
 from .services.worksheets import list_worksheets
 from .services.transform_store import TransformYield
+from .services.provider_errors import retry_delay
 
 logger = logging.getLogger(__name__)
 
@@ -26,11 +28,13 @@ logger = logging.getLogger(__name__)
 @shared_task(bind=True, max_retries=2)
 def run_job(self, job_id):
     token = uuid.uuid4()
-    claimed = Job.objects.filter(pk=job_id, status=Job.Status.QUEUED).update(
+    due = Q(retry_not_before__isnull=True) | Q(retry_not_before__lte=timezone.now())
+    claimed = Job.objects.filter(due, pk=job_id, status=Job.Status.QUEUED).update(
         status=Job.Status.RUNNING, started_at=timezone.now(), heartbeat_at=timezone.now(),
         attempt_token=token, attempt_count=F('attempt_count') + 1,
         progress=Case(When(stage='Progress saved; continuing next batch', then=F('progress')), default=Value(10)),
         stage='Worker started', error_code='', error_message='',
+        retry_not_before=None,
     )
     if not claimed:
         return {'job_id': job_id, 'skipped': True}
@@ -106,12 +110,16 @@ def run_job(self, job_id):
         cleanup_outputs(job, cancelled=True)
     except (RuleProblem, S3Problem) as exc:
         if exc.transient and self.request.retries < self.max_retries:
+            delay = retry_delay(exc, self.request.retries)
+            stage = (f'OpenAI rate limited; retrying in {delay} seconds'
+                     if exc.code == 'LLM_RATE_LIMIT' else 'Temporary service error; retrying')
             changed = Job.objects.filter(pk=job_id, status=Job.Status.RUNNING, attempt_token=token).update(
-                status=Job.Status.QUEUED, stage='Temporary service error; retrying', progress=0,
+                status=Job.Status.QUEUED, stage=stage, progress=0,
                 last_dispatched_at=timezone.now(),
+                retry_not_before=timezone.now() + timedelta(seconds=delay),
             )
             if changed:
-                raise self.retry(countdown=2 ** (self.request.retries + 1))
+                raise self.retry(countdown=delay)
         cleanup_outputs(job)
         fail(job_id, exc.code, exc.message, token)
     except DatasetProblem as exc:
